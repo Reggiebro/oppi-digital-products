@@ -79,6 +79,12 @@ async function rpc(url, method, params) {
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
 const toNum = (x) => (x == null ? null : Number(x));
+// Some token contracts (e.g. Base USDT proxies) answer balanceOf with an empty
+// hex string ("0x"); BigInt("0x") throws, so treat empty/invalid as 0.
+const toWei = (hex) => {
+  try { return BigInt(hex); } catch (e) { return BigInt(0); }
+};
+const errText = (e) => String((e && e.message) || e || 'unknown error');
 
 /* ---------------- chain probes (all read-only) ---------------- */
 
@@ -108,15 +114,14 @@ async function evmBalance(net) {
   const out = [];
   const native = await rpc(url, 'eth_getBalance', [addr, 'latest']);
   const sym = net === 'polygon' ? 'POL' : 'ETH';
-  out.push({ asset: sym, amount: Number(BigInt(native)) / 1e18 });
+  out.push({ asset: sym, amount: Number(toWei(native)) / 1e18 });
   const selector = '0x70a08231'; // balanceOf(address)
   const data = selector + addr.toLowerCase().replace('0x', '').padStart(64, '0');
   for (const [tok, contract] of Object.entries(EVM_TOKENS[net])) {
     try {
       const res = await rpc(url, 'eth_call', [{ to: contract, data }, 'latest']);
-      const amt = Number(BigInt(res)) / 1e6;
-      out.push({ asset: tok, amount: amt });
-    } catch (e) { /* optional token */ }
+      out.push({ asset: tok, amount: Number(toWei(res)) / 1e6 });
+    } catch (e) { /* optional token; tolerate contract-level quirks */ }
     await delay(400);
   }
   return { chain: net, addr, balances: out };
@@ -207,7 +212,7 @@ async function pollOnce() {
   const probes = [];
   const errors = [];
   for (const net of ['ethereum', 'base', 'polygon']) {
-    try { probes.push(await evmBalance(net)); } catch (e) { errors.push(`${net}: ${e.message}`); }
+    try { probes.push(await evmBalance(net)); } catch (e) { errors.push(`${net}: ${errText(e)}`); }
     await delay(700);
   }
   for (const [name, fn] of [
@@ -217,7 +222,7 @@ async function pollOnce() {
     ['dogecoin', dogeBalance],
     ['tron', tronBalance],
   ]) {
-    try { probes.push(await fn()); } catch (e) { errors.push(`${name}: ${e.message}`); }
+    try { probes.push(await fn()); } catch (e) { errors.push(`${name}: ${errText(e)}`); }
     await delay(700);
   }
 

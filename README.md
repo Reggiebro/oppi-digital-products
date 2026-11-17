@@ -2,9 +2,43 @@
 
 Practical, ready-to-use digital products for freelancers, creators, consultants — and the AI agents that assist them.
 
-**Every pack ships with free samples you can test right now.** You only pay when you've seen the quality — checkout is direct crypto, delivery is manual and verified on-chain. No accounts, no email required, no subscription.
+**Every pack ships with free samples you can test right now — excerpts are below, no clicks needed.** You only pay when you've seen the quality — checkout is direct crypto, delivery is manual and verified on-chain. No accounts, no email required, no subscription.
 
 **Live storefront:** https://reggiebro.github.io/oppi-digital-products/
+
+---
+
+## ⚡ Quick pay (recommended rails — one-click copy)
+
+**Send the USD-equivalent of the listed price. USDC on Solana or USDC on Base is cheapest (~$0.01 fee) and settles fast. Then open your [fulfillment request](https://github.com/Reggiebro/oppi-digital-products/issues/new?title=Purchase%2FDelivery%20request) with the tx hash.**
+
+**USDC on Solana** (also accepts SOL):
+```
+2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp
+```
+
+**USDC on Base** (same address accepts ETH on Ethereum/Base, BEP20, Polygon):
+```
+0xE4BECfd60D9917946292E0d535081Dd005117069
+```
+
+Other networks: see the [full address table](#how-to-buy-3-steps-crypto-only) below.
+
+---
+
+## Why freelancers buy
+
+- **Stop rewriting the same messages.** A tested prompt for every client moment — discovery call to final invoice to late-payer email.
+- **See your pipeline in one screen.** The CRM kit's dashboards put follow-ups due, active projects, and outstanding invoices side by side.
+- **Ship content without a content team.** Turn one delivery into a week of posts, a newsletter, and a video script.
+- **Try before you pay.** Real working samples below — not screenshots, not "what's inside" lists.
+
+## Why AI agents work here
+
+- **Machine-readable catalog:** `/.well-known/agent.json`, `llms.txt`, and an MCP server — an agent can browse, sample, and check out without a human.
+- **One-command install:** `npx github:Reggiebro/oppi-digital-products/mcp-server` — zero dependencies, stdio, read-only on-chain payment verification included.
+- **Wallet-bound checkout:** payment instructions and verification are tool calls (`get_payment_instructions`, `verify_payment`), not web scraping.
+- **Skills-ready:** drop-in [`SKILL.md`](skills/oppi-digital-products/SKILL.md) for agents that support the skills format.
 
 ---
 
@@ -12,15 +46,34 @@ Practical, ready-to-use digital products for freelancers, creators, consultants 
 
 ### 1. Freelance Delivery Prompt Pack — $12
 30+ tested prompts covering the full client lifecycle: lead qualification & discovery, proposals & scoping, onboarding, delivery updates, feedback & QA handling, difficult-client situations, and growth (testimonials, retainer upsells). ChatGPT/Claude-ready, one prompt per real freelance situation.
-- **Free sample:** [Lead qualification scorecard](previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md)
+
+**Free preview — lead qualification scorecard (1 of 30+):**
+> "Act as a freelance business consultant. Based on this inbound lead, create a qualification scorecard (Fit, Budget, Urgency, Scope clarity, Decision-maker access, Risk) from 1-5 each with brief reasons and a go/no-go recommendation.
+> Lead details: [PASTE LEAD MESSAGE/NOTES]
+> My services: [SERVICES]
+> My minimum budget/timeline: [MIN BUDGET], [TIMELINE]"
+
+- **Full free sample:** [Lead qualification scorecard](previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md)
 
 ### 2. Notion Freelancer CRM & Pipeline Kit — $12
 A complete Notion workspace blueprint: leads & clients CRM, project tracker, invoice & revenue database, dashboard views (follow-ups, active projects, outstanding invoices), with setup steps and the formulas you need.
-- **Free sample:** [CRM database blueprint](previews/notion-crm-kit/sample-crm-database-blueprint.md)
+
+**Free preview — Leads & Clients database blueprint (excerpt):**
+> Properties: Type (Lead/Client/Past Client/Partner) · Status (New → Contacted → Discovery → Proposal Sent → Negotiation → Won/Lost/On Hold) · Source · Estimated Value (currency) · Probability · Expected Close · Next Follow-up · Last Contact · Related Projects (Relation) · Related Invoices (Relation)
+>
+> Views: **Pipeline Board** (by Status) · **Follow-ups Due** (Next Follow-up ≤ today+7d) · **Active Clients** · All Contacts
+
+- **Full free sample:** [CRM database blueprint](previews/notion-crm-kit/sample-crm-database-blueprint.md)
 
 ### 3. AI Content Repurpose Pack — $9
 Turn one asset into many: LinkedIn/X/Instagram posts, threads, newsletters & email sequences, short-form video scripts, blog/SEO outlines, and a 7-day content calendar — all from a single source piece.
-- **Free sample:** [Core extraction workflow](previews/content-repurpose-pack/sample-core-extraction.md)
+
+**Free preview — core extraction prompts (1 of 7 sections):**
+> "Analyze this content and extract: key message, 5 main points, 10 quotable lines, target audience, pain points, and CTA ideas. Content: [PASTE CONTENT]"
+>
+> "Summarize this into: 1-sentence hook, 100-word summary, and 300-word summary. Content: [PASTE CONTENT]"
+
+- **Full free sample:** [Core extraction workflow](previews/content-repurpose-pack/sample-core-extraction.md)
 
 ### Bundle — all 3 packs — $29
 The full freelancer + content toolkit in one delivery (save ~$4 vs buying separately).
@@ -31,14 +84,14 @@ Full archive listings: [`PRODUCT_CATALOG.md`](PRODUCT_CATALOG.md)
 
 ## How to buy (3 steps, crypto only)
 
-1. **Send the payment** for your product to the matching address below — *the right asset on the right network* (sending USDC on the wrong chain is the #1 mistake; if unsure, use **USDC on Solana** or **USDC on Base**, both are cheap and reliable).
+1. **Copy the address** for your asset from the [Quick pay](#-quick-pay-recommended-rails--one-click-copy) box above (or the table below) — *the right asset on the right network* (sending USDC on the wrong chain is the #1 mistake; if unsure, use **USDC on Solana** or **USDC on Base**, both are cheap and reliable).
 2. **Open a fulfillment request** — [create an issue](https://github.com/Reggiebro/oppi-digital-products/issues/new?title=Purchase%2FDelivery%20request) with your **tx hash, network/asset, product(s), and a contact** (email or Telegram). No account or email verification needed beyond that.
 3. **Get your delivery.** We verify your transaction on-chain against the registry addresses, then deliver the full archive. Paid archives are intentionally **not** publicly downloadable — only the free samples are.
 
 | Pay with | Network | Address |
 |---|---|---|
-| **USDC / SOL** (recommended) | Solana | `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` |
-| **USDC / ETH** (recommended) | Ethereum · Base · BEP20 · Polygon | `0xE4BECfd60D9917946292E0d535081Dd005117069` |
+| **USDC / SOL** ⭐ recommended | Solana | `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` |
+| **USDC / ETH** ⭐ recommended | Ethereum · **Base** · BEP20 · Polygon | `0xE4BECfd60D9917946292E0d535081Dd005117069` |
 | USDT / TRX | Tron (TRC20) | `TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw` |
 | BTC | Bitcoin | `bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39` |
 | LTC | Litecoin | `ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh` |

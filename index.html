@@ -23,11 +23,37 @@
     details{border-top:1px solid #e5e7eb;padding:.7rem 0}
     summary{font-weight:600;cursor:pointer}
     .bundle{background:#fffbe6;border-color:#e6c200}
+    /* pay-here callout */
+    .paywall{margin-top:28px;padding:20px;border:2px solid #0b8f4d;border-radius:14px;background:#f2fbf5}
+    .paywall h2{margin:.1rem 0 .4rem;color:#0b6b3a}
+    .addr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:12px}
+    .addr-card{border:1px solid #bfe3cd;border-radius:10px;padding:12px 14px;background:#fff}
+    .addr-card .rail{font-weight:700;font-size:.95rem}
+    .addr-card .rail small{color:#555;font-weight:500}
+    .addr-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+    .addr-row code{flex:1;background:#f3f4f6;padding:6px 8px;border-radius:8px;font-size:.85rem}
+    .copybtn{border:1px solid #0b8f4d;background:#0b8f4d;color:#fff;border-radius:8px;padding:6px 12px;font-weight:700;cursor:pointer;font-size:.85rem;white-space:nowrap}
+    .copybtn:hover{background:#0a7a41}
+    .copybtn:active{transform:translateY(1px)}
+    .copybtn.copied{background:#0b6b3a}
+    /* embedded previews */
+    .preview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:16px}
+    .pv{border:1px solid #d7dce3;border-radius:12px;background:#fbfbfd;overflow:hidden;display:flex;flex-direction:column}
+    .pv h3{margin:0;padding:12px 14px 8px;font-size:1rem}
+    .pv .pv-body{margin:0;padding:0 14px 12px;font-size:.88rem;color:#222;white-space:pre-wrap;overflow:auto;max-height:320px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;line-height:1.5}
+    .pv .pv-foot{margin-top:auto;padding:10px 14px;border-top:1px solid #e7eaf0;background:#fff;font-size:.88rem}
+    .pv .pv-foot a{color:#0b62f4;font-weight:600;text-decoration:none}
+    .valuecols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:16px}
+    .valuecols ul{margin:8px 0 0;padding-left:1.2rem}
+    .valuecols li{margin:.35rem 0}
+    @media (prefers-reduced-motion: no-preference){
+      .copybtn{transition:background .15s ease}
+    }
   </style>
 </head>
 <body>
   <h1>Oppi Digital Products</h1>
-  <p class="sub">Prompt packs &amp; a Notion CRM kit for freelancers, creators, consultants — and the AI agents that assist them. <strong>Try the free samples first. Pay only when you're convinced.</strong></p>
+  <p class="sub">Prompt packs &amp; a Notion CRM kit for freelancers, creators, consultants — and the AI agents that assist them. <strong>Try the free samples below — right on this page. Pay only when you're convinced.</strong></p>
 
   <div class="grid">
     <div class="card">
@@ -35,21 +61,21 @@
       <p class="price">$12 launch &middot; $19 standard</p>
       <p><strong>30+ prompts</strong>, one per real freelance situation: leads &amp; discovery, proposals &amp; scope, onboarding, delivery &amp; updates, feedback &amp; QA, difficult clients, growth. ChatGPT/Claude-ready.</p>
       <p><span class="tag">Prompt pack</span><span class="tag">Freelancers</span></p>
-      <p><a class="sample" href="https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md">Try the free sample →</a></p>
+      <p><a class="sample" href="https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md">Full free sample on GitHub →</a></p>
     </div>
     <div class="card">
       <h2>Notion Freelancer CRM &amp; Pipeline Kit</h2>
       <p class="price">$12 launch &middot; $19–$29 standard</p>
       <p><strong>Complete workspace blueprint:</strong> leads &amp; clients CRM, projects, invoices/revenue, dashboard views (follow-ups, active projects, outstanding invoices), setup steps &amp; formulas included.</p>
       <p><span class="tag">Notion</span><span class="tag">CRM</span></p>
-      <p><a class="sample" href="https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/notion-crm-kit/sample-crm-database-blueprint.md">Try the free sample →</a></p>
+      <p><a class="sample" href="https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/notion-crm-kit/sample-crm-database-blueprint.md">Full free sample on GitHub →</a></p>
     </div>
     <div class="card">
       <h2>AI Content Repurpose Pack</h2>
       <p class="price">$9 launch &middot; $15–$19 standard</p>
       <p><strong>One asset → many:</strong> LinkedIn/X/IG posts, threads, newsletters &amp; email sequences, short-form video scripts, blog/SEO outlines, 7-day content calendar.</p>
       <p><span class="tag">Prompts</span><span class="tag">Creators</span></p>
-      <p><a class="sample" href="https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/content-repurpose-pack/sample-core-extraction.md">Try the free sample →</a></p>
+      <p><a class="sample" href="https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/content-repurpose-pack/sample-core-extraction.md">Full free sample on GitHub →</a></p>
     </div>
   </div>
 
@@ -59,24 +85,114 @@
     <p>The full freelancer + content toolkit in one delivery.</p>
   </div>
 
-  <div class="card" style="margin-top:16px">
+  <h2 style="margin-top:32px">Who this is for</h2>
+  <div class="valuecols">
+    <div class="card">
+      <h3 style="margin-top:0">For freelancers &amp; consultants</h3>
+      <ul>
+        <li><strong>Stop rewriting the same messages.</strong> A tested prompt for every client moment — discovery call to final invoice to late-payer email.</li>
+        <li><strong>See your pipeline in one screen.</strong> The CRM kit's dashboards put follow-ups due, active projects, and outstanding invoices side by side.</li>
+        <li><strong>Ship content without a content team.</strong> Turn one delivery into a week of posts, a newsletter, and a video script.</li>
+        <li><strong>Try before you pay.</strong> Real working samples below — not screenshots, not "what's inside" lists.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">For AI agents &amp; agent builders</h3>
+      <ul>
+        <li><strong>Machine-readable catalog.</strong> <code>/.well-known/agent.json</code>, <code>llms.txt</code>, and an MCP server — your agent can browse, sample, and check out without a human.</li>
+        <li><strong>One-command install:</strong> <code>npx github:Reggiebro/oppi-digital-products/mcp-server</code> — zero dependencies, stdio, read-only payment verification included.</li>
+        <li><strong>Wallet-bound checkout.</strong> Payment instructions and on-chain verification are tool calls (<code>get_payment_instructions</code>, <code>verify_payment</code>), not web scraping.</li>
+        <li><strong>Skills-ready.</strong> Drop-in <code>SKILL.md</code> for agents that support the skills format.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="margin-top:32px">Free preview samples — read them right here</h2>
+  <p style="margin-top:4px">Unedited, copy-paste-ready excerpts from the actual products. What you see is what the full packs contain — more of it, per topic.</p>
+  <div class="preview-grid">
+    <div class="pv">
+      <h3>🎯 Prompt Pack — Lead qualification scorecard (1 of 30+)</h3>
+      <pre class="pv-body">Act as a freelance business consultant. Based on this
+inbound lead, create a qualification scorecard
+(Fit, Budget, Urgency, Scope clarity,
+Decision-maker access, Risk) from 1-5 each with
+brief reasons and a go/no-go recommendation.
+
+Lead details: [PASTE LEAD MESSAGE/NOTES]
+My services: [SERVICES]
+My minimum budget/timeline: [MIN BUDGET], [TIMELINE]</pre>
+      <div class="pv-foot"><a href="https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md">View the full free sample on GitHub →</a></div>
+    </div>
+    <div class="pv">
+      <h3>📊 CRM Kit — Leads &amp; Clients database blueprint (excerpt)</h3>
+      <pre class="pv-body">Leads &amp; Clients (CRM) database — properties:
+• Type (Select): Lead, Client, Past Client, Partner
+• Status (Select): New, Contacted, Discovery,
+  Proposal Sent, Negotiation, Won, Lost, On Hold
+• Source (Select): Referral, Inbound, Outbound,
+  Marketplace, Social, Other
+• Estimated Value (Number, currency)
+• Expected Close (Date) · Next Follow-up (Date)
+• Related Projects (Relation) · Related Invoices (Relation)
+
+Views: Pipeline Board (by Status) · Follow-ups Due
+(filter: Next Follow-up ≤ Today+7d) · Active Clients</pre>
+      <div class="pv-foot"><a href="https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/notion-crm-kit/sample-crm-database-blueprint.md">View the full free sample on GitHub →</a></div>
+    </div>
+    <div class="pv">
+      <h3>♻️ Repurpose Pack — Core extraction prompts (1 of 7 sections)</h3>
+      <pre class="pv-body">1) Analyze this content and extract: key message,
+   5 main points, 10 quotable lines, target
+   audience, pain points, and CTA ideas.
+   Content: [PASTE CONTENT]
+
+2) Summarize this into: 1-sentence hook,
+   100-word summary, and 300-word summary.
+   Content: [PASTE CONTENT]</pre>
+      <div class="pv-foot"><a href="https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/content-repurpose-pack/sample-core-extraction.md">View the full free sample on GitHub →</a></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:28px">
     <h2>How checkout works</h2>
     <ol class="steps">
-      <li><strong>Send the payment</strong> to the matching address below — the right asset on the right network. If unsure, use <strong>USDC on Solana</strong> or <strong>USDC on Base</strong> (cheap, reliable).</li>
+      <li><strong>Copy the address for your asset</strong> from the pay box below — the right asset on the right network. If unsure, use <strong>USDC on Solana</strong> or <strong>USDC on Base</strong> (cheap, reliable).</li>
       <li><strong>Open a fulfillment request</strong> with your tx hash, network, product(s), and a contact — <a href="https://github.com/Reggiebro/oppi-digital-products/issues/new?title=Purchase%2FDelivery%20request">one click, no account needed</a>.</li>
       <li><strong>Get your delivery.</strong> Payment is verified on-chain, then the full archive is delivered — usually within 24–48h. Full archives are <em>never</em> publicly downloadable; only free samples are.</li>
     </ol>
   </div>
 
-  <div class="note">
-    <strong>Payment addresses (oppi wallet — send correct asset on correct network):</strong><br>
-    Solana (USDC/SOL) — recommended: <code>2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp</code><br>
-    EVM (USDC/ETH — ethereum, base, bep20, polygon) — recommended: <code>0xE4BECfd60D9917946292E0d535081Dd005117069</code><br>
-    Tron (USDT-TRC20/TRX): <code>TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw</code><br>
-    Bitcoin: <code>bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39</code><br>
-    Litecoin: <code>ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh</code><br>
-    Dogecoin: <code>DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31</code><br>
-    <em>Prices in USD equivalents — send the current value in your chosen asset.</em>
+  <div class="paywall" id="pay">
+    <h2>💸 Pay here — recommended rails (one-click copy)</h2>
+    <p style="margin:.2rem 0 .6rem"><strong>USDC on Solana</strong> or <strong>USDC on Base</strong> — cheapest and fastest. Copy the address, send the USD-equivalent of the listed price, then open your fulfillment request with the tx hash.</p>
+    <div class="addr-grid">
+      <div class="addr-card">
+        <div class="rail">USDC on Solana <small>· recommended · ~$0.01 fee</small></div>
+        <div class="addr-row">
+          <code id="addr-sol">2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp</code>
+          <button class="copybtn" data-target="addr-sol" data-addr="2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp">Copy</button>
+        </div>
+        <small style="color:#555">Also accepts SOL on the same address.</small>
+      </div>
+      <div class="addr-card">
+        <div class="rail">USDC on Base <small>· recommended · ~$0.01 fee</small></div>
+        <div class="addr-row">
+          <code id="addr-base">0xE4BECfd60D9917946292E0d535081Dd005117069</code>
+          <button class="copybtn" data-target="addr-base" data-addr="0xE4BECfd60D9917946292E0d535081Dd005117069">Copy</button>
+        </div>
+        <small style="color:#555">Same address also accepts ETH (Ethereum/Base), BEP20, Polygon.</small>
+      </div>
+    </div>
+    <details style="margin-top:12px;border-top:none">
+      <summary>Other supported networks (BTC, TRON, LTC, DOGE)</summary>
+      <p style="margin:.5rem 0 0">
+        Tron (USDT-TRC20/TRX): <code>TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw</code><br>
+        Bitcoin: <code>bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39</code><br>
+        Litecoin: <code>ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh</code><br>
+        Dogecoin: <code>DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31</code>
+      </p>
+    </details>
+    <p style="margin:.6rem 0 0;font-size:.9rem"><em>Prices in USD equivalents — send the current value in your chosen asset. Always double-check the network before sending.</em></p>
   </div>
 
   <div class="note">
@@ -104,6 +220,43 @@
       {"@type": "Question", "name": "What if my transaction fails or I used the wrong network?", "acceptedAnswer": {"@type": "Answer", "text": "Open a fulfillment request with your tx hash and the team will trace it. Never send an asset to an address of a different network."}}
     ]
   }
+  </script>
+
+  <script>
+  (function () {
+    function flash(btn) {
+      var old = btn.textContent;
+      btn.textContent = 'Copied ✓';
+      btn.classList.add('copied');
+      setTimeout(function () {
+        btn.textContent = old;
+        btn.classList.remove('copied');
+      }, 1600);
+    }
+    function legacyCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    document.addEventListener('click', function (ev) {
+      var btn = ev.target.closest('.copybtn');
+      if (!btn) return;
+      var addr = btn.getAttribute('data-addr');
+      function done() { flash(btn); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(addr).then(done, function () { legacyCopy(addr); done(); });
+      } else {
+        legacyCopy(addr);
+        done();
+      }
+    });
+  })();
   </script>
 </body>
 </html>
