@@ -1,0 +1,46 @@
+{
+  "$schema": "https://agent-transparency.example/schema/v1",
+  "name": "Oppi Digital Products",
+  "description": "Storefront and agent catalog for ready-to-use digital products: Freelance Delivery Prompt Pack (30+ prompts), Notion Freelancer CRM & Pipeline Kit, AI Content Repurpose Pack. Free samples; full packs unlock via on-chain crypto payment to the oppi wallet, delivered after verification.",
+  "url": "https://reggiebro.github.io/oppi-digital-products/",
+  "repository": "https://github.com/Reggiebro/oppi-digital-products",
+  "contact": {
+    "issues": "https://github.com/Reggiebro/oppi-digital-products/issues",
+    "sales": "https://github.com/Reggiebro/oppi-digital-products/issues/new?template="
+  },
+  "capabilities": {
+    "mcp_server": {
+      "transport": "stdio",
+      "install": "npx github:Reggiebro/oppi-digital-products/mcp-server",
+      "tools": ["list_products", "get_free_sample", "get_payment_instructions", "verify_payment", "request_delivery"]
+    },
+    "agent_skill": {
+      "path": "skills/oppi-digital-products/SKILL.md",
+      "install": "Copy skills/oppi-digital-products/ into your agent's skills directory (e.g. ~/.claude/skills/)."
+    }
+  },
+  "commerce": {
+    "model": "direct_crypto_manual_fulfillment",
+    "recommended_assets": ["USDC (Solana)", "USDC (Base)", "USDC (Ethereum)", "USDC (BEP20)", "USDC (Polygon)"],
+    "accepted": ["USDC", "SOL", "ETH", "BTC", "USDT-TRC20", "TRX", "LTC", "DOGE"],
+    "payment_addresses": {
+      "solana": "2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp",
+      "evm": {
+        "address": "0xE4BECfd60D9917946292E0d535081Dd005117069",
+        "networks": ["ethereum", "base", "bep20", "polygon"]
+      },
+      "bitcoin": "bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39",
+      "tron": "TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw",
+      "litecoin": "ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh",
+      "dogecoin": "DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31"
+    },
+    "note": "Addresses are public-only and mirror the project wallet registry (oppi wallet). Full products are delivered after on-chain payment verification."
+  },
+  "pricing": {
+    "freelance-delivery-prompt-pack": 12,
+    "notion-freelancer-crm-kit": 12,
+    "ai-content-repurpose-pack": 9,
+    "three-pack-bundle": 29,
+    "currency": "USD-equivalent in crypto (USDC preferred)"
+  }
+}
