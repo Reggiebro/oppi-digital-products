@@ -1,43 +1,51 @@
-# Oppi Digital Products — Direct Crypto Catalog
+# Oppi Digital Products — Storefront & Agent Catalog
 
-Ready-to-use digital products for freelancers, creators, consultants, and AI-assisted workflows. Instant delivery after on-chain payment verification (manual fulfillment).
+Ready-to-use digital products for freelancers, creators, consultants, and AI-assisted workflows. **Free samples** are public; **full packs unlock after on-chain crypto payment verification** (manual fulfillment to the oppi wallet).
+
+**Live storefront (GitHub Pages):** https://reggiebro.github.io/oppi-digital-products/
 
 ## Products
 
-| Product | Best for | Launch price | Download |
+| Product | Best for | Launch price | Free sample |
 |---|---|---:|---|
-| **Freelance Delivery Prompt Pack** | Freelancers/agencies, client ops | $12 | [`ai-freelancer-prompt-pack.tar.gz`](ai-freelancer-prompt-pack.tar.gz) |
-| **Notion Freelancer CRM & Pipeline Kit** | Lead→project→invoice tracking in Notion | $12 | [`notion-freelancer-crm-kit.tar.gz`](notion-freelancer-crm-kit.tar.gz) |
-| **AI Content Repurpose Pack** | Creators/marketers repurposing content | $9 | [`ai-content-repurpose-pack.tar.gz`](ai-content-repurpose-pack.tar.gz) |
-| **Bundle (all 3)** | Full freelancer/content toolkit | $29 | All archives above |
+| **Freelance Delivery Prompt Pack** | Freelancers/agencies, client ops | $12 | [sample prompt](previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md) |
+| **Notion Freelancer CRM & Pipeline Kit** | Lead→project→invoice tracking in Notion | $12 | [CRM blueprint](previews/notion-crm-kit/sample-crm-database-blueprint.md) |
+| **AI Content Repurpose Pack** | Creators/marketers repurposing content | $9 | [core extraction](previews/content-repurpose-pack/sample-core-extraction.md) |
+| **Bundle (all 3)** | Full freelancer/content toolkit | $29 | — |
 
-See [`landing-page/index.html`](landing-page/index.html) for the catalog page and [`PRODUCT_CATALOG.md`](PRODUCT_CATALOG.md) / per-product `listing-copy.md` for details.
+Full archive listings: [`PRODUCT_CATALOG.md`](PRODUCT_CATALOG.md). Per-product listing copy and PAYMENT docs in each product folder.
 
-## Buy with Crypto (Oppi Wallet)
+## Buy with Crypto (Oppi Wallet — verified registry addresses)
 
-**Payment addresses (preferred):**
-- **Solana (USDC/SOL):** `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp`
-- **EVM (ETH/Base/Polygon/BEP20 — USDC/ETH/etc.):** `0xE4BECfd60D9917946292E0d535081Dd005117069`
-- **BTC:** `bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39`
-- **TRON (USDT-TRC20/TRX):** `TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw`
-- **LTC:** `ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh`
-- **DOGE:** `DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31`
+| Asset / Network | Address |
+|---|---|
+| USDC/SOL (Solana) | `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` |
+| USDC/ETH (Ethereum, Base, BEP20, Polygon) | `0xE4BECfd60D9917946292E0d535081Dd005117069` |
+| BTC | `bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39` |
+| USDT-TRC20 / TRX | `TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw` |
+| LTC | `ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh` |
+| DOGE | `DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31` |
 
-**How to purchase (manual fulfillment):**
-1. Send the agreed amount to the appropriate address above (recommended: USDC/SOL/ETH on matching network).
-2. Open a GitHub issue in this repo or contact with: **tx hash + network + product name + delivery contact/email**.
-3. Payment is verified on-chain and the product archive/files are delivered.
+**Purchase flow:** send agreed amount → open a [fulfillment request issue](https://github.com/Reggiebro/oppi-digital-products/issues/new?title=Purchase%2FDelivery%20request) with **tx hash, network, product(s), contact** → payment verified on-chain → full archive delivered. Paid `.tar.gz` archives are intentionally **not** in this public repo.
 
-> All payout addresses above are from the oppi wallet registry for this project.
+## For AI agents
 
-## What's inside
-- **Freelance Delivery Prompt Pack:** 30+ prompts for discovery, proposals/SOW, onboarding, delivery, revisions, difficult clients, testimonials/case studies/retainers + quickstart & checklist.
-- **Notion Freelancer CRM Kit:** Leads/clients, projects, invoices/revenue databases, dashboard views, setup and formulas blueprint.
-- **AI Content Repurpose Pack:** Extract hooks/points/quotes, generate LinkedIn/X/IG posts, threads, newsletters, scripts, blog/SEO assets, 7-day calendar.
+**MCP server** (zero-dependency Node, stdio):
 
-## For AI agents & B2B buyers
-- Ready-to-license prompt/template packs for freelancer ops, agency workflows, and content automation.
-- Bundle/team pricing available on request (open an issue with "B2B").
+```bash
+npx github:Reggiebro/oppi-digital-products/mcp-server
+```
+
+Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_payment` (read-only public explorer/RPC check), `request_delivery`.
+
+**Agent skill:** [`skills/oppi-digital-products/SKILL.md`](skills/oppi-digital-products/SKILL.md) — copy into your agent's skills directory.
+
+**Machine-readable discovery:**
+- `/.well-known/agent.json` → https://reggiebro.github.io/oppi-digital-products/.well-known/agent.json
+- [`llms.txt`](llms.txt) → https://reggiebro.github.io/oppi-digital-products/llms.txt
+
+## B2B / AI agents
+Teams and agent builders: open an issue with your use case for bundle/team licensing quotes. Sales intake: https://github.com/Reggiebro/oppi-digital-products/issues/1
 
 ---
-*Catalog published for discoverability. Verify network/token before sending funds.*
+*All payment addresses mirror the project's oppi wallet registry (public addresses only — no keys are stored in this repo). Verify network/token before sending funds.*

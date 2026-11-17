@@ -1,0 +1,55 @@
+{
+  "storefront": "https://reggiebro.github.io/oppi-digital-products/",
+  "repo": "https://github.com/Reggiebro/oppi-digital-products",
+  "currency_note": "All prices in USD-equivalent paid in crypto (USDC preferred). Amount agreed with seller or listed price.",
+  "products": [
+    {
+      "id": "freelance-delivery-prompt-pack",
+      "name": "Freelance Delivery Prompt Pack",
+      "type": "prompt_pack",
+      "price_usd_launch": 12,
+      "price_usd_standard": 19,
+      "summary": "30+ AI prompts for leads/discovery, proposals & scope, onboarding, delivery & updates, feedback/QA, difficult clients, growth (testimonials, retainers).",
+      "audience": "Freelancers, consultants, solopreneurs, agencies, AI agents assisting client ops",
+      "deliverable_file": "ai-freelancer-prompt-pack.tar.gz",
+      "free_sample": "lead-qualification-scorecard",
+      "previews": [
+        "previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md"
+      ]
+    },
+    {
+      "id": "notion-freelancer-crm-kit",
+      "name": "Notion Freelancer CRM & Pipeline Kit",
+      "type": "template_spec",
+      "price_usd_launch": 12,
+      "price_usd_standard": 19,
+      "summary": "Complete Notion workspace blueprint: leads/clients CRM, projects, invoices/revenue, dashboard views, setup steps and formulas.",
+      "audience": "Freelancers, consultants, small agencies, ops AI agents",
+      "deliverable_file": "notion-freelancer-crm-kit.tar.gz",
+      "free_sample": "crm-database-blueprint",
+      "previews": [
+        "previews/notion-crm-kit/sample-crm-database-blueprint.md"
+      ]
+    },
+    {
+      "id": "ai-content-repurpose-pack",
+      "name": "AI Content Repurpose Pack",
+      "type": "prompt_pack",
+      "price_usd_launch": 9,
+      "price_usd_standard": 15,
+      "summary": "Turn one piece of content into LinkedIn/X/IG posts, threads, newsletters & email sequences, short-form video scripts, blog/SEO assets, and a 7-day calendar.",
+      "audience": "Creators, coaches, founders, marketers, content AI agents",
+      "deliverable_file": "ai-content-repurpose-pack.tar.gz",
+      "free_sample": "core-extraction",
+      "previews": [
+        "previews/content-repurpose-pack/sample-core-extraction.md"
+      ]
+    }
+  ],
+  "bundle": {
+    "id": "three-pack-bundle",
+    "name": "All 3 Packs Bundle",
+    "price_usd_launch": 29,
+    "includes": ["freelance-delivery-prompt-pack", "notion-freelancer-crm-kit", "ai-content-repurpose-pack"]
+  }
+}

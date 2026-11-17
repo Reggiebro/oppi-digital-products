@@ -1,0 +1,13 @@
+{
+  "_comment": "Public payment addresses ONLY (no keys). Must match /root/kripto_agent/wallet_registry.json (oppi wallet).",
+  "solana": "2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp",
+  "evm": {
+    "address": "0xE4BECfd60D9917946292E0d535081Dd005117069",
+    "networks": ["ethereum", "base", "bep20", "polygon"]
+  },
+  "bitcoin": "bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39",
+  "tron": "TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw",
+  "litecoin": "ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh",
+  "dogecoin": "DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31",
+  "recommended": "USDC on Solana, Base, Ethereum, BEP20 or Polygon"
+}

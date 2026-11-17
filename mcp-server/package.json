@@ -1,0 +1,25 @@
+{
+  "name": "oppi-digital-products-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for the Oppi digital product catalog: browse products, test free sample prompts, get verified crypto payment instructions (oppi wallet), verify payments on-chain (read-only public APIs), and request delivery.",
+  "bin": {
+    "oppi-digital-products-mcp": "index.js"
+  },
+  "main": "index.js",
+  "files": ["index.js", "catalog.json", "wallets.json", "README.md", "package.json"],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "digital-products",
+    "prompts",
+    "notion-template",
+    "crypto",
+    "usdc",
+    "agent-payments"
+  ],
+  "license": "SEE LICENSE IN ../LICENSE-CATALOG.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Reggiebro/oppi-digital-products"
+  }
+}
