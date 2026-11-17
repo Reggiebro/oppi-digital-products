@@ -1,0 +1,7 @@
+# Jekyll config for GitHub Pages (legacy build)
+include:
+  - ".well-known"
+exclude:
+  - "paid_archives_backup"
+  - "workers"
+  - "*.tar.gz"
