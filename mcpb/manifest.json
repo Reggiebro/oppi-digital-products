@@ -1,0 +1,41 @@
+{
+  "manifest_version": "0.3",
+  "name": "oppi-digital-products",
+  "display_name": "Oppi Digital Products",
+  "version": "1.0.0",
+  "description": "Agent commerce MCP server: digital product catalog with free samples, crypto checkout to a verified oppi wallet, read-only on-chain payment verification, and delivery requests.",
+  "long_description": "Oppi Digital Products MCP gives AI agents everything needed to browse and buy ready-made digital products (freelance prompt pack, Notion CRM kit, content repurposing pack):\n\n- **list_products** — full catalog with launch prices and the $29 bundle\n- **get_free_sample** — test a free sample prompt or template from any pack before paying\n- **get_payment_instructions** — verified oppi wallet addresses (USDC on Solana/Base/Ethereum/BEP20/Polygon, plus BTC, TRON, LTC, DOGE)\n- **verify_payment** — read-only on-chain verification of a buyer transaction via public explorers/RPCs (no keys, no spend)\n- **request_delivery** — start fulfillment: returns a prefilled GitHub issue with the tx details for manual delivery after on-chain verification\n\nZero dependencies (Node stdio JSON-RPC 2.0). Payment addresses are sourced from wallets.json (public keys only). Paid packs are delivered manually after payment verification — free samples work without any payment.",
+  "author": {
+    "name": "Reggiebro",
+    "url": "https://github.com/Reggiebro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Reggiebro/oppi-digital-products.git"
+  },
+  "homepage": "https://reggiebro.github.io/oppi-digital-products/",
+  "documentation": "https://github.com/Reggiebro/oppi-digital-products/tree/master/mcp-server",
+  "support": "https://github.com/Reggiebro/oppi-digital-products/issues",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {}
+    }
+  },
+  "tools": [
+    { "name": "list_products", "description": "List the digital product catalog with prices, bundle, and free samples" },
+    { "name": "get_free_sample", "description": "Get a free sample prompt/template from a product pack" },
+    { "name": "get_payment_instructions", "description": "Get verified oppi wallet crypto payment instructions for a product" },
+    { "name": "verify_payment", "description": "Read-only on-chain verification of a buyer payment transaction" },
+    { "name": "request_delivery", "description": "Request fulfillment of a purchased product after payment verification" }
+  ],
+  "keywords": ["mcp", "commerce", "digital-products", "prompts", "crypto", "usdc", "agent-payments", "notion"],
+  "license": "SEE LICENSE IN https://github.com/Reggiebro/oppi-digital-products",
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": { "node": ">=16.0.0" }
+  }
+}

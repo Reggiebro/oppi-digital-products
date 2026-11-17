@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Reggiebro/oppi-digital-products",
+  "title": "Oppi Digital Products",
+  "description": "Agent commerce MCP: digital product catalog, free samples, crypto payment verification, delivery.",
+  "repository": {
+    "url": "https://github.com/Reggiebro/oppi-digital-products",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.0/oppi-digital-products.mcpb",
+      "fileSha256": "85be424d13a394a83174a0518ffe2132d3e2336a5ec25c7ad5b4d2dba582ec97",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
