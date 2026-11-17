@@ -44,6 +44,10 @@ Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_p
 - `/.well-known/agent.json` → https://reggiebro.github.io/oppi-digital-products/.well-known/agent.json
 - [`llms.txt`](llms.txt) → https://reggiebro.github.io/oppi-digital-products/llms.txt
 
+## Official MCP Registry
+
+Listed in the Official MCP Registry as [`io.github.Reggiebro/oppi-digital-products`](https://registry.modelcontextprotocol.io) (status: active). Distribution artifact: [MCPB bundle](https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.0/oppi-digital-products.mcpb) (`.mcpb`, SHA-256 in `server.json`) — installable in MCPB-compatible clients (e.g. Claude Desktop) with one click. Republishing is automated via `.github/workflows/publish-mcp.yml` (GitHub OIDC, no npm).
+
 ## Seller operations (read-only)
 
 `tools/balance-watcher.js` — polls public, free APIs (Blockstream, publicnode/Base/Polygon RPCs, Solana RPC, BlockCypher, DogeChain, TronGrid — all read-only GET/RPC, no keys, no spend) for the oppi wallet addresses and logs any balance increase to a local JSONL sales log:
