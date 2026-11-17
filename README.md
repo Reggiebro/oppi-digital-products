@@ -44,6 +44,17 @@ Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_p
 - `/.well-known/agent.json` → https://reggiebro.github.io/oppi-digital-products/.well-known/agent.json
 - [`llms.txt`](llms.txt) → https://reggiebro.github.io/oppi-digital-products/llms.txt
 
+## Seller operations (read-only)
+
+`tools/balance-watcher.js` — polls public, free APIs (Blockstream, publicnode/Base/Polygon RPCs, Solana RPC, BlockCypher, DogeChain, TronGrid — all read-only GET/RPC, no keys, no spend) for the oppi wallet addresses and logs any balance increase to a local JSONL sales log:
+
+```bash
+node tools/balance-watcher.js --once                  # single poll
+node tools/balance-watcher.js --loop --interval 300   # continuous, every 5 min
+```
+
+State + log paths default to `/root/.oppi-secrets/` (override with `OPPI_STATE_DIR`). Detection = balance increase vs. last snapshot; verify the tx on-chain before fulfillment.
+
 ## B2B / AI agents
 Teams and agent builders: open an issue with your use case for bundle/team licensing quotes. Sales intake: https://github.com/Reggiebro/oppi-digital-products/issues/1
 
