@@ -29,6 +29,20 @@ Other networks: see the [full address table](#how-to-buy-3-steps-crypto-only) be
 
 ---
 
+## 👁 Try before you pay — free previews below, no clicks needed
+
+Every pack ships real, working excerpts so you can judge quality before sending anything:
+
+| Pack | What you can test free right now | Full free sample |
+|---|---|---|
+| **Freelance Delivery Prompt Pack** ($12) | The **lead qualification scorecard** prompt — raw inquiry → 1–5 scoring across Fit/Budget/Urgency/Scope/Decision-maker/Risk with a go/no-go call. 1 of **30+ prompts**. | [Read it](previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md) |
+| **Notion Freelancer CRM Kit** ($12) | The **Leads & Clients database blueprint** — every property (Status, Estimated Value, Next Follow-up…) and the Pipeline / Follow-ups-Due views. | [Read it](previews/notion-crm-kit/sample-crm-database-blueprint.md) |
+| **AI Content Repurpose Pack** ($9) | The **core extraction prompts** — one asset → hook, summaries, 5 points, 10 quotable lines. 1 of 7 sections. | [Read it](previews/content-repurpose-pack/sample-core-extraction.md) |
+
+Full excerpts are inline in each product section below 👇
+
+---
+
 ## Why freelancers buy
 
 - **Stop rewriting the same messages.** A tested prompt for every client moment — discovery call to final invoice to late-payer email.

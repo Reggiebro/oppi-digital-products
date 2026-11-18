@@ -84,7 +84,14 @@ const toNum = (x) => (x == null ? null : Number(x));
 const toWei = (hex) => {
   try { return BigInt(hex); } catch (e) { return BigInt(0); }
 };
-const errText = (e) => String((e && e.message) || e || 'unknown error');
+const errText = (e) => {
+  // AggregateError (all connection attempts failed) has an empty message; unwrap
+  // the underlying causes so the log shows e.g. "AggregateError(EAI_AGAIN)".
+  if (e && e.name === 'AggregateError' && Array.isArray(e.errors) && e.errors.length) {
+    return 'AggregateError(' + e.errors.map((x) => (x && x.code) || (x && x.message) || 'err').join(', ') + ')';
+  }
+  return String((e && e.message) || e || 'unknown error');
+};
 
 /* ---------------- chain probes (all read-only) ---------------- */
 
