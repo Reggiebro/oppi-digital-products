@@ -1,6 +1,9 @@
 # Oppi Digital Products — AI Prompt Packs & Notion CRM Kit
 
-Practical, ready-to-use digital products for freelancers, creators, consultants — and the AI agents that assist them.
+[![Reggiebro/oppi-digital-products MCP server](https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products/badges/score.svg)](https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products/score)
+![Glama listing](https://img.shields.io/badge/listed_on-Glama-blue) ![MCP Registry](https://img.shields.io/badge/MCP_Registry-listed-green) ![license](https://img.shields.io/badge/crypto_checkout-on--chain_verified-informational)
+
+Practical, ready-to-use digital products for freelancers, creators, consultants — and the AI agents that assist them. **MCP server featured on [Glama](https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products) and listed in the [official MCP Registry](https://github.com/modelcontextprotocol).**
 
 **Every pack ships with free samples you can test right now — excerpts are below, no clicks needed.** You only pay when you've seen the quality — checkout is direct crypto, delivery is manual and verified on-chain. No accounts, no email required, no subscription.
 
@@ -121,6 +124,8 @@ If we cannot verify your payment or cannot deliver what was described, your fund
 ---
 
 ## For AI agents
+
+**Listed on [Glama](https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products)** — full tool schema, integration support matrix (Solana/Ethereum/Base/Polygon/BTC/TRON/LTC/DOGE checkout), and deploy info live there.
 
 **MCP server** (zero-dependency Node, stdio) — let your agent browse the catalog, pull free samples, and handle checkout end-to-end:
 
