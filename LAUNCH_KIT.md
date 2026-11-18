@@ -3,7 +3,8 @@
 **Prepared:** 2026-11-18  
 **Storefront:** https://reggiebro.github.io/oppi-digital-products/  
 **Repo:** https://github.com/Reggiebro/oppi-digital-products  
-**Free samples:** https://reggiebro.github.io/oppi-digital-products/#previews
+**Free samples:** https://reggiebro.github.io/oppi-digital-products/#previews  
+**Showcase thread (live):** https://github.com/Reggiebro/oppi-digital-products/discussions/3
 
 Use this as a working checklist. Post **one channel per day**, disclose that you are the maker, and answer every reply. Do not ask for upvotes, do not cross-post identical copy, and do not put the checkout link in someone else's support thread.
 
@@ -17,6 +18,17 @@ Use this as a working checklist. Post **one channel per day**, disclose that you
 | All-3 bundle | $12 USDC | $29 |
 
 Payments: USDC on Solana `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` or USDC on Base `0xE4BECfd60D9917946292E0d535081Dd005117069`. Other rails are listed on the storefront. Delivery is manual after on-chain verification, usually within 24–48h.
+
+## Distribution status (2026-11-18)
+
+| Surface | State | Notes |
+|---|---|---|
+| GitHub Discussions | **LIVE** | Enabled on the repo; showcase thread is discussion #3. |
+| Glama | **LIVE** | https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products |
+| Official MCP Registry | **LIVE** | Already listed; PulseMCP ingests it from here. |
+| mcpHQ/awesome-mcp-servers | **MERGED** | PR #896 merged; listing is in the catalog. |
+| npm | **READY, NOT PUBLISHED** | Name `oppi-digital-products-mcp` is unclaimed. `npm login` then `./tools/publish-npm.sh`. |
+| Smithery | **BLOCKED** | `smithery auth login` fails from this machine (auth session API unreachable). Needs a browser login on your side, then `smithery mcp publish`. |
 
 ## Channels where project launches are explicitly allowed
 

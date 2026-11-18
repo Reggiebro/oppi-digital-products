@@ -6,7 +6,13 @@
     "oppi-digital-products-mcp": "index.js"
   },
   "main": "index.js",
-  "files": ["index.js", "catalog.json", "wallets.json", "README.md", "package.json"],
+  "files": [
+    "index.js",
+    "catalog.json",
+    "wallets.json",
+    "README.md",
+    "LICENSE"
+  ],
   "keywords": [
     "mcp",
     "model-context-protocol",
@@ -17,9 +23,20 @@
     "usdc",
     "agent-payments"
   ],
-  "license": "SEE LICENSE IN ../LICENSE-CATALOG.md",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Reggiebro/oppi-digital-products"
+    "url": "git+https://github.com/Reggiebro/oppi-digital-products.git",
+    "directory": "mcp-server"
+  },
+  "homepage": "https://reggiebro.github.io/oppi-digital-products/",
+  "bugs": {
+    "url": "https://github.com/Reggiebro/oppi-digital-products/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

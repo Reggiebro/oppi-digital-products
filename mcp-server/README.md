@@ -1,29 +1,30 @@
 # oppi-digital-products-mcp
 
-Lightweight **MCP server** (zero dependencies, stdio) exposing the Oppi digital
-product catalog to AI agents. Agents can discover products, test a **free sample
-prompt**, fetch **crypto payment instructions** (verified oppi wallet addresses),
-run a **read-only on-chain payment check**, and start a **delivery request**.
+A zero-dependency MCP server for a sample-first digital-product store. It lets an
+AI agent browse the catalog, pull a **real free sample**, get the correct payment
+address for a network, verify a transfer **read-only** on-chain, and produce a
+prefilled delivery-request link.
 
 ## Install
 
 ```bash
-# Run directly from GitHub with npx (no clone needed):
-npx github:Reggiebro/oppi-digital-products/mcp-server
-
-# Or clone:
-git clone https://github.com/Reggiebro/oppi-digital-products
-node oppi-digital-products/mcp-server/index.js
+npx oppi-digital-products-mcp
 ```
 
-## Client config (manual MCP entry)
+Or straight from the repo (no npm publish needed):
+
+```bash
+npx github:Reggiebro/oppi-digital-products/mcp-server
+```
+
+## Client config
 
 ```json
 {
   "mcpServers": {
-    "oppi-digital-products": {
+    "oppi": {
       "command": "npx",
-      "args": ["github:Reggiebro/oppi-digital-products/mcp-server"]
+      "args": ["oppi-digital-products-mcp"]
     }
   }
 }
@@ -33,12 +34,23 @@ node oppi-digital-products/mcp-server/index.js
 
 | Tool | What it does |
 |---|---|
-| `list_products` | Full catalog with prices + bundle |
-| `get_free_sample` | Real free sample prompt/template per product (test before buying) |
-| `get_payment_instructions` | Verified oppi wallet addresses (SOL/EVM/BTC/TRON/LTC/DOGE) + purchase flow |
-| `verify_payment` | Best-effort read-only on-chain check of a buyer tx (blockstream/blockscout/Solana RPC/tronscan) |
-| `request_delivery` | Returns a prefilled GitHub fulfillment request URL after payment |
+| `list_products` | Catalog with prices, bundle, free-sample ids |
+| `get_free_sample` | Returns an actual sample prompt/template |
+| `get_payment_instructions` | Verified wallet addresses + purchase flow |
+| `verify_payment` | Read-only on-chain check against the published address |
+| `request_delivery` | Prefilled GitHub issue URL with tx details |
 
-Full packs unlock **after on-chain payment verification** (manual fulfillment).
-Addresses in `wallets.json` are public-only and mirror the project's wallet
-registry (oppi wallet).
+## Guarantees
+
+- No keys, no signing, no transaction broadcasting. Reads public RPCs and explorers only.
+- No accounts and no email required.
+- Payment verification is best-effort; a human confirms before delivery.
+
+## Store
+
+<https://reggiebro.github.io/oppi-digital-products/>
+
+## License
+
+MIT for the server code. Product catalog content is licensed separately; see
+`LICENSE-CATALOG.md` in the repository.

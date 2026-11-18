@@ -13,6 +13,8 @@ Practical, ready-to-use digital products for freelancers, creators, consultants 
 
 **Live storefront:** https://reggiebro.github.io/oppi-digital-products/
 
+**Announcements & questions:** https://github.com/Reggiebro/oppi-digital-products/discussions/3 — the showcase thread (pricing, samples, MCP install, payment rails).
+
 **📄 Free-samples cheat sheet (shareable):** https://gist.github.com/Reggiebro/85122464c52cc24198ce7c1ef1828636
 
 ---
@@ -59,7 +61,7 @@ Full excerpts are inline in each product section below 👇
 ## Why AI agents work here
 
 - **Machine-readable catalog:** `/.well-known/agent.json`, `llms.txt`, and an MCP server — an agent can browse, sample, and check out without a human.
-- **One-command install:** `npx github:Reggiebro/oppi-digital-products/mcp-server` — zero dependencies, stdio, read-only on-chain payment verification included.
+- **One-command install:** `npx github:Reggiebro/oppi-digital-products/mcp-server` — zero dependencies, stdio, read-only on-chain payment verification included. The npm package name `oppi-digital-products-mcp` is reserved for the first publish (see `tools/publish-npm.sh`).
 - **Wallet-bound checkout:** payment instructions and verification are tool calls (`get_payment_instructions`, `verify_payment`), not web scraping.
 - **Skills-ready:** drop-in [`SKILL.md`](skills/oppi-digital-products/SKILL.md) for agents that support the skills format.
 

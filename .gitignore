@@ -1,2 +1,6 @@
 *.tar.gz
 paid_archives_backup/
+
+# Scraped lead queues stay local (not published)
+leads/
+*_state.json
