@@ -77,6 +77,40 @@ async function rpc(url, method, params) {
   return j.result;
 }
 
+// Try each endpoint (in order) with a short retry/backoff before moving on.
+// A DNS blip or one dead public RPC should never blind the whole watcher.
+async function rpcAny(urls, method, params, attempts = 2) {
+  const errs = [];
+  for (const url of urls) {
+    for (let i = 0; i < attempts; i++) {
+      try { return await rpc(url, method, params); }
+      catch (e) {
+        errs.push(`${url}: ${errText(e)}`);
+        if (i < attempts - 1) await delay(600 * (i + 1));
+      }
+    }
+  }
+  throw new Error(errs.slice(-3).join(' | '));
+}
+
+// Same idea for REST APIs, with per-source parsers (shapes differ).
+async function sourceAny(label, sources, attempts = 2) {
+  const errs = [];
+  for (const src of sources) {
+    for (let i = 0; i < attempts; i++) {
+      try {
+        const r = await httpText(src.url);
+        if (r.status !== 200) throw new Error(`HTTP ${r.status}`);
+        return src.parse(JSON.parse(r.text));
+      } catch (e) {
+        errs.push(`${new URL(src.url).host}: ${errText(e)}`);
+        if (i < attempts - 1) await delay(600 * (i + 1));
+      }
+    }
+  }
+  throw new Error(`${label}: ${errs.slice(-4).join(' | ')}`);
+}
+
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
 const toNum = (x) => (x == null ? null : Number(x));
 // Some token contracts (e.g. Base USDT proxies) answer balanceOf with an empty
@@ -95,11 +129,29 @@ const errText = (e) => {
 
 /* ---------------- chain probes (all read-only) ---------------- */
 
-const EVM_RPC = {
-  ethereum: 'https://ethereum-rpc.publicnode.com',
-  base: 'https://mainnet.base.org',
-  polygon: 'https://polygon-bor-rpc.publicnode.com',
+// Ordered fallbacks: public RPCs rate-limit and occasionally lose DNS.
+const EVM_RPCS = {
+  ethereum: [
+    'https://ethereum-rpc.publicnode.com',
+    'https://eth.llamarpc.com',
+    'https://rpc.ankr.com/eth',
+  ],
+  base: [
+    'https://mainnet.base.org',
+    'https://base.llamarpc.com',
+    'https://base-rpc.publicnode.com',
+  ],
+  polygon: [
+    'https://polygon-bor-rpc.publicnode.com',
+    'https://polygon.llamarpc.com',
+    'https://polygon-rpc.com',
+  ],
 };
+const SOLANA_RPCS = [
+  'https://api.mainnet-beta.solana.com',
+  'https://solana-rpc.publicnode.com',
+  'https://rpc.ankr.com/solana',
+];
 const EVM_TOKENS = {
   ethereum: {
     USDC: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
@@ -117,16 +169,16 @@ const EVM_TOKENS = {
 
 async function evmBalance(net) {
   const addr = WALLETS.evm.address;
-  const url = EVM_RPC[net];
+  const urls = EVM_RPCS[net];
   const out = [];
-  const native = await rpc(url, 'eth_getBalance', [addr, 'latest']);
+  const native = await rpcAny(urls, 'eth_getBalance', [addr, 'latest']);
   const sym = net === 'polygon' ? 'POL' : 'ETH';
   out.push({ asset: sym, amount: Number(toWei(native)) / 1e18 });
   const selector = '0x70a08231'; // balanceOf(address)
   const data = selector + addr.toLowerCase().replace('0x', '').padStart(64, '0');
   for (const [tok, contract] of Object.entries(EVM_TOKENS[net])) {
     try {
-      const res = await rpc(url, 'eth_call', [{ to: contract, data }, 'latest']);
+      const res = await rpcAny(urls, 'eth_call', [{ to: contract, data }, 'latest']);
       out.push({ asset: tok, amount: Number(toWei(res)) / 1e6 });
     } catch (e) { /* optional token; tolerate contract-level quirks */ }
     await delay(400);
@@ -136,12 +188,11 @@ async function evmBalance(net) {
 
 async function solanaBalance() {
   const addr = WALLETS.solana;
-  const url = 'https://api.mainnet-beta.solana.com';
   const out = [];
-  const native = await rpc(url, 'getBalance', [addr, { commitment: 'confirmed' }]);
+  const native = await rpcAny(SOLANA_RPCS, 'getBalance', [addr, { commitment: 'confirmed' }]);
   out.push({ asset: 'SOL', amount: Number(native.value) / 1e9 });
   try {
-    const toks = await rpc(url, 'getTokenAccountsByOwner', [addr, { programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' }, { encoding: 'jsonParsed', commitment: 'confirmed' }]);
+    const toks = await rpcAny(SOLANA_RPCS, 'getTokenAccountsByOwner', [addr, { programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA' }, { encoding: 'jsonParsed', commitment: 'confirmed' }]);
     for (const a of (toks.value || [])) {
       const info = a.account.data.parsed.info;
       const mint = info.mint;
@@ -152,50 +203,82 @@ async function solanaBalance() {
   return { chain: 'solana', addr, balances: out };
 }
 
-async function btcLike(net) {
-  const addr = WALLETS[net];
-  const r = await httpText(`https://blockstream.info/api/address/${addr}`);
-  if (r.status !== 200) throw new Error(`${net} ${r.status}`);
-  const j = JSON.parse(r.text);
+// Blockstream / mempool.space / litecoinspace all expose the same address stats.
+function btcStats(j) {
   const conf = Number(j.chain_stats.funded_txo_sum) - Number(j.chain_stats.spent_txo_sum);
   const mem = Number(j.mempool_stats.funded_txo_sum) - Number(j.mempool_stats.spent_txo_sum);
+  return { conf, mem }; // satoshis
+}
+function blockchairSats(j, addr) {
+  const n = j && j.data && j.data[addr] && j.data[addr].address && j.data[addr].address.balance;
+  if (n == null) throw new Error('no balance in response');
+  return Number(n); // satoshis
+}
+
+async function btcLike(net) {
+  const addr = WALLETS[net];
+  const { conf, mem } = await sourceAny(net, [
+    { url: `https://blockstream.info/api/address/${addr}`, parse: btcStats },
+    { url: `https://mempool.space/api/address/${addr}`, parse: btcStats },
+  ]);
   return { chain: net, addr, balances: [{ asset: net === 'bitcoin' ? 'BTC' : 'LTC', amount: conf / 1e8 }, { asset: net.toUpperCase() + '_MEMPOOL', amount: mem / 1e8 }] };
 }
 
 async function ltcBalance() {
   const addr = WALLETS.litecoin;
-  const r = await httpText(`https://api.blockcypher.com/v1/ltc/main/addrs/${addr}/balance`);
-  if (r.status !== 200) throw new Error(`ltc ${r.status}`);
-  const j = JSON.parse(r.text);
-  return { chain: 'litecoin', addr, balances: [{ asset: 'LTC', amount: Number(j.balance) / 1e8 }] };
+  const sats = await sourceAny('litecoin', [
+    { url: `https://api.blockcypher.com/v1/ltc/main/addrs/${addr}/balance`, parse: (j) => Number(j.balance) },
+    { url: `https://litecoinspace.org/api/address/${addr}`, parse: (j) => btcStats(j).conf },
+    { url: `https://api.blockchair.com/litecoin/dashboards/address/${addr}`, parse: (j) => blockchairSats(j, addr) },
+  ]);
+  return { chain: 'litecoin', addr, balances: [{ asset: 'LTC', amount: sats / 1e8 }] };
 }
 
 async function dogeBalance() {
   const addr = WALLETS.dogecoin;
-  const r = await httpText(`https://dogechain.info/api/v1/address/balance/${addr}`);
-  if (r.status !== 200) throw new Error(`doge ${r.status}`);
-  const j = JSON.parse(r.text);
-  const amount = j.success ? Number(j.balance) : null;
-  return { chain: 'dogecoin', addr, balances: [{ asset: 'DOGE', amount }] };
+  const sats = await sourceAny('dogecoin', [
+    { url: `https://api.blockcypher.com/v1/doge/main/addrs/${addr}/balance`, parse: (j) => Number(j.balance) },
+    { url: `https://dogechain.info/api/v1/address/balance/${addr}`, parse: (j) => { if (!j.success) throw new Error('not found'); return Math.round(Number(j.balance) * 1e8); } },
+    { url: `https://api.blockchair.com/dogecoin/dashboards/address/${addr}`, parse: (j) => blockchairSats(j, addr) },
+  ]);
+  return { chain: 'dogecoin', addr, balances: [{ asset: 'DOGE', amount: sats / 1e8 }] };
 }
 
-async function tronBalance() {
-  const addr = WALLETS.tron;
-  const r = await httpText(`https://api.trongrid.io/v1/accounts/${addr}`);
-  if (r.status !== 200) throw new Error(`tron ${r.status}`);
-  const j = JSON.parse(r.text);
+const TRC20 = {
+  TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t: 'USDT-TRC20',
+  TEkxiTehnzSmSe2XqrPj4CXhTarVsMnw2t: 'USDC-TRC20',
+};
+function tronBalancesFromTrongrid(j) {
   const out = [];
   const acc = (j.data || [])[0];
   if (acc) {
     if (acc.balance != null) out.push({ asset: 'TRX', amount: Number(acc.balance) / 1e6 });
     for (const t of (acc.trc20 || [])) {
       for (const [contract, raw] of Object.entries(t)) {
-        const sym = contract === 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t' ? 'USDT-TRC20' : contract === 'TEkxiTehnzSmSe2XqrPj4CXhTarVsMnw2t' ? 'USDC-TRC20' : null;
+        const sym = TRC20[contract];
         if (sym) out.push({ asset: sym, amount: Number(raw) / 1e6 });
       }
     }
   }
-  return { chain: 'tron', addr, balances: out };
+  return out;
+}
+function tronBalancesFromTronscan(j) {
+  const out = [];
+  if (j.balance != null) out.push({ asset: 'TRX', amount: Number(j.balance) / 1e6 });
+  for (const t of (j.trc20token_balances || [])) {
+    const sym = TRC20[t.tokenId];
+    if (sym) out.push({ asset: sym, amount: Number(t.balance) / 1e6 });
+  }
+  return out;
+}
+
+async function tronBalance() {
+  const addr = WALLETS.tron;
+  const balances = await sourceAny('tron', [
+    { url: `https://api.trongrid.io/v1/accounts/${addr}`, parse: tronBalancesFromTrongrid },
+    { url: `https://apilist.tronscanapi.com/api/account?address=${addr}`, parse: tronBalancesFromTronscan },
+  ]);
+  return { chain: 'tron', addr, balances };
 }
 
 /* ---------------- state + detection ---------------- */
@@ -258,7 +341,11 @@ async function pollOnce() {
       state.balances[k] = b.amount;
     }
   }
+  // Health is explicit: 0 probes is an outage, not a "no payments" result.
+  const health = probes.length === 0 ? 'down' : (errors.length ? 'degraded' : 'ok');
   state.last_poll = now;
+  state.health = { status: health, chains_ok: probes.length, chains_failed: errors.length };
+  if (probes.length > 0) state.last_successful_poll = now;
   state.errors = errors;
   saveState(state);
 
@@ -266,10 +353,13 @@ async function pollOnce() {
     for (const d of detected) {
       console.log(`💰 [${d.ts}] ${d.chain} ${d.asset}: ${d.previous} → ${d.current} (+${d.delta.toPrecision(8)}) addr ${d.address}`);
     }
-  } else if (!QUIET) {
+  } else if (!QUIET || probes.length === 0) {
     const summary = probes.flatMap(p => p.balances).filter(b => b.amount != null)
       .map(b => `${b.asset}:${b.amount.toPrecision ? b.amount.toPrecision(6) : b.amount}`).join(' ');
-    console.log(`[${now}] polled ${probes.length} chains — no new payments. ${summary ? 'Balances: ' + summary : ''}`);
+    const healthNote = probes.length === 0
+      ? '⚠️  MONITORING DOWN — 0/8 chains reachable'
+      : `${probes.length}/8 chains up`;
+    console.log(`[${now}] ${healthNote} — no new payments. ${summary ? 'Balances: ' + summary : ''}`);
     if (errors.length) console.log(`   probe errors: ${errors.join('; ')}`);
   }
   return detected;

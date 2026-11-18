@@ -160,6 +160,8 @@ Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_p
 **Machine-readable discovery:**
 - `/.well-known/agent.json` → https://reggiebro.github.io/oppi-digital-products/.well-known/agent.json
 - [`llms.txt`](llms.txt) → https://reggiebro.github.io/oppi-digital-products/llms.txt
+- [`sitemap.xml`](sitemap.xml) → https://reggiebro.github.io/oppi-digital-products/sitemap.xml
+- [`robots.txt`](robots.txt) → https://reggiebro.github.io/oppi-digital-products/robots.txt
 
 ---
 
