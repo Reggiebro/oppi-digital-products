@@ -13,6 +13,8 @@ Practical, ready-to-use digital products for freelancers, creators, consultants 
 
 **Live storefront:** https://reggiebro.github.io/oppi-digital-products/
 
+**📄 Free-samples cheat sheet (shareable):** https://gist.github.com/Reggiebro/85122464c52cc24198ce7c1ef1828636
+
 ---
 
 ## ⚡ Quick pay (recommended rails — one-click copy)

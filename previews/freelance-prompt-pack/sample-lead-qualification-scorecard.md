@@ -7,5 +7,5 @@ My services: [SERVICES]
 My minimum budget/timeline: [MIN BUDGET], [TIMELINE]"
 
 ---
-*This is one of 30+ prompts covering leads & discovery, proposals & scope, onboarding, delivery & updates, feedback & QA, difficult clients, and growth. Full pack: $12 launch.*
+*This is one of 30+ prompts covering leads & discovery, proposals & scope, onboarding, delivery & updates, feedback & QA, difficult clients, and growth. Full pack: ⚡ $5 flash deal (first 5 buyers; then $12).*
 *Unlock: send crypto (see PAYMENT.md / mcp-server get_payment_instructions) → verify tx → delivery.*

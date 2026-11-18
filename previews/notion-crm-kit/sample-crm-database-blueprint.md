@@ -24,4 +24,4 @@
 - All Contacts (Table)
 
 ---
-*The full kit also includes: Projects database (deadlines, fees, client links), Invoices/Revenue database (outstanding/paid views), dashboard structure (follow-ups due, active projects, outstanding invoices, pipeline), setup steps and suggested rollups/formulas. Full kit: $12 launch.*
+*The full kit also includes: Projects database (deadlines, fees, client links), Invoices/Revenue database (outstanding/paid views), dashboard structure (follow-ups due, active projects, outstanding invoices, pipeline), setup steps and suggested rollups/formulas. Full kit: ⚡ $5 flash deal (first 5 buyers; then $12).*
