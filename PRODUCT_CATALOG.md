@@ -22,7 +22,7 @@
 - **Contents:** README, quickstart, prompts, launch checklist, listing copy, PAYMENT
 - **Value prop:** 30+ AI prompts for leads/discovery, proposals/scope, onboarding, delivery/updates, feedback/QA, difficult situations, growth (ChatGPT/Claude-ready, bracketed customization).
 - **Target buyers:** Freelancers, consultants, solopreneurs, small agencies, AI agents assisting client ops.
-- **Pricing (suggested):** Launch $9–$15, Standard $19–$29
+- **Pricing (suggested):** Flash $5 (first 5 buyers), Launch $9–$15, Standard $19–$29
 - **Fulfillment:** Direct crypto (manual) — buyer sends agreed amount, shares tx hash + contact + product; seller verifies on-chain and delivers archive.
 
 ### 2) Notion Freelancer CRM & Pipeline Kit
@@ -31,7 +31,7 @@
 - **Contents:** README, template spec, listing copy, PAYMENT
 - **Value prop:** Complete workspace blueprint for lead→proposal→project→payment: CRM, projects, invoices/revenue, dashboard, setup/rollups.
 - **Target buyers:** Freelancers/consultants/agencies, ops-focused AI agents.
-- **Pricing (suggested):** Launch $12, Standard $19–$29
+- **Pricing (suggested):** Flash $5 (first 5 buyers), Launch $12, Standard $19–$29
 - **Fulfillment:** Direct crypto (manual) as above.
 
 ### 3) AI Content Repurpose Pack
@@ -40,7 +40,7 @@
 - **Contents:** README, prompts, listing copy, PAYMENT
 - **Value prop:** Repurpose one content asset into social posts, threads, newsletters/sequences, short-form scripts/hooks, blog/SEO assets, adapted calendars.
 - **Target buyers:** Creators, coaches, founders, marketers, content AI agents.
-- **Pricing (suggested):** Launch $9, Standard $15–$19
+- **Pricing (suggested):** Flash $5 (first 5 buyers), Launch $9, Standard $15–$19
 - **Fulfillment:** Direct crypto (manual) as above.
 
 ### 4) Digital Product Landing/Catalog Page
@@ -49,7 +49,7 @@
 - **Purpose:** Single-page catalog with pricing, file references, crypto payment instructions (oppi wallet addresses).
 
 ## Bundles (suggested)
-- 3-pack bundle: $29 launch
+- 3-pack bundle: $12 flash (first 5 buyers), then $29
 
 ## Payout Endpoint Verification (products)
 - Scanned all files under `deliverables/` for wallet-like addresses.

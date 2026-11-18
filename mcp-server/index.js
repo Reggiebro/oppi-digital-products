@@ -61,15 +61,31 @@ function findProduct(id) {
 /* ---------------- tool implementations ---------------- */
 
 function listProducts() {
-  const lines = [`# Oppi Digital Products — Catalog (${money(CATALOG.bundle.price_usd_launch)} bundle)`, ''];
+  const deal = CATALOG.flash_deal && CATALOG.flash_deal.active ? CATALOG.flash_deal : null;
+  const lines = [`# Oppi Digital Products — Catalog (${deal ? money(deal.price_usd_bundle) + ' flash bundle' : money(CATALOG.bundle.price_usd_launch) + ' bundle'})`, ''];
+  if (deal) {
+    lines.push(`## ⚡ ${deal.name} — ACTIVE`);
+    lines.push(`Every single pack: ${money(deal.price_usd_each)} USDC. Bundle: ${money(deal.price_usd_bundle)} USDC.`);
+    lines.push(`Limit: ${deal.limit}`);
+    lines.push('After the deal: launch prices resume. Payment: USDC (Solana/Base recommended).');
+    lines.push('');
+  }
   for (const p of CATALOG.products) {
     lines.push(`## ${p.name} (${p.type})`);
     lines.push(`${p.summary}`);
-    lines.push(`- Launch price: ${money(p.price_usd_launch)} | Standard: ${money(p.price_usd_standard)}`);
+    if (deal) {
+      lines.push(`- ⚡ Flash price: ${money(deal.price_usd_each)} USDC (was ${money(deal.was_prices[p.id])} launch; standard ${money(p.price_usd_standard)} after deal)`);
+    } else {
+      lines.push(`- Launch price: ${money(p.price_usd_launch)} | Standard: ${money(p.price_usd_standard)}`);
+    }
     lines.push(`- Free sample id: \`${p.free_sample}\` (use get_free_sample to test)`);
     lines.push('');
   }
-  lines.push(`Bundle: ${CATALOG.bundle.name} — ${money(CATALOG.bundle.price_usd_launch)} (all 3 packs).`);
+  if (deal) {
+    lines.push(`Bundle: ${CATALOG.bundle.name} — ⚡ ${money(deal.price_usd_bundle)} USDC (was ${money(deal.was_prices['three-pack-bundle'])}; all 3 packs).`);
+  } else {
+    lines.push(`Bundle: ${CATALOG.bundle.name} — ${money(CATALOG.bundle.price_usd_launch)} (all 3 packs).`);
+  }
   lines.push(`Storefront: ${CATALOG.storefront}`);
   lines.push('Delivery: archive sent after on-chain payment verification (manual fulfillment).');
   return { content: [{ type: 'text', text: lines.join('\n') }] };
@@ -102,10 +118,15 @@ function getPaymentInstructions(args) {
   const p = findProduct(args && args.product);
   const w = WALLETS;
   const price = p ? money(p.price_usd_launch) : 'per-item (see list_products)';
+  const deal = CATALOG.flash_deal && CATALOG.flash_deal.active ? CATALOG.flash_deal : null;
+  const flashLine = deal
+    ? `⚡ FLASH DEAL (first 5 buyers): pay exactly ${money(deal.price_usd_each)} USDC per single pack or ${money(deal.price_usd_bundle)} USDC for the 3-pack bundle — on Solana or Base USDC.`
+    : '';
   const lines = [
     '# Crypto Payment Instructions (oppi wallet)',
     '',
     `Product: ${p ? p.name : 'any catalog item'} — ${price}`,
+    flashLine,
     'Recommended asset: **USDC** (stable) on one of the networks below. SOL/ETH/native also accepted.',
     '',
     '## Addresses',

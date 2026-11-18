@@ -8,10 +8,10 @@
 - [Purchase / B2B inquiries](https://github.com/Reggiebro/oppi-digital-products/issues/1): issue with tx hash, network, product, and contact.
 
 ## Products
-- [Freelance Delivery Prompt Pack — $12 launch](https://reggiebro.github.io/oppi-digital-products/): 30+ prompts for leads, proposals, scope, delivery, revisions, client comms. Free sample: previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md
-- [Notion Freelancer CRM & Pipeline Kit — $12 launch](https://reggiebro.github.io/oppi-digital-products/): leads/clients CRM, projects, invoices/revenue, dashboard blueprint. Free sample: previews/notion-crm-kit/sample-crm-database-blueprint.md
-- [AI Content Repurpose Pack — $9 launch](https://reggiebro.github.io/oppi-digital-products/): turn one asset into posts, threads, emails, scripts, SEO content, 7-day calendar. Free sample: previews/content-repurpose-pack/sample-core-extraction.md
-- Bundle (all 3) — $29.
+- [Freelance Delivery Prompt Pack — $5 flash deal, first 5 buyers (then $12)](https://reggiebro.github.io/oppi-digital-products/): 30+ prompts for leads, proposals, scope, delivery, revisions, client comms. Free sample: previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md
+- [Notion Freelancer CRM & Pipeline Kit — $5 flash deal, first 5 buyers (then $12)](https://reggiebro.github.io/oppi-digital-products/): leads/clients CRM, projects, invoices/revenue, dashboard blueprint. Free sample: previews/notion-crm-kit/sample-crm-database-blueprint.md
+- [AI Content Repurpose Pack — $5 flash deal, first 5 buyers (then $9)](https://reggiebro.github.io/oppi-digital-products/): turn one asset into posts, threads, emails, scripts, SEO content, 7-day calendar. Free sample: previews/content-repurpose-pack/sample-core-extraction.md
+- Bundle (all 3) — $12 flash deal for first 5 buyers (then $29).
 
 ## For AI agents
 - [MCP server install](https://github.com/Reggiebro/oppi-digital-products/tree/master/mcp-server): `npx github:Reggiebro/oppi-digital-products/mcp-server` — tools: list_products, get_free_sample, get_payment_instructions, verify_payment, request_delivery.
