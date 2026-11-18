@@ -23,16 +23,27 @@ Payments: USDC on Solana `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` or USDC 
 | Channel | What it is for | Rules / guardrails | Link |
 |---|---|---|---|
 | **Show HN** | Runnable projects you made | Must be something people can try; no signup wall; no landing-page-only posts; no vote requests. Lead with the MCP server + free samples, not the sale. | https://news.ycombinator.com/showhn.html |
-| **r/SideProject** | Sharing projects you built | Read the current sidebar; use a "I built this" post, disclose affiliation, answer questions, no repost spam. | https://www.reddit.com/r/SideProject/ |
+| **r/SideProject** | Sharing projects you built | The community exists for project sharing, but rule text has changed over time. Read the current sidebar; use the `[Project name] - [short description]` title format, disclose affiliation, and reply to comments. | https://www.reddit.com/r/SideProject/ |
 | **r/IMadeThis** | Newly made projects | Same disclosure rule; one post, participate in comments. | https://www.reddit.com/r/IMadeThis/ |
+| **r/alphaandbetausers** | Early users and feedback | Built for makers looking for testers; say what feedback you need, not just "check out my product". | https://www.reddit.com/r/alphaandbetausers/ |
+| **r/indiehackers** | Indie maker community | Allows a self-promotion post with the correct flair; do not repeat the same link. | https://www.reddit.com/r/indiehackers/ |
+| **r/buildinpublic** | Public build logs | Post progress and decisions, not a bare link; disclose ownership. | https://www.reddit.com/r/buildinpublic/ |
+| **r/microsaas** | Small SaaS/product builders | Share the backstory and lessons; low-effort launch links are removed. | https://www.reddit.com/r/microsaas/ |
+| **r/AI_Agents weekly project thread** | AI agent projects | Main-feed promotion is restricted; use the weekly project display thread and the `I Made This` flair where offered. | https://www.reddit.com/r/AI_Agents/ |
 | **Indie Hackers** | Product page + "Show IH" / community threads | Self-promotion is normal when you contribute context and numbers; avoid drive-by link drops. | https://www.indiehackers.com/ |
 | **Dev.to** | Technical articles with `#showdev` | Publish a real build write-up, disclose the product, keep the link secondary. | https://dev.to/ |
 | **Hashnode** | Own technical blog | Cross-post the Dev.to article with a canonical link back. | https://hashnode.com/ |
 | **Product Hunt** | New product launch | Use the launch flow, not a discussion comment; prepare gallery images and a first comment. | https://www.producthunt.com/ |
 | **BetaList** | Early-stage product listing | Submission may be queued or paid; do not pay for placement without approval. | https://betalist.com/submit |
 | **Uneed / MicroLaunch / Peerlist Launchpad / Fazier** | Launch directories | Each has its own free/paid tiers and scheduling; check terms first. | https://www.uneed.best/ · https://microlaunch.net/ · https://peerlist.io/launchpad · https://fazier.com/ |
-| **MCP directories** | Agent/tool discovery | Glama and the official MCP Registry are already live. Consider Smithery, mcp.so, and PulseMCP only if the server meets their listing requirements. | https://glama.ai/mcp/servers · https://registry.modelcontextprotocol.io/ · https://smithery.ai/ · https://mcp.so/ · https://www.pulsemcp.com/ |
+| **MCP directories** | Agent/tool discovery | Glama and the official MCP Registry are already live. Smithery has a free publish flow (`smithery.ai/new`). PulseMCP has paused new submissions and ingests the official registry, so it should pick the server up automatically. mcp.so has an optional paid tier — do not pay without owner approval. | https://glama.ai/mcp/servers · https://registry.modelcontextprotocol.io/ · https://smithery.ai/new · https://mcp.so/ · https://www.pulsemcp.com/ |
 | **Own channels** | X / Bluesky / LinkedIn / Mastodon / YouTube | No platform permission needed; use a short demo and the storefront link. | — |
+
+### Restricted channels — use only the designated thread
+
+- **r/SaaS** — one mention or three links per 60 days, with affiliation disclosed; promotional-only posts are removed.
+- **r/startups** — use the stickied **Share Your Startup** thread, not the main feed.
+- **r/Entrepreneur** — use the weekly feedback/promotion threads.
 
 **Do not use:** other people's GitHub issues/discussions as ad space, cold DM blasts, auto-generated awesome-list PRs, or SEO gists whose only purpose is a link. Those are the tactics that get accounts limited.
 
