@@ -31,7 +31,7 @@
 - Team license — $79: up to 10 seats, all 3 packs, internal use.
 - Agency license — $149: up to 25 seats, plus use in paid client deliverables.
 - Custom workflow — $150: one workflow, up to 6 prompts, 3 business days.
-- White-label / resale — $399: rebrand and sell under your own brand, keep 100%.
+- White-label / resale — $399: rebrand and sell under your own brand, keep 100%. Details: https://reggiebro.github.io/oppi-digital-products/white-label.html
 - Terms: https://github.com/Reggiebro/oppi-digital-products/blob/master/B2B.md
 - Intake: https://github.com/Reggiebro/oppi-digital-products/issues/new?template=b2b-license.yml
 
