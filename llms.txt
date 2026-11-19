@@ -14,7 +14,7 @@
 - Bundle (all 3) — $12 flash deal for first 5 buyers (then $29).
 
 ## For AI agents
-- [MCP server install](https://github.com/Reggiebro/oppi-digital-products/tree/master/mcp-server): `npx github:Reggiebro/oppi-digital-products/mcp-server` — tools: list_products, get_free_sample, get_payment_instructions, verify_payment, request_delivery.
+- [MCP server install](https://github.com/Reggiebro/oppi-digital-products/tree/master/mcp-server): `npx -y oppi-digital-products-mcp` — tools: list_products, get_free_sample, get_payment_instructions, verify_payment, request_delivery.
 - [Agent skill (SKILL.md)](https://github.com/Reggiebro/oppi-digital-products/tree/master/skills/oppi-digital-products): catalog discovery, free sampling, crypto checkout, on-chain verification workflow.
 - [agent.json machine-readable manifest](https://reggiebro.github.io/oppi-digital-products/.well-known/agent.json): capabilities, pricing, verified payment addresses.
 

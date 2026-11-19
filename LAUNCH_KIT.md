@@ -91,7 +91,7 @@ It is zero-dependency Node, stdio, and the payment verification uses public RPC/
 
 Try it:
 
-npx github:Reggiebro/oppi-digital-products/mcp-server
+npx -y oppi-digital-products-mcp
 
 The store itself sells three freelancer packs (client-ops prompts, a Notion CRM blueprint, content repurposing). Full packs are paid; the samples are free and the repo has the source for the server and skill.
 

@@ -153,7 +153,7 @@ If we cannot verify your payment or cannot deliver what was described, your fund
 **MCP server** (zero-dependency Node, stdio) — let your agent browse the catalog, pull free samples, and handle checkout end-to-end:
 
 ```bash
-npx github:Reggiebro/oppi-digital-products/mcp-server
+npx -y oppi-digital-products-mcp
 ```
 
 Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_payment` (read-only public explorer/RPC check), `request_delivery`.

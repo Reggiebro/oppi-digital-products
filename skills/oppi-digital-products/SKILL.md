@@ -29,7 +29,7 @@ Detailed description of the skill and what it helps users accomplish.
 Run the companion MCP server (zero dependencies, Node):
 
 ```bash
-npx github:Reggiebro/oppi-digital-products/mcp-server
+npx -y oppi-digital-products-mcp
 ```
 
 Then use the tools:

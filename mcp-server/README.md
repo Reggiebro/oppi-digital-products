@@ -11,10 +11,10 @@ prefilled delivery-request link.
 npx oppi-digital-products-mcp
 ```
 
-Or straight from the repo (no npm publish needed):
+Offline fallback (pinned release tarball):
 
 ```bash
-npx github:Reggiebro/oppi-digital-products/mcp-server
+npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/mcp-v1.0.0/oppi-digital-products-mcp-1.0.0.tgz
 ```
 
 ## Client config

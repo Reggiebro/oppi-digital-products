@@ -23,7 +23,20 @@
 'use strict';
 
 const { execFileSync, spawn } = require('child_process');
+const fs = require('fs');
 const path = require('path');
+
+// Cron runs with a minimal PATH (usually /usr/bin:/bin), so `gh` installed in
+// /usr/local/bin is invisible there. Resolve it explicitly instead of relying
+// on PATH inheritance.
+const GH = (() => {
+  const candidates = [process.env.GH_BIN, '/usr/local/bin/gh', '/usr/bin/gh', '/opt/homebrew/bin/gh'];
+  for (const c of candidates) {
+    if (!c) continue;
+    try { if (fs.existsSync(c)) return c; } catch (_) { /* ignore */ }
+  }
+  return 'gh';
+})();
 
 const REPO = process.env.OPPI_REPO || 'Reggiebro/oppi-digital-products';
 const APPLY = process.argv.includes('--apply');
@@ -37,7 +50,7 @@ const MCP = path.join(__dirname, '..', 'mcp-server', 'index.js');
 /* ---------------- helpers ---------------- */
 
 function gh(args, input) {
-  return execFileSync('gh', args, {
+  return execFileSync(GH, args, {
     encoding: 'utf8',
     input,
     maxBuffer: 20 * 1024 * 1024,

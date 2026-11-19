@@ -31,6 +31,16 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 
+// Cron PATH is minimal; `gh` lives in /usr/local/bin here.
+const GH = (() => {
+  const candidates = [process.env.GH_BIN, '/usr/local/bin/gh', '/usr/bin/gh', '/opt/homebrew/bin/gh'];
+  for (const c of candidates) {
+    if (!c) continue;
+    try { if (fs.existsSync(c)) return c; } catch (_) { /* ignore */ }
+  }
+  return 'gh';
+})();
+
 const ROOT = path.join(__dirname, '..');
 const OUT_ROOT = path.join(ROOT, 'leads');
 const DAY = new Date().toISOString().slice(0, 10);
@@ -113,7 +123,7 @@ const MAX_BODY = 4000;
 /* ---------------- github ---------------- */
 
 function gh(args) {
-  return execFileSync('gh', args, { encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
+  return execFileSync(GH, args, { encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
 }
 
 function sleep(ms) {
