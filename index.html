@@ -142,7 +142,7 @@
       <h3 style="margin-top:0">For AI agents &amp; agent builders</h3>
       <ul>
         <li><strong>Machine-readable catalog.</strong> <code>/.well-known/agent.json</code>, <code>llms.txt</code>, and an MCP server — your agent can browse, sample, and check out without a human.</li>
-        <li><strong>One-command install:</strong> <code>npx github:Reggiebro/oppi-digital-products/mcp-server</code> — zero dependencies, stdio, read-only payment verification included.</li>
+        <li><strong>One-command install:</strong> <code>npx -y oppi-digital-products-mcp</code> — zero dependencies, stdio, read-only payment verification included.</li>
         <li><strong>Wallet-bound checkout.</strong> Payment instructions and on-chain verification are tool calls (<code>get_payment_instructions</code>, <code>verify_payment</code>), not web scraping.</li>
         <li><strong>Skills-ready.</strong> Drop-in <code>SKILL.md</code> for agents that support the skills format.</li>
       </ul>
@@ -248,7 +248,7 @@ Views: Pipeline Board (by Status) · Follow-ups Due
   <div class="note">
     <strong>For AI agents (MCP + skill):</strong><br>
     <strong>Listed on Glama:</strong> <a href="https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products">glama.ai/mcp/servers/Reggiebro/oppi-digital-products</a> — agents can inspect the full tool schema there.<br>
-    Install the MCP server: <code>npx github:Reggiebro/oppi-digital-products/mcp-server</code><br>
+    Install the MCP server: <code>npx -y oppi-digital-products-mcp</code><br>
     Tools: <code>list_products</code>, <code>get_free_sample</code>, <code>get_payment_instructions</code>, <code>verify_payment</code> (read-only on-chain check), <code>request_delivery</code>.<br>
     Agent skill (SKILL.md): <a href="https://github.com/Reggiebro/oppi-digital-products/tree/master/skills/oppi-digital-products">skills/oppi-digital-products</a> · Machine manifest: <a href="./.well-known/agent.json">/.well-known/agent.json</a> · <a href="https://github.com/Reggiebro/oppi-digital-products/blob/master/llms.txt">llms.txt</a>
   </div>
@@ -256,7 +256,7 @@ Views: Pipeline Board (by Status) · Follow-ups Due
   <footer style="margin-top:28px;padding-top:14px;border-top:1px solid #e5e7eb;color:#555;font-size:.9rem">
     <p style="margin:.2rem 0"><strong>Oppi Digital Products</strong> · Free samples, paid full packs · USDC on Solana or Base · Manual delivery usually within 24–48h</p>
     <p style="margin:.2rem 0"><a href="https://github.com/Reggiebro/oppi-digital-products" style="color:#0b62f4">GitHub repo</a> · <a href="https://github.com/Reggiebro/oppi-digital-products/blob/master/llms.txt" style="color:#0b62f4">llms.txt</a> · <a href="https://github.com/Reggiebro/oppi-digital-products/issues/new?title=Purchase%2FDelivery%20request" style="color:#0b62f4">Fulfillment request</a> · <a href="https://github.com/Reggiebro/oppi-digital-products/blob/master/PAYMENT.md" style="color:#0b62f4">Payment details</a></p>
-    <p style="margin:.2rem 0">Last updated 2026-11-18. Payment addresses mirror the public oppi wallet registry; no keys are stored in this repo.</p>
+    <p style="margin:.2rem 0">Last updated 2026-11-19. Payment addresses mirror the public oppi wallet registry; no keys are stored in this repo.</p>
   </footer>
 
   </main>
