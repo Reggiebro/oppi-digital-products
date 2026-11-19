@@ -27,7 +27,8 @@ Payments: USDC on Solana `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` or USDC 
 | Glama | **LIVE** | https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products |
 | Official MCP Registry | **LIVE** | Already listed; PulseMCP ingests it from here. |
 | mcpHQ/awesome-mcp-servers | **MERGED** | PR #896 merged; listing is in the catalog. |
-| npm | **READY, NOT PUBLISHED** | Name `oppi-digital-products-mcp` is unclaimed. `npm login` then `./tools/publish-npm.sh`. |
+| npm | **STAGED, AWAITING APPROVAL** | Name is ours (`workflow_alpha8326`); `1.0.0` accepted with HTTP 202 and held for npm staged-publish approval. Public registry shows a 372-byte `0.0.0-stage` placeholder until then. |
+| GitHub Release tarball | **LIVE + VERIFIED** | `mcp-v1.0.0` release; `npx --allow-remote=all <tarball URL>` answers `tools/list`. |
 | Smithery | **BLOCKED** | `smithery auth login` fails from this machine (auth session API unreachable). Needs a browser login on your side, then `smithery mcp publish`. |
 
 ## Channels where project launches are explicitly allowed

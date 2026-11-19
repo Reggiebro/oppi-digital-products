@@ -61,7 +61,8 @@ Full excerpts are inline in each product section below 👇
 ## Why AI agents work here
 
 - **Machine-readable catalog:** `/.well-known/agent.json`, `llms.txt`, and an MCP server — an agent can browse, sample, and check out without a human.
-- **One-command install:** `npx github:Reggiebro/oppi-digital-products/mcp-server` — zero dependencies, stdio, read-only on-chain payment verification included. The npm package name `oppi-digital-products-mcp` is reserved for the first publish (see `tools/publish-npm.sh`).
+- **One-command install (verified):** `npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/mcp-v1.0.0/oppi-digital-products-mcp-1.0.0.tgz` — zero dependencies, stdio, read-only on-chain payment verification included. (`--allow-remote=all` is only needed on distro npm builds with remote fetches disabled; plain npm can drop it.)
+- **npm:** the name `oppi-digital-products-mcp` is claimed and version `1.0.0` is awaiting npm's staged-publish approval. Once approved, install becomes `npx oppi-digital-products-mcp`.
 - **Wallet-bound checkout:** payment instructions and verification are tool calls (`get_payment_instructions`, `verify_payment`), not web scraping.
 - **Skills-ready:** drop-in [`SKILL.md`](skills/oppi-digital-products/SKILL.md) for agents that support the skills format.
 
