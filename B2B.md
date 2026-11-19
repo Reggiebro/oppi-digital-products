@@ -31,7 +31,13 @@ For agencies that want the prompts and templates inside the work they sell. Up t
 
 One workflow built around how your team actually works: up to **6 prompts** plus a one-page usage guide, written against your real inputs (your discovery call structure, your proposal format, your client types). One revision included. Delivered as Markdown; your team owns the output.
 
-If you need several workflows, a done-for-you Notion build, or white-label rights, say so in the intake and you'll get a quote instead of a fixed price.
+If you need several workflows or a done-for-you Notion build, say so in the intake and you'll get a quote instead of a fixed price.
+
+### White-label / resale — $399
+
+For creators and agencies with an audience: rebrand all three packs as your own product, sell them under your name, keep 100% of what you charge. One brand, unlimited end customers, delivered as editable Markdown so you can restyle and repackage. You can't resell the source files as-is to other resellers.
+
+Set up in the intake; delivery includes a branded copy and a one-page handover note.
 
 ## How it works
 
@@ -68,7 +74,10 @@ You get a written quote in the issue thread with the exact amount and address. T
 If payment can't be verified, or the delivery doesn't match what's described here, funds go back to the sending address. Once a digital archive is delivered, the sale is final — the free samples exist so you can judge quality first.
 
 **More than 25 seats?**
-Ask. Volume pricing starts at 26 seats, and white-label/resale rights are quoted separately.
+Ask. Volume pricing starts at 26 seats.
+
+**White-label?**
+$399: rebrand all three packs, sell under your name, keep the margin. Editable Markdown delivery.
 
 **Can we see the quality first?**
 Every pack has a real, complete excerpt — not a screenshot:

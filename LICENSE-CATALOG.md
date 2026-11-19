@@ -71,7 +71,14 @@ and non-transferable**, and they replace the single-user terms above for the sea
 - Reggiebro retains the right to reuse general techniques and patterns, but not the
   organisation's confidential inputs.
 
-### 3.4 Common terms
+### 3.4 White-label / resale license — $399
+
+- One brand may rebrand the packs and sell them to its own customers.
+- The licensee keeps 100% of what it charges; no royalty.
+- Source files may not be resold as-is to other resellers.
+- Delivery includes editable Markdown and a handover note.
+
+### 3.5 Common terms
 
 - Seats are **contractual**, not enforced by technical access control. There is no account
   system and no telemetry.
