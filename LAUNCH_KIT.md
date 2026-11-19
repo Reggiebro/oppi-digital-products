@@ -19,6 +19,20 @@ Use this as a working checklist. Post **one channel per day**, disclose that you
 
 Payments: USDC on Solana `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` or USDC on Base `0xE4BECfd60D9917946292E0d535081Dd005117069`. Other rails are listed on the storefront. Delivery is manual after on-chain verification, usually within 24–48h.
 
+## Ready-to-post files
+
+These are final copy, not outlines. Open, read once, post from your own account.
+
+| File | Channel | Notes |
+|---|---|---|
+| [`launch/devto-article.md`](launch/devto-article.md) | Dev.to / Hashnode | Full technical article, ~1,100 words. Publish here first, then cross-post with a canonical URL. |
+| [`launch/show-hn.md`](launch/show-hn.md) | Show HN | Title, text, and the first comment to post immediately. |
+| [`launch/reddit-sideproject.md`](launch/reddit-sideproject.md) | r/SideProject | Story format plus a reply bank for predictable objections. |
+
+**Order that wastes the least effort:** Dev.to article → r/SideProject → Show HN. The article gives you something to link that isn't a sales page, which is what both communities actually want.
+
+Every file already contains the maker disclosure, the live npm command (`npx -y oppi-digital-products-mcp`), and the current flash pricing. If pricing changes, update these files in the same commit as the storefront.
+
 ## Distribution status (2026-11-18)
 
 | Surface | State | Notes |
