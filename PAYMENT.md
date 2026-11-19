@@ -1,13 +1,10 @@
 # Payment Options (Crypto)
 
-Use these addresses for payment/payout where supported:
-
-- **Solana:** `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp`
-- **EVM (Ethereum/Base/Polygon/BEP20-compatible as applicable):** `0xE4BECfd60D9917946292E0d535081Dd005117069`
-
 ## Direct crypto purchase (manual fulfillment)
-1. Buyer sends agreed amount (recommended: USDC/SOL/ETH) to the appropriate address above.
-2. Buyer shares tx hash + email/contact + product name.
-3. Seller verifies on-chain and delivers the product archive/files.
+1. Buyer sends agreed amount (recommended: USDC on Solana or Base) to the address for that network.
+2. Buyer emails the tx hash + network/asset + product(s) + delivery contact to **workflowalpha.ai@gmail.com** (no account needed). Or open a [fulfillment request](https://github.com/Reggiebro/oppi-digital-products/issues/new?template=purchase-request.yml).
+3. Seller verifies on-chain and delivers the product archive/files (usually within 24–48h).
+
+Current addresses, prices and flash deal: https://reggiebro.github.io/oppi-digital-products/
 
 > For automated delivery, list on a platform (Gumroad/Lemon Squeezy/Payhip/Etsy) and configure payouts per platform support. These addresses are the preferred crypto payout destinations for this project.

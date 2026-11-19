@@ -185,7 +185,7 @@ Fixed prices, no quote loop. Full offer and terms: [`B2B.md`](B2B.md).
 
 Every B2B order gets a receipt with company name, license ID, and transaction hash. Seats are contractual, not DRM — there is no account system and no telemetry.
 
-Request a license: [B2B intake form](https://github.com/Reggiebro/oppi-digital-products/issues/new?template=b2b-license.yml) · Consumer purchases: [purchase request](https://github.com/Reggiebro/oppi-digital-products/issues/new?template=purchase-request.yml)
+Request a license: [B2B intake form](https://github.com/Reggiebro/oppi-digital-products/issues/new?template=b2b-license.yml) · Consumer purchases: email `workflowalpha.ai@gmail.com` with tx hash (no account) or [purchase request](https://github.com/Reggiebro/oppi-digital-products/issues/new?template=purchase-request.yml)
 
 ---
 
