@@ -39,7 +39,7 @@ Every file already contains the maker disclosure, the live npm command (`npx -y 
 |---|---|---|
 | GitHub Discussions | **LIVE** | Enabled on the repo; showcase thread is discussion #3. |
 | Glama | **LIVE** | https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products |
-| Official MCP Registry | **LIVE** | Already listed; PulseMCP ingests it from here. |
+| Official MCP Registry | **LIVE — 1.0.1** | `io.github.Reggiebro/oppi-digital-products`; bundle rebuilt with flash pricing. PulseMCP ingests it from here. |
 | mcpHQ/awesome-mcp-servers | **MERGED** | PR #896 merged; listing is in the catalog. |
 | npm | **LIVE** | https://www.npmjs.com/package/oppi-digital-products-mcp — `1.0.0`, `npx -y oppi-digital-products-mcp` verified against a real MCP handshake. |
 | GitHub Release tarball | **LIVE + VERIFIED** | `mcp-v1.0.0` release; `npx --allow-remote=all <tarball URL>` answers `tools/list`. |

@@ -7,12 +7,12 @@
     "url": "https://github.com/Reggiebro/oppi-digital-products",
     "source": "github"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packages": [
     {
       "registryType": "mcpb",
-      "identifier": "https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.0/oppi-digital-products.mcpb",
-      "fileSha256": "85be424d13a394a83174a0518ffe2132d3e2336a5ec25c7ad5b4d2dba582ec97",
+      "identifier": "https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.1/oppi-digital-products.mcpb",
+      "fileSha256": "db8aeee0cf2e028b307085c7bfc8b6fe050b9d1dc041b83d5498b2f67a6133cd",
       "transport": {
         "type": "stdio"
       }
