@@ -39,3 +39,4 @@
 
 - Lead scorecard (browser, no signup): https://reggiebro.github.io/oppi-digital-products/scorecard.html
 - Guide: qualifying a freelance lead — https://reggiebro.github.io/oppi-digital-products/guides/qualify-freelance-leads.html
+- Guide: freelance follow-up emails — https://reggiebro.github.io/oppi-digital-products/guides/freelance-follow-up-emails.html
