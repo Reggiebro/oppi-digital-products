@@ -1,17 +1,20 @@
-# Freelance Delivery Prompt Pack (AI Workflows)
+# Freelance Delivery Prompt Pack
 
-A ready-to-use prompt pack for freelancers, consultants, and small agencies to speed up client intake, proposals, project delivery, and communication using ChatGPT/Claude or similar LLMs.
+30 copy-paste prompts covering the full client lifecycle: lead qualification, discovery, proposals and scoping, onboarding, delivery updates, feedback and QA, difficult clients, and growth. Built for ChatGPT/Claude; every prompt has `[BRACKETS]` for your specifics.
 
-## What’s included
-- `prompts.md` — 30+ copy-paste prompts organized by workflow
-- `quickstart.md` — how to use and customize the prompts
-- `listing-copy.md` — product listing copy (Gumroad/Etsy/Payhip) + pricing suggestions
-- `launch-checklist.md` — steps to publish and start selling
+## Free sample
 
-## Suggested positioning
-**Niche:** freelancers/solopreneurs/agencies who need faster client ops (proposals, scope, updates, revisions, handoff).
-**Outcome:** save time, respond professionally, reduce scope creep, deliver consistently.
+The complete lead qualification scorecard prompt, unedited:
+[`previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md`](../previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md)
 
-## License suggestion (set your own before selling)
-- Personal/commercial use for buyer’s own client work: YES
-- Resell/redistribute/share the prompt pack as-is: NO (unless you grant a separate license)
+## What's in the paid archive
+
+- `prompts.md` — all 30 prompts, grouped by workflow
+- `quickstart.md` — how to run and customise them
+- `LICENSE.txt` — personal, team, and agency terms
+
+Delivered as a zip after on-chain payment verification. See the [storefront](https://reggiebro.github.io/oppi-digital-products/#pay) for current pricing.
+
+## Licensing
+
+Personal use with any purchase. [Team and agency licenses](../B2B.md) add seats and client-deliverable rights. Resale and public redistribution are not permitted. Full terms: [`LICENSE-CATALOG.md`](../LICENSE-CATALOG.md).
