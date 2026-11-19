@@ -170,7 +170,17 @@ Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_p
 
 ## B2B / team licensing
 
-Agencies, freelancer communities, and agent builders: open an issue with your use case for bundle/team licensing quotes. Sales intake: https://github.com/Reggiebro/oppi-digital-products/issues/1
+Fixed prices, no quote loop. Full offer and terms: [`B2B.md`](B2B.md).
+
+| License | Price | Seats | Client deliverables |
+|---|---|---|---|
+| **Team** | $79 | up to 10 | no |
+| **Agency** | $149 | up to 25 | yes |
+| **Custom workflow** | $150 | — | built for you |
+
+Every B2B order gets a receipt with company name, license ID, and transaction hash. Seats are contractual, not DRM — there is no account system and no telemetry.
+
+Request a license: [B2B intake form](https://github.com/Reggiebro/oppi-digital-products/issues/new?template=b2b-license.yml) · Consumer purchases: [purchase request](https://github.com/Reggiebro/oppi-digital-products/issues/new?template=purchase-request.yml)
 
 ---
 

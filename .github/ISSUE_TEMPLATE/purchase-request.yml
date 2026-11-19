@@ -1,0 +1,69 @@
+name: Purchase / delivery request
+description: Paid already? Paste the transaction so delivery can be verified on-chain.
+title: "Purchase / delivery request"
+labels: ["purchase-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Pay first, then open this.** Current pricing: $5 USDC per pack / $12 for all 3 (first 5 buyers), then $12/$12/$9 and $29.
+
+        Addresses are on the storefront: https://reggiebro.github.io/oppi-digital-products/#pay
+        Verify on-chain before sending. Only use the addresses published there.
+
+  - type: input
+    id: tx
+    attributes:
+      label: Transaction hash
+      description: The tx that paid for this order.
+      placeholder: 0x… / 5J… / bc1…
+    validations:
+      required: true
+
+  - type: dropdown
+    id: network
+    attributes:
+      label: Network / asset
+      options:
+        - USDC on Solana (SPL)
+        - USDC on Base
+        - USDC on Ethereum
+        - USDC on Polygon
+        - USDT on Tron (TRC20)
+        - ETH
+        - SOL
+        - BTC
+        - LTC
+        - DOGE
+    validations:
+      required: true
+
+  - type: dropdown
+    id: product
+    attributes:
+      label: What you bought
+      options:
+        - Freelance Delivery Prompt Pack ($5 flash)
+        - Notion Freelancer CRM & Pipeline Kit ($5 flash)
+        - AI Content Repurpose Pack ($5 flash)
+        - Bundle — all 3 ($12 flash)
+        - Team license (see B2B.md)
+        - Agency license (see B2B.md)
+    validations:
+      required: true
+
+  - type: input
+    id: contact
+    attributes:
+      label: Where to send the delivery
+      description: GitHub handle, email, or a link you control. No account is required.
+      placeholder: "@handle or email"
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Anything that helps match the payment to you (sender wallet, amount sent, time).
+      placeholder: Optional

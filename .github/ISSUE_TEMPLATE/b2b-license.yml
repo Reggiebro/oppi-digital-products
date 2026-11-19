@@ -1,0 +1,77 @@
+name: B2B / team license request
+description: Team, agency, or custom-workflow licensing. Get an exact quote and a license.
+title: "[B2B] "
+labels: ["b2b"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks — this is the fastest way to get a real number.
+
+        **Tiers:** Team $79 (up to 10 seats, internal use) · Agency $149 (up to 25 seats, client deliverables) · Custom workflow $150.
+        Full details and license terms: [B2B.md](../blob/master/B2B.md)
+
+        You do **not** pay anything here. You'll get one reply with the exact amount and address.
+
+  - type: input
+    id: company
+    attributes:
+      label: Company or team
+      description: Who the license is for. A name is enough if you're independent.
+      placeholder: Studio name / your name
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Tier
+      options:
+        - Team — $79 (up to 10 seats, internal use)
+        - Agency — $149 (up to 25 seats, client deliverables)
+        - Custom workflow — $150 (one workflow, up to 6 prompts)
+        - Not sure / need a quote
+    validations:
+      required: true
+
+  - type: input
+    id: seats
+    attributes:
+      label: Seats needed
+      description: How many people will use the material.
+      placeholder: "8"
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: What you'll use it for
+      description: Two or three sentences is plenty. Mention if the material ends up in client-facing deliverables.
+      placeholder: We're a 6-person content studio. We want the repurposing prompts inside our client onboarding docs.
+    validations:
+      required: true
+
+  - type: input
+    id: contact
+    attributes:
+      label: Where to reach you
+      description: GitHub handle is enough. Add an email or site if your procurement needs it.
+      placeholder: "@handle or email"
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: Receipt fields your finance team needs, deadline, white-label or resale interest, etc.
+      placeholder: Optional
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: License terms
+      options:
+        - label: I've read the license summary in B2B.md and understand seats are contractual, with no resale or public redistribution.
+          required: true

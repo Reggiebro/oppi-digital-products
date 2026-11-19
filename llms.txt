@@ -25,3 +25,11 @@
 - Tron (USDT-TRC20/TRX): TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw
 - Litecoin: ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh
 - Dogecoin: DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31
+
+## Teams & agencies (fixed prices)
+
+- Team license — $79: up to 10 seats, all 3 packs, internal use.
+- Agency license — $149: up to 25 seats, plus use in paid client deliverables.
+- Custom workflow — $150: one workflow, up to 6 prompts, 3 business days.
+- Terms: https://github.com/Reggiebro/oppi-digital-products/blob/master/B2B.md
+- Intake: https://github.com/Reggiebro/oppi-digital-products/issues/new?template=b2b-license.yml

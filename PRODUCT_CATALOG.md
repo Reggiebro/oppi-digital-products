@@ -1,5 +1,7 @@
 # Finished Digital Products Catalog (Workspace)
 
+> **Legacy reference.** Pricing here is the post-flash standard. Canonical, current prices live in [`README.md`](README.md) and on the [storefront](https://reggiebro.github.io/oppi-digital-products/).
+
 **Workspace:** `/root/kripto_agent/deliverables/digital_product/`  
 **Isolation:** Only products in this workspace. No bounty-hunting or previous earning projects referenced.  
 **Payout verification:** All payment endpoints in product materials point strictly to addresses present in `/root/kripto_agent/wallet_registry.json` (oppi wallet). No foreign addresses found.

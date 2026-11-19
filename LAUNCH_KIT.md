@@ -29,6 +29,8 @@ These are final copy, not outlines. Open, read once, post from your own account.
 | [`launch/show-hn.md`](launch/show-hn.md) | Show HN | Title, text, and the first comment to post immediately. |
 | [`launch/reddit-sideproject.md`](launch/reddit-sideproject.md) | r/SideProject | Story format plus a reply bank for predictable objections. |
 
+| [`launch/b2b-outreach.md`](launch/b2b-outreach.md) | LinkedIn / warm email | Fixed team & agency pricing, three motions, objection replies. No cold lists — read the rules section first. |
+
 **Order that wastes the least effort:** Dev.to article → r/SideProject → Show HN. The article gives you something to link that isn't a sales page, which is what both communities actually want.
 
 Every file already contains the maker disclosure, the live npm command (`npx -y oppi-digital-products-mcp`), and the current flash pricing. If pricing changes, update these files in the same commit as the storefront.

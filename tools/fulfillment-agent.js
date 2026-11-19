@@ -63,6 +63,10 @@ function ghJson(args) {
 
 function log(...a) { console.log(...a); }
 
+// Team/agency deals have negotiated pricing and seat terms; the automatic
+// $5/$12 delivery reply would quote the wrong thing. Leave them for manual triage.
+const B2B_RE = /\b(b2b|team license|agency license|per seat|seats?|procurement|purchase order|quotation)\b/i;
+
 const PRODUCTS = [
   { id: 'three-pack-bundle', re: /bundle|all[\s-]?3|all three|everything/i, label: 'the all-3 bundle' },
   { id: 'freelance-delivery-prompt-pack', re: /prompt pack|freelance (delivery )?pack|client[- ]ops|delivery prompts/i, label: 'the Freelance Delivery Prompt Pack' },
@@ -191,6 +195,10 @@ async function main() {
   let acted = 0;
   for (const issue of issues) {
     const text = `${issue.title}\n${issue.body || ''}`;
+    if (B2B_RE.test(text)) {
+      log(`  - #${issue.number} looks like a team/agency deal — left for manual triage`);
+      continue;
+    }
     const tx = extractTx(text);
     if (!tx) continue; // not a purchase request; leave it alone
 
