@@ -21,7 +21,7 @@ Practical, ready-to-use digital products for freelancers, creators, consultants 
 
 ## ⚡ Quick pay (recommended rails — one-click copy)
 
-**During the flash deal, send exactly 5 USDC per pack or 12 USDC for the bundle. USDC on Solana or USDC on Base is cheapest (~$0.01 fee) and settles fast. Then open your [fulfillment request](https://github.com/Reggiebro/oppi-digital-products/issues/new?title=Purchase%2FDelivery%20request) with the tx hash.**
+**During the flash deal, send exactly 5 USDC per pack or 12 USDC for the bundle. USDC on Solana or USDC on Base is cheapest (~$0.01 fee) and settles fast. Then email the tx hash to `workflowalpha.ai@gmail.com` (no account needed) or open a [fulfillment request](https://github.com/Reggiebro/oppi-digital-products/issues/new?title=Purchase%2FDelivery%20request).**
 
 **USDC on Solana** (also accepts SOL):
 ```
@@ -111,7 +111,7 @@ Full archive listings: [`PRODUCT_CATALOG.md`](PRODUCT_CATALOG.md)
 ## How to buy (3 steps, crypto only)
 
 1. **Copy the address** for your asset from the [Quick pay](#-quick-pay-recommended-rails--one-click-copy) box above (or the table below) — *the right asset on the right network* (sending USDC on the wrong chain is the #1 mistake; if unsure, use **USDC on Solana** or **USDC on Base**, both are cheap and reliable).
-2. **Open a fulfillment request** — [create an issue](https://github.com/Reggiebro/oppi-digital-products/issues/new?title=Purchase%2FDelivery%20request) with your **tx hash, network/asset, product(s), and a contact** (email or Telegram). No account or email verification needed beyond that.
+2. **Send your tx hash** to `workflowalpha.ai@gmail.com` with the **network/asset, product(s), and where to deliver** — no account needed. Or, if you prefer a public record, [create an issue](https://github.com/Reggiebro/oppi-digital-products/issues/new?title=Purchase%2FDelivery%20request).
 3. **Get your delivery.** We verify your transaction on-chain against the registry addresses, then deliver the full archive. Paid archives are intentionally **not** publicly downloadable — only the free samples are.
 
 | Pay with | Network | Address |
