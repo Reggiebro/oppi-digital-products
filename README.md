@@ -168,6 +168,11 @@ Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_p
 
 ---
 
+## Free tools
+
+- **[Freelance lead scorecard](https://reggiebro.github.io/oppi-digital-products/scorecard.html)** — score a lead across six criteria in the browser, copy the generated prompt. No signup, nothing sent anywhere.
+- **[How to qualify a freelance lead](https://reggiebro.github.io/oppi-digital-products/guides/qualify-freelance-leads.html)** — the method behind it, with composite examples and red flags.
+
 ## B2B / team licensing
 
 Fixed prices, no quote loop. Full offer and terms: [`B2B.md`](B2B.md).

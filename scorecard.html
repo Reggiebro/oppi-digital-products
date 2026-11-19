@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Freelance Lead Scorecard — should you take this client?</title>
+<meta name="description" content="Score an inbound freelance lead across fit, budget, urgency, scope, decision-maker access and risk. Free, runs in your browser, no signup. Copy the filled prompt into ChatGPT or Claude.">
+<link rel="canonical" href="https://reggiebro.github.io/oppi-digital-products/scorecard.html">
+<style>
+  :root{--ink:#111;--muted:#555;--line:#e5e7eb;--bg:#fff;--soft:#fafafa;--blue:#0b62f4}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  main{max-width:880px;margin:0 auto;padding:32px 20px 64px}
+  h1{font-size:1.8rem;margin:.2rem 0 .4rem}
+  h2{font-size:1.2rem;margin:2rem 0 .5rem}
+  p{margin:.5rem 0}
+  .sub{color:var(--muted);margin-top:0}
+  .card{border:1px solid var(--line);border-radius:12px;padding:18px;margin:16px 0}
+  .row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+  .row:last-child{border-bottom:none}
+  .row label{font-weight:600}
+  .row small{display:block;color:var(--muted);font-weight:400;margin-top:2px}
+  select,textarea{font:inherit;padding:8px;border:1px solid var(--line);border-radius:8px;background:#fff}
+  select{min-width:64px}
+  textarea{width:100%;min-height:110px;resize:vertical}
+  button{font:inherit;font-weight:600;padding:10px 16px;border-radius:9px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+  button.ghost{background:#fff;color:var(--ink)}
+  button:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #bcd3ff;outline-offset:2px}
+  .score{font-size:2.6rem;font-weight:800;line-height:1;margin:0}
+  .verdict{font-weight:700;font-size:1.1rem;margin:.3rem 0 0}
+  .go{color:#0a7b34}.maybe{color:#a16207}.no{color:#b42318}
+  .meter{height:10px;background:var(--line);border-radius:999px;overflow:hidden;margin:12px 0 4px}
+  .meter span{display:block;height:100%;width:0;background:var(--ink);transition:width .2s ease}
+  .out{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:14px;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem}
+  .muted{color:var(--muted);font-size:.9rem}
+  a{color:var(--blue)}
+  .cta{display:inline-block;margin-top:10px;padding:9px 14px;border-radius:9px;background:var(--ink);color:#fff;text-decoration:none;font-weight:600}
+  .criterion{font-size:.9rem;color:var(--muted);margin-top:2px}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <p class="muted"><a href="./">← Oppi Digital Products</a></p>
+  <h1>Freelance lead scorecard</h1>
+  <p class="sub">Six criteria, 1–5 each. Answer honestly — the point is to find the reason to say no before you spend an hour on a proposal. Runs entirely in your browser; nothing is sent anywhere.</p>
+
+  <form id="form" class="card" autocomplete="off">
+    <div class="row">
+      <label for="fit">Fit
+        <small>Can you actually do this well, and do you want to?</small>
+      </label>
+      <select id="fit" data-c="fit"></select>
+    </div>
+    <div class="row">
+      <label for="budget">Budget
+        <small>Stated or strongly implied, and at or above your minimum.</small>
+      </label>
+      <select id="budget" data-c="budget"></select>
+    </div>
+    <div class="row">
+      <label for="urgency">Urgency
+        <small>They have a real deadline or a cost of waiting.</small>
+      </label>
+      <select id="urgency" data-c="urgency"></select>
+    </div>
+    <div class="row">
+      <label for="scope">Scope clarity
+        <small>Deliverable, audience, and success criteria are stated.</small>
+      </label>
+      <select id="scope" data-c="scope"></select>
+    </div>
+    <div class="row">
+      <label for="dm">Decision-maker access
+        <small>You're talking to the person who signs, or their proxy.</small>
+      </label>
+      <select id="dm" data-c="dm"></select>
+    </div>
+    <div class="row">
+      <label for="risk">Low risk
+        <small>5 = payment history is clear, no scope traps, reasonable timeline.</small>
+      </label>
+      <select id="risk" data-c="risk"></select>
+    </div>
+    <p class="muted" style="margin:12px 0 0">Total: <strong id="total">6</strong> / 30</p>
+    <div class="meter" aria-hidden="true"><span id="bar"></span></div>
+  </form>
+
+  <div class="card" aria-live="polite">
+    <p class="score"><span id="big">6</span><span class="muted" style="font-size:1rem">/30</span></p>
+    <p class="verdict" id="verdict">—</p>
+    <p class="criterion" id="weakest"></p>
+  </div>
+
+  <h2>Paste the lead (optional)</h2>
+  <p class="muted">Used only to build the prompt below. It never leaves this page.</p>
+  <textarea id="lead" placeholder="Hi, we're looking for someone to help with…"></textarea>
+
+  <h2>Your next step</h2>
+  <p>Copy this into ChatGPT or Claude to get the reasoning behind the numbers — objections, missing information, and the questions to ask on the call.</p>
+  <button type="button" class="ghost" id="copy">Copy prompt</button>
+  <span class="muted" id="copied" style="margin-left:8px"></span>
+  <div class="out" id="promptOut" style="margin-top:12px"></div>
+
+  <div class="card" style="margin-top:28px">
+    <h2 style="margin-top:0">What the numbers mean</h2>
+    <p><strong>24–30 — take the call.</strong> At least one criterion is strong enough to carry the rest, and nothing is a hard no.</p>
+    <p><strong>18–23 — qualify further.</strong> Usually one unknown: budget not stated, or you're talking to a coordinator. Ask before proposing.</p>
+    <p><strong>Under 18 — decline.</strong> Two low scores are fine. Four are a project that will cost more than it pays.</p>
+    <p class="muted">Score honestly and the tool is useful. Score generously and you've built a machine for talking yourself into bad clients.</p>
+  </div>
+
+  <p class="muted" style="margin-top:28px">This scorecard is one of 30 prompts in the <a href="./#product-prompt-pack">Freelance Delivery Prompt Pack</a>. The full lead-qualification prompt is <a href="https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md">free to read</a>.</p>
+  <a class="cta" href="./#pay">See the packs →</a>
+</main>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Freelance Lead Scorecard",
+  "url": "https://reggiebro.github.io/oppi-digital-products/scorecard.html",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "JavaScript",
+  "description": "Score an inbound freelance lead across fit, budget, urgency, scope, decision-maker access and risk, and generate a prompt for an LLM.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "isAccessibleForFree": true,
+  "publisher": { "@type": "Person", "name": "Reggiebro", "url": "https://github.com/Reggiebro" }
+}
+</script>
+
+<script>
+(function () {
+  'use strict';
+  var labels = {
+    1: '1 — bad', 2: '2 — weak', 3: '3 — unclear', 4: '4 — good', 5: '5 — strong'
+  };
+  var fields = ['fit', 'budget', 'urgency', 'scope', 'dm', 'risk'];
+  var names = {
+    fit: 'Fit', budget: 'Budget', urgency: 'Urgency',
+    scope: 'Scope clarity', dm: 'Decision-maker access', risk: 'Low risk'
+  };
+  var selects = {};
+
+  fields.forEach(function (f) {
+    var el = document.getElementById(f);
+    for (var i = 1; i <= 5; i++) {
+      var o = document.createElement('option');
+      o.value = String(i);
+      o.textContent = labels[i];
+      el.appendChild(o);
+    }
+    el.value = '1';
+    selects[f] = el;
+    el.addEventListener('change', update);
+  });
+
+  function update() {
+    var total = 0, worst = null, worstVal = 6;
+    fields.forEach(function (f) {
+      var v = parseInt(selects[f].value, 10);
+      total += v;
+      if (v < worstVal) { worstVal = v; worst = f; }
+    });
+
+    document.getElementById('total').textContent = total;
+    document.getElementById('big').textContent = total;
+    document.getElementById('bar').style.width = (total / 30 * 100) + '%';
+
+    var v = document.getElementById('verdict');
+    if (total >= 24) { v.textContent = 'Take the call.'; v.className = 'verdict go'; }
+    else if (total >= 18) { v.textContent = 'Qualify further before proposing.'; v.className = 'verdict maybe'; }
+    else { v.textContent = 'Decline, or ask the missing questions first.'; v.className = 'verdict no'; }
+
+    document.getElementById('weakest').textContent =
+      'Weakest: ' + names[worst] + ' (' + worstVal + '/5)' +
+      (worstVal <= 2 ? ' — that is the thing to fix or walk away from.' : '.');
+
+    render(total);
+  }
+
+  function render(total) {
+    var vals = fields.map(function (f) { return names[f] + ': ' + selects[f].value + '/5'; }).join('\n');
+    var lead = document.getElementById('lead').value.trim();
+    var out =
+      'Act as a freelance business consultant. I scored an inbound lead myself; challenge the scores and fill the gaps.\n\n' +
+      'Scores (1–5):\n' + vals + '\nTotal: ' + total + '/30\n\n' +
+      'Lead message / notes:\n' + (lead || '[PASTE LEAD MESSAGE OR NOTES]') + '\n\n' +
+      'My services: [SERVICES]\nMy minimum budget/timeline: [MIN BUDGET], [TIMELINE]\n\n' +
+      'Give me:\n' +
+      '1. Any score you would change, and why.\n' +
+      '2. The three questions I must ask before proposing.\n' +
+      '3. The most likely reason this deal falls apart.\n' +
+      '4. A go / qualify-first / decline recommendation with one sentence of reasoning.';
+    document.getElementById('promptOut').textContent = out;
+  }
+
+  document.getElementById('lead').addEventListener('input', function () {
+    render(parseInt(document.getElementById('total').textContent, 10));
+  });
+
+  document.getElementById('copy').addEventListener('click', function () {
+    var text = document.getElementById('promptOut').textContent;
+    var done = document.getElementById('copied');
+    function ok() { done.textContent = 'Copied.'; setTimeout(function () { done.textContent = ''; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(ok, function () { fallback(); });
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); ok(); } catch (e) { done.textContent = 'Select and copy manually.'; }
+      document.body.removeChild(ta);
+    }
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>
