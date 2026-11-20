@@ -557,7 +557,7 @@ async function main() {
     `| # | Source | Thread | Product fit | Score | Comments |`,
     `|---:|---|---|---|---:|---:|`,
     ...(candidates.length === 0 ? [
-      '**Zero qualified leads this run.** Signals were searched (GitHub OR-combined + HN Algolia) but none passed the relevance/ask gates.',
+      '**Zero qualified leads this run.** Signals were searched (GitHub issues/discussions + HN Algolia + Stack Exchange) but none passed the relevance/ask gates.',
       '',
     ] : []),
     ...candidates.map((c, i) =>
