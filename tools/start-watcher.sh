@@ -9,8 +9,15 @@ mkdir -p "$STATE_DIR"
 
 if pgrep -f "node .*balance-watcher\.js --loop" >/dev/null 2>&1; then
   echo "watcher already running (pid $(pgrep -f 'node .*balance-watcher\.js --loop' | tr '\n' ' '))"
-  exit 0
+else
+  setsid nohup node "$ROOT/tools/balance-watcher.js" --loop >>"$LOG" 2>&1 < /dev/null &
+  echo "started watcher pid $! -> $LOG"
 fi
 
-setsid nohup node "$ROOT/tools/balance-watcher.js" --loop >>"$LOG" 2>&1 < /dev/null &
-echo "started watcher pid $! -> $LOG"
+FULFILL_LOG="$STATE_DIR/auto_fulfill.log"
+if pgrep -f "node .*auto-fulfill-watcher\.js --loop" >/dev/null 2>&1; then
+  echo "fulfill watcher already running (pid $(pgrep -f 'node .*auto-fulfill-watcher\.js --loop' | tr '\n' ' '))"
+else
+  setsid nohup node "$ROOT/tools/auto-fulfill-watcher.js" --loop --interval 120 >>"$FULFILL_LOG" 2>&1 < /dev/null &
+  echo "started fulfill watcher pid $! -> $FULFILL_LOG"
+fi
