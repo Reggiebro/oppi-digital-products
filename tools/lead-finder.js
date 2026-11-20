@@ -56,6 +56,10 @@ const STOREFRONT = 'https://reggiebro.github.io/oppi-digital-products/';
 const WALLET_SOL = '2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp'; // USDC/SOL on Solana
 const WALLET_EVM = '0xE4BECfd60D9917946292E0d535081Dd005117069'; // USDC/ETH on Base/EVM
 
+// Zero-auth, free sources only. Stack Exchange asks are real buyer questions;
+// PullPush/Reddit JSON is intentionally excluded (stale index or 403 from here).
+const SE_SITES = ['freelancing', 'softwarerecs', 'webapps'];
+
 /* ---------------- http helper (HN Algolia) ---------------- */
 
 function httpJson(url, redirects = 0) {
@@ -84,6 +88,14 @@ function httpJson(url, redirects = 0) {
   });
 }
 
+function stripHtml(s) {
+  return String(s || '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&(?:amp|lt|gt|quot|#39|#x27|nbsp);/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 /* ---------------- product mapping ---------------- */
 
 const PRODUCTS = [
@@ -99,6 +111,15 @@ const PRODUCTS = [
       '"freelance CRM" notion',
       '"client tracker" notion template',
       '"notion template for clients"',
+      '"looking for" notion template',
+      '"recommend" notion template',
+      '"need" notion crm',
+      '"looking for" client tracker notion',
+    ],
+    seQueries: [
+      { site: 'freelancing', q: 'notion template client management' },
+      { site: 'softwarerecs', q: 'notion project management' },
+      { site: 'webapps', q: 'notion client tracker' },
     ],
     hnQueries: [
       'freelance CRM Notion',
@@ -107,8 +128,8 @@ const PRODUCTS = [
       'Notion template for freelance clients',
       'best Notion CRM for freelancers',
     ],
-    need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to|template for)/i,
-    match: /notion\s+(template|crm|database|workspace|setup|dashboard)|crm\s+(template|for freelancers)|client\s+(management|pipeline|tracking|tracker)\s*(in\s+)?(notion)?|freelance(r)?\s+(crm|client tracker)/i,
+    need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to)/i,
+    match: /notion[\s\S]{0,60}(crm|client\s+(tracker|management|pipeline)|freelanc)|(freelanc|crm)[\s\S]{0,60}notion|client\s+(management|pipeline|tracking|tracker)[\s\S]{0,30}notion/i,
   },
   {
     id: 'freelance-delivery-prompt-pack',
@@ -122,6 +143,13 @@ const PRODUCTS = [
       '"freelance prompt" system',
       '"AI prompts for freelancers"',
       'prompts for client onboarding',
+      '"looking for" prompts for freelance clients',
+      '"recommend" prompt pack',
+      '"need" proposal prompts',
+    ],
+    seQueries: [
+      { site: 'freelancing', q: 'client proposal template' },
+      { site: 'softwarerecs', q: 'ai prompt manager' },
     ],
     hnQueries: [
       'freelance AI prompt workflow',
@@ -142,6 +170,13 @@ const PRODUCTS = [
       '"repurpose content" workflow',
       '"content repurposing" tool',
       'turn podcast into social posts workflow',
+      '"looking for" content repurposing',
+      '"recommend" content repurposing tool',
+      '"need" turn podcast into posts',
+    ],
+    seQueries: [
+      { site: 'softwarerecs', q: 'content repurposing' },
+      { site: 'webapps', q: 'repurpose content' },
     ],
     hnQueries: ['content repurposing workflow AI', 'repurpose podcast to posts', 'AI content repurpose tool'],
     need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to)/i,
@@ -159,6 +194,12 @@ const PRODUCTS = [
       '"mcp server" commerce',
       '"mcp tool" payment',
       '"mcp server" for selling',
+      '"looking for" mcp server',
+      '"recommend" mcp server',
+      '"mcp server" digital products',
+    ],
+    seQueries: [
+      { site: 'softwarerecs', q: 'mcp server' },
     ],
     hnQueries: [
       'MCP server ecommerce',
@@ -168,12 +209,13 @@ const PRODUCTS = [
       'MCP server payments or checkout',
     ],
     need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to|build(ing)?)/i,
-    match: /mcp\s+(server|tool)\s*(for|that|to)?|model\s+context\s+protocol\s+(server|integration|tool|commerce)|agent\s+(commerce|checkout|payment)|sell(ing)?\s+digital\s+products?\s+(with|via)\s+mcp/i,
+    match: /mcp[\s\S]{0,60}(ecommerce|commerce|payment|checkout|digital\s+products?|sell(?:ing)?)|(ecommerce|commerce|payment|checkout|digital\s+products?|sell(?:ing)?)[\s\S]{0,60}mcp|agent\s+(commerce|checkout|payment)|sell(?:ing)?\s+digital\s+products?/i,
   },
 ];
 
 const SKIP_REPOS = new Set(['Reggiebro/oppi-digital-products']);
-const SKIP_TITLE = /(awesome|curated list|weekly|digest|newsletter|roundup|hiring|job|bounty|for sale|^spec\b|^rfc\b|^research:|^\[collaborators\]|roadmap|changelog|candidates?\b|^daily\b|^ideas\b|use-case inventory|^recommend:|^show (hn|ih)|^launch|tool list|handoff|^submit|submission|^implement|^build\b|^proposal|^intake|migration)/i;
+const SKIP_AUTHORS = new Set(['reggiebro']);
+const SKIP_TITLE = /(show and tell|show hn|zero-dependency agent-commerce|awesome|curated list|weekly|digest|newsletter|roundup|hiring|job|bounty|for sale|^spec\b|^rfc\b|^research:|^\[collaborators\]|roadmap|changelog|candidates?\b|^daily\b|^ideas?\b|backlog|suggestion|feature request|use-case inventory|^recommend:|^show (hn|ih)|^launch|tool list|handoff|^submit|submission|^add\b|^new\b|^introduc|^announc|^implement|^build\b|^proposal|^intake|migration)/i;
 
 // A real ask is short and near the top. Digest/dump issues bury a keyword in 10k chars.
 const MAX_BODY = 4000;
@@ -196,8 +238,16 @@ function sleep(ms) {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 }
 
+function chunk(list, size) {
+  const out = [];
+  for (let i = 0; i < list.length; i += size) out.push(list.slice(i, i + size));
+  return out;
+}
+
 function orCombine(queries) {
-  return '(' + queries.map((q) => `(${q})`).join(' OR ') + ')';
+  // GitHub search returns zero when an OR group contains quoted phrases; unquote
+  // each group so multi-word terms become an AND within that OR branch.
+  return '(' + queries.map((q) => `(${q.replace(/"/g, '')})`).join(' OR ') + ')';
 }
 
 function search(q, attempt = 1) {
@@ -254,13 +304,20 @@ function scoreItem(item, product) {
   if (item.user && (item.user.type === 'Bot' || /\[bot\]$|-bot$/i.test(item.user.login || ''))) {
     return { score: -99, why: ['bot author'] };
   }
+  if (item.user && SKIP_AUTHORS.has(String(item.user.login || '').toLowerCase())) {
+    return { score: -99, why: ['own post'] };
+  }
   if ((item.body || '').length > MAX_BODY) return { score: -99, why: ['body too long (list/dump)'] };
+  if (/(\[for hire\]|\[hiring\]|i (built|made|created|launched|shipped)|we (built|made|created|launched|shipped)|my (product|template|pack|tool)|check out my|gumroad|buy my|selling my|promo code|affiliate)/i.test(text)) {
+    return { score: -99, why: ['seller/self-promo'] };
+  }
 
   if (!product.need.test(text)) return { score: -99, why: ['no explicit ask'] };
   if (!product.match.test(text)) return { score: -99, why: ['product phrase absent'] };
   score += 3; why.push('explicit ask + product phrase');
 
   if (item.isHN) score += 1, why.push('HN Ask/Show signal');
+  if (item.isSE) { score += 1; why.push('Stack Exchange question'); }
 
   const comments = item.comments || 0;
   if (comments >= 1 && comments <= 12) { score += 1; why.push('active/open conversation'); }
@@ -297,10 +354,10 @@ function draft(item, product) {
   const title = item.title.replace(/\s+/g, ' ').trim().slice(0, 90);
   const sampleUrl = `https://github.com/Reggiebro/oppi-digital-products/blob/master/${product.sample}`;
   const storeUrl = `${STOREFRONT}#${product.anchor}`;
-  const isHN = item.isHN;
+  const isDirect = item.isHN || item.isSE;
 
   const lines = [
-    isHN ? `Re: "${title}"` : `> Re: "${title}"`,
+    isDirect ? `Re: "${title}"` : `> Re: "${title}"`,
     '',
     `Disclosure: I built the resource below, so treat this as a biased suggestion.`,
     '',
@@ -342,6 +399,32 @@ async function searchHN(hnQuery, sinceTs) {
   }
 }
 
+/* ---------------- Stack Exchange (free, zero-auth) ---------------- */
+
+async function searchSE(query, site, sinceTs) {
+  const url = 'https://api.stackexchange.com/2.3/search/advanced?'
+    + `order=desc&sort=creation&q=${encodeURIComponent(query)}`
+    + `&site=${encodeURIComponent(site)}&filter=withbody&pagesize=10&fromdate=${sinceTs}`;
+  try {
+    const j = await httpJson(url);
+    return (j.items || []).map((it) => ({
+      isSE: true,
+      seSite: site,
+      title: it.title || '(no title)',
+      body: stripHtml(it.body),
+      html_url: it.link,
+      created_at: new Date((it.creation_date || 0) * 1000).toISOString(),
+      comments: it.answer_count || 0,
+      user: { login: (it.owner && it.owner.display_name) || 'unknown', type: 'User' },
+      repository_url: `https://${site}.stackexchange.com`,
+      number: it.question_id,
+    }));
+  } catch (e) {
+    console.error(`  ! SE search failed: ${site}/${query} — ${String(e.message).split('\n')[0]}`);
+    return [];
+  }
+}
+
 /* ---------------- main ---------------- */
 
 async function main() {
@@ -352,16 +435,21 @@ async function main() {
 
   console.log(`oppi lead finder · last ${DAYS}d · min score ${MIN_SCORE}`);
 
-  // 1) GitHub: OR-combined issue query per product (1 call) + OR-combined discussion query (1 call)
+  // 1) GitHub: OR-combined issue + discussion queries, chunked to stay under
+  // GitHub's 256-character search limit without losing any query variants.
   for (const product of PRODUCTS) {
-    const combined = orCombine(product.queries);
-    const iq = `${combined} state:open is:issue created:>${since} -repo:Reggiebro/oppi-digital-products`;
-    const issues = search(iq);
-    ghCalls++;
+    const issues = [];
+    const disc = [];
+    for (const group of chunk(product.queries, 4)) {
+      const combined = orCombine(group);
+      const iq = `${combined} state:open is:issue created:>${since} -repo:Reggiebro/oppi-digital-products`;
+      issues.push(...search(iq));
+      ghCalls++;
+      const dq = `${combined} created:>${since}`;
+      disc.push(...searchDiscussions(dq));
+      ghCalls++;
+    }
     console.log(`  GH issues [${product.id}] -> ${issues.length}`);
-    const dq = `${combined} created:>${since}`;
-    const disc = searchDiscussions(dq);
-    ghCalls++;
     console.log(`  GH discussions [${product.id}] -> ${disc.length}`);
 
     for (const item of [...issues, ...disc]) {
@@ -402,6 +490,29 @@ async function main() {
           source: 'hackernews',
           product: product.id, productName: product.name,
           score, why, draft: '', isHN: true,
+        });
+      }
+    }
+  }
+
+  // 3) Stack Exchange (free, quota-limited, zero-auth)
+  for (const product of PRODUCTS) {
+    for (const sq of (product.seQueries || [])) {
+      const hits = await searchSE(sq.q, sq.site, sinceTs);
+      console.log(`  SE ${sq.site} "${sq.q}" -> ${hits.length}`);
+      for (const item of hits) {
+        if (SKIP_TITLE.test(item.title || '')) continue;
+        const key = `se:${sq.site}:${item.number}`;
+        const { score, why } = scoreItem(item, product);
+        const prev = seen.get(key);
+        if (prev && prev.score >= score) continue;
+        seen.set(key, {
+          key, repo: `${sq.site}.stackexchange.com`, number: item.number, title: item.title,
+          url: item.html_url, author: item.user && item.user.login,
+          comments: item.comments, created_at: item.created_at,
+          source: `stackexchange:${sq.site}`,
+          product: product.id, productName: product.name,
+          score, why, draft: '', isHN: false, isSE: true,
         });
       }
     }
@@ -482,7 +593,7 @@ async function main() {
     '',
     ...candidates.map((c) => [
       `# ${c.source || c.repo} ${c.repo}#${c.number} — ${c.title.replace(/\n/g, ' ').slice(0, 80)}`,
-      c.isHN ? `# reply manually at ${c.url} using ${c.draftFile}` : `# gh issue comment ${c.number} -R ${c.repo} --body-file ${c.draftFile}`,
+      (c.isHN || c.isSE) ? `# reply manually at ${c.url} using ${c.draftFile}` : `# gh issue comment ${c.number} -R ${c.repo} --body-file ${c.draftFile}`,
       '',
     ].join('\n')),
   ].join('\n');
