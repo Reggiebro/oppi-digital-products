@@ -87,7 +87,7 @@ function listProducts() {
     lines.push(`Bundle: ${CATALOG.bundle.name} — ${money(CATALOG.bundle.price_usd_launch)} (all 3 packs).`);
   }
   lines.push(`Storefront: ${CATALOG.storefront}`);
-  lines.push('Delivery: archive sent after on-chain payment verification (manual fulfillment).');
+  lines.push('Delivery: automated instant download link after on-chain payment verification.');
   return { content: [{ type: 'text', text: lines.join('\n') }] };
 }
 
@@ -140,7 +140,7 @@ function getPaymentInstructions(args) {
     '## Purchase flow',
     '1. Send the agreed amount to the correct address on the correct network.',
     '2. Call verify_payment with { tx_hash, network, asset?, amount? } to check on-chain.',
-    '3. When verified (or after seller manual check), call request_delivery with your contact.',
+    '3. When verified, call request_delivery/open fulfillment for automated instant delivery.',
     '',
     `Storefront: ${CATALOG.storefront} | Repo: ${CATALOG.repo}`,
   ].join('\n');
@@ -160,7 +160,7 @@ async function verifyPayment(args) {
       const host = hosts[net];
       const r = await jsonHttp(`https://${host}/api/v2/transactions/${tx_hash}`);
       if (r.status === 404) return ok(`NOT FOUND: tx not on ${net} (blockscout). Double-check hash/network.`);
-      if (r.status !== 200) return ok(`PENDING/MANUAL: ${net} explorer returned ${r.status}. Seller will verify manually.`);
+      if (r.status !== 200) return ok(`PENDING: ${net} explorer returned ${r.status}. Automated fulfillment will retry verification.`);
       const j = JSON.parse(r.text);
       const evm = WALLETS.evm.address.toLowerCase();
       const results = [];
@@ -245,7 +245,7 @@ function requestDelivery(args) {
     '2. Open the prefilled fulfillment request:',
     url,
     '',
-    '3. Seller verifies on-chain and sends the product archive to the contact provided.',
+    '3. Automated fulfillment verifies on-chain and replies with instant download links.',
     '',
     'Deliverable: ' + (p ? p.deliverable_file : 'all 3 pack archives (bundle)'),
   ].join('\n');

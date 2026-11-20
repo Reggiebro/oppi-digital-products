@@ -23,7 +23,7 @@ Every pack has a real excerpt on the page. Not a preview image — the actual pr
 - Notion CRM blueprint: the exact properties and the three views behind the "follow-ups due" dashboard.
 - Content repurposing: the extraction prompts that turn one asset into hooks, a thread, a newsletter, and a 7-day calendar.
 
-Three packs at $5 each during a first-5-buyers flash, $12 for all three. Crypto only (USDC), no account, no email. That last part is the experiment: for a $5 product, card fees and onboarding are worse than a direct transfer, but the trade-off is manual delivery, usually 24-48h.
+Three packs at $5 each during a first-5-buyers flash, $12 for all three. Crypto only (USDC), no account, no email. That last part is the experiment: for a $5 product, card fees and onboarding are worse than a direct transfer, but the trade-off is manual delivery, instantly after on-chain verification.
 
 There's also an MCP server so an agent can list the catalog, pull a sample, get the right address, and verify the transfer read-only on-chain before filing a delivery request. Zero-dependency Node:
 

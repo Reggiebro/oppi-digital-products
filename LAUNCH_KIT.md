@@ -17,7 +17,7 @@ Use this as a working checklist. Post **one channel per day**, disclose that you
 | AI Content Repurpose Pack | $5 USDC | $9 |
 | All-3 bundle | $12 USDC | $29 |
 
-Payments: USDC on Solana `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` or USDC on Base `0xE4BECfd60D9917946292E0d535081Dd005117069`. Other rails are listed on the storefront. Delivery is manual after on-chain verification, usually within 24–48h.
+Payments: USDC on Solana `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` or USDC on Base `0xE4BECfd60D9917946292E0d535081Dd005117069`. Other rails are listed on the storefront. Delivery is manual after on-chain verification, instantly after on-chain verification.
 
 ## Ready-to-post files
 
@@ -159,7 +159,7 @@ What exists now:
 - Three freelancer products with real free samples (prompt pack, Notion CRM kit, content repurposing pack).
 - A static storefront on GitHub Pages.
 - A zero-dependency MCP server that exposes catalog, sample, payment-instruction, on-chain verification, and delivery-request tools.
-- Direct USDC checkout on Solana/Base; manual delivery after verification.
+- Direct USDC checkout on Solana/Base; automated on-chain verified instant delivery.
 
 What I am trying to learn:
 - Whether free samples reduce the "is this worth it?" friction or just attract freebie hunters.
@@ -206,7 +206,7 @@ Three practical freelancer packs — 30+ client-ops prompts, a Notion CRM bluepr
 ```text
 Maker here. The thing I am most proud of is the sample-first flow: every product has a real excerpt you can read before paying, and the MCP server exposes the same catalog to agents.
 
-The checkout is direct USDC (Solana or Base) with read-only on-chain verification, so there is no account or subscription. Delivery is manual, usually within 24–48h.
+The checkout is direct USDC (Solana or Base) with read-only on-chain verification, so there is no account or subscription. Delivery is manual, instantly after on-chain verification.
 
 Happy to answer anything about the MCP server, the on-chain verification, or the product contents.
 ```

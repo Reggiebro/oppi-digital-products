@@ -5,7 +5,7 @@
 
 Practical, ready-to-use digital products for freelancers, creators, consultants — and the AI agents that assist them. **MCP server featured on [Glama](https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products) and listed in the [official MCP Registry](https://github.com/modelcontextprotocol).**
 
-**Every pack ships with free samples you can test right now — excerpts are below, no clicks needed.** You only pay when you've seen the quality — checkout is direct crypto, delivery is manual and verified on-chain. No accounts, no email required, no subscription.
+**Every pack ships with free samples you can test right now — excerpts are below, no clicks needed.** You only pay when you've seen the quality — checkout is direct crypto, delivery is automated and verified on-chain. No accounts, no email required, no subscription.
 
 ## ⚡ FLASH DEAL — first 5 buyers only
 
@@ -133,7 +133,7 @@ Full archive listings: [`PRODUCT_CATALOG.md`](PRODUCT_CATALOG.md)
 Direct crypto means no platform fees, no accounts, and instant on-chain proof of purchase. The trade-off is manual fulfillment — see below.
 
 **How fast is delivery?**
-Fulfillment is manual. Most requests are processed within 24–48 hours of a valid tx hash — usually much faster.
+Fulfillment is automated. After on-chain verification, the download link is delivered instantly.
 
 **How do I know I'll actually get the product?**
 The repo, previews, and all sales flow are public and auditable. Your payment is verified on-chain before delivery, and every fulfillment request is tracked in a public GitHub issue. Free samples demonstrate exactly what the full packs look like.

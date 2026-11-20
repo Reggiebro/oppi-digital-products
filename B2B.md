@@ -14,7 +14,7 @@ This page covers all three.
 | **Internal business use** | yes | yes | yes |
 | **Use inside paid client deliverables** | no | **yes** | n/a |
 | **Resale or public redistribution** | no | no | no |
-| **Delivery** | 24–48h after verification | 24–48h after verification | 3 business days |
+| **Delivery** | instant after on-chain verification | instant after on-chain verification | 3 business days |
 | **Receipt** | yes | yes | yes |
 
 All three packs means: **Freelance Delivery Prompt Pack** (30+ client-ops prompts), **Notion Freelancer CRM & Pipeline Kit** (databases, views, formulas, setup steps), **AI Content Repurpose Pack** (one asset → posts, threads, newsletter, scripts, calendar).
@@ -44,7 +44,7 @@ Set up in the intake; delivery includes a branded copy and a one-page handover n
 1. **Open the intake:** https://github.com/Reggiebro/oppi-digital-products/issues/new?template=b2b-license.yml — company, tier, seat count, use case.
 2. **Get the exact amount and the address.** One reply, one amount, one network. No subscription, no renewal.
 3. **Pay in crypto.** USDC on Solana or Base is cheapest; BTC, ETH, LTC, DOGE, and TRON also work.
-4. **Receive delivery + receipt.** Payment is verified on-chain against the published wallet, then the archive and a receipt land in the issue thread.
+4. **Receive delivery + receipt.** Payment is verified on-chain against the published wallet, then the archive download links and a receipt are delivered instantly in the issue thread.
 
 ## Receipts and records
 

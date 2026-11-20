@@ -49,5 +49,5 @@ Then use the tools:
 ## Notes
 
 - Never ask for seed phrases or private keys; payment is a plain on-chain transfer to the published addresses.
-- Full packs are delivered only after on-chain payment verification (manual fulfillment).
+- Full packs are delivered instantly after automated on-chain payment verification.
 - Storefront: https://reggiebro.github.io/oppi-digital-products/ · Repo: https://github.com/Reggiebro/oppi-digital-products

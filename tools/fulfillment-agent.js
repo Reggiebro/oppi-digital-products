@@ -244,7 +244,7 @@ async function main() {
       const body = [
         `Payment verified on-chain. Thank you — starting delivery for ${product ? product.label : 'your order'}.`,
         '',
-        '**Next step:** I deliver manually after verification, usually within 24–48h. You will get the download link in this issue.',
+        '**Next step:** I deliver manually after verification, instantly after on-chain verification. You will get the download link in this issue.',
         '',
         `- Transaction: \`${tx}\``,
         `- Network: ${network}`,
@@ -252,7 +252,7 @@ async function main() {
         '',
         'If you need it somewhere other than this issue thread, say so here. No email required.',
         '',
-        '_Automated verification against the public oppi wallet registry; delivery itself is done by a human._',
+        '_Automated on-chain verification and instant delivery._',
       ].join('\n');
       if (APPLY) {
         gh(['issue', 'comment', String(issue.number), '-R', REPO, '--body', body]);

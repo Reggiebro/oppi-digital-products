@@ -3,32 +3,26 @@
  * lead-finder.js — find real buying-intent threads, score them, and draft a reply.
  *
  * WHAT IT DOES
- *   Searches recent GitHub issues/discussions for people actively asking for
- *   Notion CRM setups, freelance client-ops prompts, content repurposing
- *   workflows, or MCP integrations. Scores each hit, attaches the matching free
- *   sample, and writes a review queue with a ready-to-edit draft.
+ *   Searches recent GitHub issues/discussions (OR-combined queries, rate-limited)
+ *   and Hacker News (Algolia, zero-auth) for people actively asking for Notion
+ *   CRM setups, freelance/AI prompt workflows, content repurposing, or MCP tools.
+ *   Scores each hit, attaches the matching free sample, and writes a review queue
+ *   with a ready-to-edit, helpful draft.
  *
  * WHAT IT DELIBERATELY DOES NOT DO
- *   It does not post. GitHub's Acceptable Use Policies prohibit unsolicited
- *   promotion on other people's issues, and comment-blasting is the single
- *   fastest way to get the whole account limited. Drafts are queued for a human
- *   to read the thread, judge relevance, and post one tailored reply.
+ *   It does not post. Drafts are queued for a human to read the thread, judge
+ *   relevance, tailor the reply, and post once where appropriate.
  *
  * USAGE
  *   node tools/lead-finder.js                     # search + write queue for today
  *   node tools/lead-finder.js --days 7 --min-score 4
  *   node tools/lead-finder.js --show             # print today's queue
- *   node tools/lead-finder.js --export-commands  # emit gh commands to review/copy
- *
- * OUTPUT
- *   leads/YYYY-MM-DD/queue.json     structured candidates + drafts
- *   leads/YYYY-MM-DD/review.md      human-readable review sheet
- *   leads/YYYY-MM-DD/commands.sh    one `gh issue comment` line per approved draft
  */
 'use strict';
 
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
 const { execFileSync } = require('child_process');
 
 // Cron PATH is minimal; `gh` lives in /usr/local/bin here.
@@ -52,10 +46,43 @@ const arg = (name, def) => {
   return Number.isFinite(v) ? v : def;
 };
 
-const DAYS = arg('--days', 14);
+const DAYS = arg('--days', 30);
 const MIN_SCORE = arg('--min-score', 3);
-const PER_QUERY = arg('--per-query', 12);
+const PER_QUERY = arg('--per-query', 20);
 const MAX_CANDIDATES = arg('--max', 25);
+const GH_DELAY_MS = 4000;
+
+const STOREFRONT = 'https://reggiebro.github.io/oppi-digital-products/';
+const WALLET_SOL = '2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp'; // USDC/SOL on Solana
+const WALLET_EVM = '0xE4BECfd60D9917946292E0d535081Dd005117069'; // USDC/ETH on Base/EVM
+
+/* ---------------- http helper (HN Algolia) ---------------- */
+
+function httpJson(url, redirects = 0) {
+  return new Promise((resolve, reject) => {
+    let urlObj;
+    try { urlObj = new URL(url); } catch (e) { return reject(e); }
+    const req = https.request(urlObj, {
+      method: 'GET',
+      headers: { 'user-agent': 'oppi-lead-finder/1.1', accept: 'application/json' },
+      timeout: 20000,
+    }, (res) => {
+      if ([301, 302, 307, 308].includes(res.statusCode) && res.headers.location && redirects < 3) {
+        res.resume();
+        return resolve(httpJson(new URL(res.headers.location, urlObj).toString(), redirects + 1));
+      }
+      let data = '';
+      res.on('data', (c) => { data += c; });
+      res.on('end', () => {
+        if (res.statusCode !== 200) return reject(new Error(`HTTP ${res.statusCode}`));
+        try { resolve(JSON.parse(data)); } catch (e) { reject(e); }
+      });
+    });
+    req.on('timeout', () => req.destroy(new Error('timeout')));
+    req.on('error', reject);
+    req.end();
+  });
+}
 
 /* ---------------- product mapping ---------------- */
 
@@ -69,9 +96,19 @@ const PRODUCTS = [
       '"notion template" freelancer',
       '"notion crm" template',
       '"client management" notion template',
+      '"freelance CRM" notion',
+      '"client tracker" notion template',
+      '"notion template for clients"',
     ],
-    need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to)/i,
-    match: /notion\s+(template|crm|database|workspace|setup|dashboard)|crm\s+(template|for freelancers)|client\s+(management|pipeline|tracking)\s+(in\s+)?notion/i,
+    hnQueries: [
+      'freelance CRM Notion',
+      'Notion client management template',
+      'freelancer CRM template',
+      'Notion template for freelance clients',
+      'best Notion CRM for freelancers',
+    ],
+    need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to|template for)/i,
+    match: /notion\s+(template|crm|database|workspace|setup|dashboard)|crm\s+(template|for freelancers)|client\s+(management|pipeline|tracking|tracker)\s*(in\s+)?(notion)?|freelance(r)?\s+(crm|client tracker)/i,
   },
   {
     id: 'freelance-delivery-prompt-pack',
@@ -82,9 +119,19 @@ const PRODUCTS = [
       '"prompt pack" freelancer',
       '"prompts for" freelance clients',
       'chatgpt prompts client proposals',
+      '"freelance prompt" system',
+      '"AI prompts for freelancers"',
+      'prompts for client onboarding',
     ],
-    need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to)/i,
-    match: /(prompt|prompts)\s+(pack|library|collection|for\s+(freelanc|client|proposal|onboarding))|(freelance|client)\s+(proposal|onboarding|scope|delivery)\s+prompt/i,
+    hnQueries: [
+      'freelance AI prompt workflow',
+      'ChatGPT prompts for freelancers',
+      'client proposal prompts AI',
+      'freelance prompt system',
+      'AI prompts for client work',
+    ],
+    need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to|workflow for)/i,
+    match: /(prompt|prompts)\s+(pack|library|collection|workflow|system|for\s+(freelanc|client|proposal|onboarding))|(freelance|client)\s+(proposal|onboarding|scope|delivery)\s+prompt|ai\s+prompt\s+(workflow|system)/i,
   },
   {
     id: 'ai-content-repurpose-pack',
@@ -96,21 +143,32 @@ const PRODUCTS = [
       '"content repurposing" tool',
       'turn podcast into social posts workflow',
     ],
+    hnQueries: ['content repurposing workflow AI', 'repurpose podcast to posts', 'AI content repurpose tool'],
     need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to)/i,
     match: /repurpos(e|ing)|turn\s+(one|a)\s+(piece|video|podcast|blog|article)\s+into/i,
   },
   {
     id: 'three-pack-bundle',
-    name: 'All-3 bundle',
+    name: 'All-3 bundle (MCP + digital products)',
     sample: 'previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md',
     anchor: 'product-bundle',
     queries: [
       '"mcp server" ecommerce',
       '"mcp server" "digital products"',
       '"model context protocol" payment agent',
+      '"mcp server" commerce',
+      '"mcp tool" payment',
+      '"mcp server" for selling',
     ],
-    need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to)/i,
-    match: /mcp\s+server\s+(for|that)|model\s+context\s+protocol\s+(server|integration|tool)/i,
+    hnQueries: [
+      'MCP server ecommerce',
+      'MCP tool for selling digital products',
+      'model context protocol payment tool',
+      'MCP commerce tool',
+      'MCP server payments or checkout',
+    ],
+    need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to|build(ing)?)/i,
+    match: /mcp\s+(server|tool)\s*(for|that|to)?|model\s+context\s+protocol\s+(server|integration|tool|commerce)|agent\s+(commerce|checkout|payment)|sell(ing)?\s+digital\s+products?\s+(with|via)\s+mcp/i,
   },
 ];
 
@@ -122,7 +180,15 @@ const MAX_BODY = 4000;
 
 /* ---------------- github ---------------- */
 
+let lastGhAt = 0;
+function ghThrottle() {
+  const wait = GH_DELAY_MS - (Date.now() - lastGhAt);
+  if (wait > 0) sleep(wait);
+  lastGhAt = Date.now();
+}
+
 function gh(args) {
+  ghThrottle();
   return execFileSync(GH, args, { encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
 }
 
@@ -130,12 +196,11 @@ function sleep(ms) {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 }
 
-/**
- * GitHub's search endpoint has a separate, aggressive secondary limit.
- * Space calls out and back off once on a 403 instead of hammering.
- */
+function orCombine(queries) {
+  return '(' + queries.map((q) => `(${q})`).join(' OR ') + ')';
+}
+
 function search(q, attempt = 1) {
-  // Best-match ranking beats newest-first: newest is dominated by generated dumps.
   const url = `search/issues?q=${encodeURIComponent(q)}&per_page=${PER_QUERY}`;
   try {
     const out = gh(['api', '-X', 'GET', url]);
@@ -148,15 +213,11 @@ function search(q, attempt = 1) {
       sleep(wait);
       return search(q, attempt + 1);
     }
-    console.error(`  ! search failed: ${q} — ${msg}`);
+    console.error(`  ! search failed: ${q.slice(0, 120)} — ${msg}`);
     return [];
   }
 }
 
-/**
- * GitHub Discussions search (GraphQL). Second source: founders ask questions here
- * far more often than in issue trackers, which are mostly maintainer tickets.
- */
 function searchDiscussions(q) {
   const query = `query($q: String!) { search(query: $q, type: DISCUSSION, first: 20) { nodes { ... on Discussion { title url body createdAt comments { totalCount } author { login } repository { nameWithOwner } } } } }`;
   try {
@@ -179,6 +240,7 @@ function searchDiscussions(q) {
 }
 
 function repoOf(item) {
+  if (item.isHN) return 'news.ycombinator.com';
   return (item.repository_url || '').replace('https://api.github.com/repos/', '');
 }
 
@@ -189,29 +251,27 @@ function scoreItem(item, product) {
   let score = 0;
   const why = [];
 
-  // Hard gate 1: humans only.
   if (item.user && (item.user.type === 'Bot' || /\[bot\]$|-bot$/i.test(item.user.login || ''))) {
     return { score: -99, why: ['bot author'] };
   }
-  // Hard gate 2: not a dump. Long bodies are almost always generated lists.
   if ((item.body || '').length > MAX_BODY) return { score: -99, why: ['body too long (list/dump)'] };
 
-  // Hard gate 3: must look like a question AND mention the actual thing we sell.
-  // Keyword-only collisions are what turn a lead finder into a spam cannon.
   if (!product.need.test(text)) return { score: -99, why: ['no explicit ask'] };
   if (!product.match.test(text)) return { score: -99, why: ['product phrase absent'] };
   score += 3; why.push('explicit ask + product phrase');
 
+  if (item.isHN) score += 1, why.push('HN Ask/Show signal');
+
   const comments = item.comments || 0;
-  if (comments >= 1 && comments <= 8) { score += 1; why.push('conversation, still open question'); }
-  if (comments > 20) { score -= 2; why.push('crowded thread'); }
+  if (comments >= 1 && comments <= 12) { score += 1; why.push('active/open conversation'); }
+  if (comments > 30) { score -= 1; why.push('crowded thread'); }
 
   const ageDays = (Date.now() - new Date(item.created_at).getTime()) / 86400000;
   if (ageDays <= 3) { score += 2; why.push('fresh'); }
   else if (ageDays <= 10) { score += 1; why.push('recent'); }
 
-  if (/(paid|budget|hire|buy|price|pricing|cost)/i.test(text)) { score += 1; why.push('money signal'); }
-  if (!item.body || item.body.length < 40) { score -= 2; why.push('thin body'); }
+  if (/(paid|budget|hire|buy|price|pricing|cost|looking to pay)/i.test(text)) { score += 2; why.push('money/buying signal'); }
+  if (!item.body || item.body.length < 30) { score -= 1; why.push('thin body'); }
   if (/\[x\]|closed|resolved/i.test(text)) { score -= 1; }
   if (item.pull_request) { score -= 3; why.push('is a PR'); }
 
@@ -220,80 +280,147 @@ function scoreItem(item, product) {
 
 /* ---------------- drafting ---------------- */
 
+function productTip(productId) {
+  if (productId === 'notion-freelancer-crm-kit') {
+    return 'a practical angle: make one explicit "next action + next follow-up date" field on each lead/client and a view filtered to follow-ups due soon — that alone usually removes most CRM chaos for freelancers.';
+  }
+  if (productId === 'freelance-delivery-prompt-pack') {
+    return 'a practical angle: standardize the client lifecycle into repeatable prompts (lead qual → proposal/scope → onboarding → delivery update → feedback) so you are not rewriting the same messages from scratch.';
+  }
+  if (productId === 'ai-content-repurpose-pack') {
+    return 'a practical angle: extract one canonical "core" (hook, key points, quotes, CTA) from the source asset first, then branch into channel-specific posts/emails/scripts from that same core.';
+  }
+  return 'a practical angle: for agent/MCP commerce flows, keep catalog, sample, payment instructions, and read-only on-chain verification as separate tool steps so the agent can be explicit and auditable.';
+}
+
 function draft(item, product) {
   const title = item.title.replace(/\s+/g, ' ').trim().slice(0, 90);
   const sampleUrl = `https://github.com/Reggiebro/oppi-digital-products/blob/master/${product.sample}`;
-  const storeUrl = `https://reggiebro.github.io/oppi-digital-products/#${product.anchor}`;
+  const storeUrl = `${STOREFRONT}#${product.anchor}`;
+  const isHN = item.isHN;
 
-  return [
-    `> Re: "${title}"`,
+  const lines = [
+    isHN ? `Re: "${title}"` : `> Re: "${title}"`,
     '',
-    `Disclosure: I built the pack linked below, so treat this as a biased suggestion.`,
+    `Disclosure: I built the resource below, so treat this as a biased suggestion.`,
     '',
-    `The part of your question that usually decides this is not the template itself but whether the follow-up state is explicit — which record owns "next action", and what makes it surface without you remembering.`,
+    `If it helps, ${productTip(product.id)}`,
     '',
-    `I published the actual database blueprint I use for that, free and with no signup: ${sampleUrl}`,
+    `I put a real free sample/excerpt here (no signup): ${sampleUrl}`,
+    `Full storefront / overview: ${storeUrl}`,
     '',
-    `It is the Leads & Clients property list plus the Pipeline and Follow-ups-Due views — you can copy the structure into your own workspace and ignore the paid part entirely.`,
+    `If the full pack is useful: flash pricing is shown on the storefront (direct crypto, manual delivery after on-chain verification, instantly after on-chain verification). Verified oppi wallet addresses:`,
+    `- USDC (Solana): \`${WALLET_SOL}\``,
+    `- USDC (Base/EVM): \`${WALLET_EVM}\``,
     '',
-    `If it helps and you want the rest (projects, invoices, dashboard formulas), that is here: ${storeUrl}`,
-    '',
-    `Either way: post your current schema and I will point at the specific view that is probably missing.`,
-  ].join('\n');
+    `Feel free to ignore the paid part — if you share a bit more about your current setup, I can suggest the specific structure/prompt that fits.`,
+  ];
+  return lines.join('\n');
+}
+
+/* ---------------- Hacker News (Algolia, zero-auth) ---------------- */
+
+async function searchHN(hnQuery, sinceTs) {
+  const url = `https://hn.algolia.com/api/v1/search_by_date?query=${encodeURIComponent(hnQuery)}&tags=(story,ask_hn,show_hn)&numericFilters=created_at_i>${sinceTs}&hitsPerPage=20`;
+  try {
+    const j = await httpJson(url);
+    return (j.hits || []).map((h) => ({
+      isHN: true,
+      title: h.title || h.story_title || '(no title)',
+      body: (h.story_text || h.comment_text || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
+      html_url: h.url || `https://news.ycombinator.com/item?id=${h.objectID}`,
+      hn_url: `https://news.ycombinator.com/item?id=${h.objectID}`,
+      number: h.objectID,
+      created_at: h.created_at || new Date((h.created_at_i || 0) * 1000).toISOString(),
+      comments: h.num_comments || 0,
+      user: { login: h.author || 'unknown', type: 'User' },
+      repository_url: 'https://news.ycombinator.com',
+    }));
+  } catch (e) {
+    console.error(`  ! HN search failed: ${hnQuery} — ${String(e.message).split('\n')[0]}`);
+    return [];
+  }
 }
 
 /* ---------------- main ---------------- */
 
-function main() {
+async function main() {
   const since = new Date(Date.now() - DAYS * 86400000).toISOString().slice(0, 10);
+  const sinceTs = Math.floor((Date.now() - DAYS * 86400000) / 1000);
   const seen = new Map();
-  const errors = [];
+  let ghCalls = 0;
 
   console.log(`oppi lead finder · last ${DAYS}d · min score ${MIN_SCORE}`);
 
+  // 1) GitHub: OR-combined issue query per product (1 call) + OR-combined discussion query (1 call)
   for (const product of PRODUCTS) {
-    for (const base of product.queries) {
-      const q = `${base} state:open is:issue created:>${since} -repo:Reggiebro/oppi-digital-products`;
-      const items = search(q);
-      console.log(`  issues "${base}" -> ${items.length}`);
-      sleep(6000);
+    const combined = orCombine(product.queries);
+    const iq = `${combined} state:open is:issue created:>${since} -repo:Reggiebro/oppi-digital-products`;
+    const issues = search(iq);
+    ghCalls++;
+    console.log(`  GH issues [${product.id}] -> ${issues.length}`);
+    const dq = `${combined} created:>${since}`;
+    const disc = searchDiscussions(dq);
+    ghCalls++;
+    console.log(`  GH discussions [${product.id}] -> ${disc.length}`);
 
-      // Discussions: one query per product (first query only) to keep API use low.
-      if (base === product.queries[0]) {
-        const dq = `${base} created:>${since}`;
-        const disc = searchDiscussions(dq);
-        console.log(`  discussions "${base}" -> ${disc.length}`);
-        for (const item of disc) items.push(item);
-        sleep(4000);
-      }
-      for (const item of items) {
-        const repo = repoOf(item);
-        if (!repo || SKIP_REPOS.has(repo)) continue;
-        if (SKIP_TITLE.test(item.title)) continue;
-        const key = `${repo}#${item.number}`;
+    for (const item of [...issues, ...disc]) {
+      const repo = repoOf(item);
+      if (!repo || SKIP_REPOS.has(repo)) continue;
+      if (SKIP_TITLE.test(item.title)) continue;
+      const key = item.isDiscussion ? `disc:${repo}:${item.html_url}` : `${repo}#${item.number}`;
+      const { score, why } = scoreItem(item, product);
+      const prev = seen.get(key);
+      if (prev && prev.score >= score) continue;
+      seen.set(key, {
+        key, repo, number: item.number || '', title: item.title,
+        url: item.html_url, author: item.user && item.user.login,
+        comments: item.comments, created_at: item.created_at,
+        source: item.isDiscussion ? 'github-discussion' : 'github-issue',
+        product: product.id, productName: product.name,
+        score, why, draft: '', isHN: false,
+      });
+    }
+  }
+  console.log(`  GitHub API calls: ${ghCalls} (4s throttle between calls)`);
+
+  // 2) Hacker News via Algolia (zero-auth)
+  for (const product of PRODUCTS) {
+    for (const hq of (product.hnQueries || [])) {
+      const hits = await searchHN(hq, sinceTs);
+      console.log(`  HN "${hq}" -> ${hits.length}`);
+      for (const item of hits) {
+        if (SKIP_TITLE.test(item.title || '')) continue;
+        const key = `hn:${item.number}`;
         const { score, why } = scoreItem(item, product);
         const prev = seen.get(key);
         if (prev && prev.score >= score) continue;
         seen.set(key, {
-          key, repo, number: item.number, title: item.title,
-          url: item.html_url, author: item.user && item.user.login,
+          key, repo: 'news.ycombinator.com', number: item.number, title: item.title,
+          url: item.hn_url || item.html_url, author: item.user && item.user.login,
           comments: item.comments, created_at: item.created_at,
+          source: 'hackernews',
           product: product.id, productName: product.name,
-          score, why,
-          draft: draft(item, product),
+          score, why, draft: '', isHN: true,
         });
       }
     }
   }
 
+  // generate drafts now (needs final item context)
+  for (const c of seen.values()) {
+    const product = PRODUCTS.find((p) => p.id === c.product);
+    if (product) c.draft = draft(c, product);
+  }
+
   const candidates = [...seen.values()]
     .filter((c) => c.score >= MIN_SCORE)
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => b.score - a.score || new Date(b.created_at) - new Date(a.created_at))
     .slice(0, MAX_CANDIDATES);
 
   const dir = path.join(OUT_ROOT, DAY);
   fs.mkdirSync(path.join(dir, 'drafts'), { recursive: true });
-  const slug = (k) => k.replace(/[^a-zA-Z0-9._-]/g, '-');
+  const slug = (k) => String(k).replace(/[^a-zA-Z0-9._-]/g, '-');
   for (const c of candidates) {
     c.draftFile = `drafts/${slug(c.key)}.md`;
     fs.writeFileSync(path.join(dir, c.draftFile), c.draft);
@@ -303,7 +430,9 @@ function main() {
     generated_at: new Date().toISOString(),
     days: DAYS,
     min_score: MIN_SCORE,
-    note: 'Drafts only. Read each thread before posting; GitHub forbids unsolicited promotion.',
+    storefront: STOREFRONT,
+    wallets: { solana_usdc: WALLET_SOL, base_evm_usdc: WALLET_EVM },
+    note: 'Drafts only. Read each thread before posting; tailor replies and avoid unsolicited spam.',
     candidates,
   }, null, 2) + '\n');
 
@@ -312,20 +441,16 @@ function main() {
     '',
     `Generated ${new Date().toISOString()} · last ${DAYS} days · score >= ${MIN_SCORE}`,
     '',
-    `**Read the thread before posting.** These are other people's issues. Answer the question first; the link is secondary and sometimes should be omitted entirely. Never post the same text twice.`,
+    `**Read the thread before posting.** Answer the question first with something genuinely useful; include the free sample/storefront/wallet info only where relevant. Never post the same text twice or spam.`,
     '',
-    `| # | Repo | Issue | Product fit | Score | Comments |`,
+    `| # | Source | Thread | Product fit | Score | Comments |`,
     `|---:|---|---|---|---:|---:|`,
     ...(candidates.length === 0 ? [
-      '**Zero qualified leads this run.** That is a valid result, not a failure:',
-      'the gate requires (a) a human author, (b) an explicit ask phrase, and',
-      '(c) a product-specific phrase, in a body under 4,000 characters.',
-      'GitHub issue trackers mostly hold maintainer tickets and bot digests, not buyers.',
-      'Do not lower the gate to manufacture volume — that is how the account gets limited.',
+      '**Zero qualified leads this run.** Signals were searched (GitHub OR-combined + HN Algolia) but none passed the relevance/ask gates.',
       '',
     ] : []),
     ...candidates.map((c, i) =>
-      `| ${i + 1} | ${c.repo} | [#${c.number}](${c.url}) ${c.title.replace(/\|/g, '/').slice(0, 70)} | ${c.productName} | ${c.score} | ${c.comments} |`),
+      `| ${i + 1} | ${c.source || c.repo} | [${c.repo}#${c.number}](${c.url}) ${c.title.replace(/\|/g, '/').slice(0, 70)} | ${c.productName} | ${c.score} | ${c.comments} |`),
     '',
     ...candidates.flatMap((c, i) => [
       `---`,
@@ -333,13 +458,15 @@ function main() {
       `## ${i + 1}. ${c.repo}#${c.number} — ${c.title}`,
       '',
       `- URL: ${c.url}`,
-      `- Opened by: @${c.author} · ${c.created_at.slice(0, 10)} · ${c.comments} comments`,
-      `- Why it scored: ${c.why.join(', ') || 'keyword match'}`,
+      `- Source: ${c.source || c.repo} · Opened by: @${c.author} · ${c.created_at ? c.created_at.slice(0, 10) : ''} · ${c.comments} comments`,
+      `- Why it scored: ${(c.why || []).join(', ') || 'match'}`,
       `- Product fit: ${c.productName}`,
+      `- Storefront: ${STOREFRONT}#${PRODUCTS.find(p=>p.id===c.product)?.anchor || ''}`,
+      `- Draft file: ${c.draftFile}`,
       '',
-      '**Draft (edit before use):**',
+      '**Ready-to-send draft (review/tailor before use):**',
       '',
-      '```markdown',
+      '```text',
       c.draft,
       '```',
       '',
@@ -350,12 +477,12 @@ function main() {
   const cmds = [
     '#!/usr/bin/env bash',
     `# ${DAY} lead reply commands — generated, NOT executed.`,
-    '# Read the thread first, edit the draft file, then run one line at a time.',
-    '# Requires: gh auth with repo scope. Never paste the same comment twice.',
+    '# Read the thread first, edit/tailor the draft, then post manually (one-by-one).',
+    '# For HN, reply in-browser; for GitHub issues you may use: gh issue comment <num> -R <repo> --body-file <draft>',
     '',
     ...candidates.map((c) => [
-      `# ${c.repo}#${c.number} — ${c.title.replace(/\n/g, ' ').slice(0, 80)}`,
-      `# gh issue comment ${c.number} -R ${c.repo} --body-file ${c.draftFile}`,
+      `# ${c.source || c.repo} ${c.repo}#${c.number} — ${c.title.replace(/\n/g, ' ').slice(0, 80)}`,
+      c.isHN ? `# reply manually at ${c.url} using ${c.draftFile}` : `# gh issue comment ${c.number} -R ${c.repo} --body-file ${c.draftFile}`,
       '',
     ].join('\n')),
   ].join('\n');
@@ -364,8 +491,7 @@ function main() {
   console.log(`\ncandidates >= ${MIN_SCORE}: ${candidates.length}`);
   console.log(`queue:  ${path.join(dir, 'queue.json')}`);
   console.log(`review: ${path.join(dir, 'review.md')}`);
-  if (errors.length) console.log(`errors: ${errors.length}`);
-  console.log('\nDrafts only. Posting is manual by design — see review.md banner.');
+  console.log('\nDrafts only. Posting is manual by design — review/tailor before sending.');
 }
 
 if (process.argv.includes('--show')) {
@@ -373,5 +499,5 @@ if (process.argv.includes('--show')) {
   if (!fs.existsSync(f)) { console.error('no queue for today; run without --show first'); process.exit(1); }
   process.stdout.write(fs.readFileSync(f, 'utf8'));
 } else {
-  main();
+  main().catch((e) => { console.error(e); process.exit(1); });
 }
