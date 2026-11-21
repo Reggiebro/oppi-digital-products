@@ -11,7 +11,7 @@
 
 ## Suggested listing (owner action required)
 - Platform: Gumroad (fastest digital delivery/payout setup) or Lemon Squeezy/Payhip/Etsy
-- Prices: $9–$15 launch per pack; optional 3-pack bundle $29
+- Prices: 5 USDC per pack; 12 USDC for the all-3 bundle
 - Upload corresponding `.tar.gz`, use `listing-copy.md` per product
 
 ## Revenue/cashout reality

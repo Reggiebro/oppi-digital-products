@@ -6,8 +6,8 @@
 ## Offer summary
 - Freelance Delivery Prompt Pack — $12 (30+ prompts for client ops)
 - Notion Freelancer CRM & Pipeline Kit — $12 (lead→project→invoice blueprint)
-- AI Content Repurpose Pack — $9 (1→many content workflows)
-- Bundle (all 3) — $29
+- AI Content Repurpose Pack — $5 USDC (1→many content workflows)
+- Bundle (all 3) — $12 USDC
 **Payment:** Crypto to oppi wallet (SOL `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp`, EVM `0xE4BECfd60D9917946292E0d535081Dd005117069`). Buyer sends tx hash + contact + product for verified delivery.
 
 ## Channels (zero-cost, agent/developer reach)

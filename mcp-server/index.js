@@ -120,7 +120,7 @@ function getPaymentInstructions(args) {
   const price = p ? money(p.price_usd_launch) : 'per-item (see list_products)';
   const deal = CATALOG.flash_deal && CATALOG.flash_deal.active ? CATALOG.flash_deal : null;
   const flashLine = deal
-    ? `⚡ FLASH DEAL (first 5 buyers): pay exactly ${money(deal.price_usd_each)} USDC per single pack or ${money(deal.price_usd_bundle)} USDC for the 3-pack bundle — on Solana or Base USDC.`
+    ? `⚡ FLASH DEAL (active flash sale buyers): pay exactly ${money(deal.price_usd_each)} USDC per single pack or ${money(deal.price_usd_bundle)} USDC for the 3-pack bundle — on Solana or Base USDC.`
     : '';
   const lines = [
     '# Crypto Payment Instructions (oppi wallet)',

@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        **Pay first, then open this.** Current pricing: $5 USDC per pack / $12 for all 3 (first 5 buyers), then $12/$12/$9 and $29.
+        **Pay first, then open this.** Current pricing: $5 USDC per pack / $12 for all 3 (active flash sale buyers), active flash sale: 5 USDC per pack, 12 USDC bundle.
 
         Addresses are on the storefront: https://reggiebro.github.io/oppi-digital-products/#pay
         Verify on-chain before sending. Only use the addresses published there.

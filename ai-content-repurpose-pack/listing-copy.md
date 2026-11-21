@@ -23,8 +23,8 @@ The AI Content Repurpose Pack helps creators, solopreneurs, and marketers transf
 Creators, coaches, founders, and marketers who want consistent content without starting from scratch.
 
 ## Suggested pricing
-- Launch: $9
-- Standard: $15–$19
+- Launch: $5 USDC (active flash sale)
+- Standard: $5 USDC per pack (active flash sale)
 
 ## Tags
 content repurposing, ai prompts, chatgpt prompts, social media templates, newsletter prompts, creator tools, marketing prompts

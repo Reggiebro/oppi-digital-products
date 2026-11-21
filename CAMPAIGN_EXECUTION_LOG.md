@@ -19,7 +19,7 @@
 - **Verification result: PASS** — all payout endpoints in product materials point strictly to existing oppi wallet addresses from `wallet_registry.json`. No foreign payout endpoints found.
 
 ## 3) Campaign design (zero-cost, B2B/agent/developer channels)
-- Direct crypto offer: packs $9–$12, bundle $29; manual fulfillment after on-chain tx verification to oppi addresses.
+- Direct crypto offer: packs 5 USDC, bundle 12 USDC; manual fulfillment after on-chain tx verification to oppi addresses.
 - Channels: GitHub public catalog/release presence; AI agent/tool directories with free submission; developer networks & B2B outreach templates; MCP registries noted as N/A for non-MCP prompt/template products (no false submissions).
 
 ## 4) Autonomous execution actions & results

@@ -8,9 +8,9 @@ Practical, ready-to-use digital products for freelancers, creators, consultants 
 
 **Every pack ships with free samples you can test right now — excerpts are below, no clicks needed.** You only pay when you've seen the quality — checkout is direct crypto, delivery is automated and verified on-chain. No accounts, no email required, no subscription.
 
-## ⚡ FLASH DEAL — first 5 buyers only
+## ⚡ ACTIVE FLASH SALE
 
-**Every single pack: $5 USDC (was $12/$12/$9). All-3 bundle: $12 USDC (was $29).** First **5 paid buyers** only — verified on-chain, auditable in this repo's public fulfillment issues. Pay exactly **5 USDC** per pack (or **12 USDC** for the bundle) — **USDC on Solana or Base** recommended. When 5 verified orders land, launch pricing ($12/$12/$9, bundle $29) resumes.
+**Active flash sale: 5 USDC per individual pack (Freelance Delivery Prompt Pack, Notion Freelancer CRM & Pipeline Kit, AI Content Repurpose Pack) and 12 USDC for the All-3 Bundle.** Pay exact amount in USDC/USDT/crypto to the verified oppi wallet, then open/comment on GitHub Issue #1 with tx hash + chain + pack_id for instant automated fulfillment.
 
 **Live storefront:** https://reggiebro.github.io/oppi-digital-products/
 
@@ -20,9 +20,9 @@ Practical, ready-to-use digital products for freelancers, creators, consultants 
 
 ---
 
-## ⚡ Quick pay (recommended rails — one-click copy)
+## ⚡ Quick pay (verified oppi wallet addresses)
 
-**During the flash deal, send exactly 5 USDC per pack or 12 USDC for the bundle. USDC on Solana or USDC on Base is cheapest (~$0.01 fee) and settles fast. Then email the tx hash to `workflowalpha.ai@gmail.com` (no account needed) or open a [fulfillment request](https://github.com/Reggiebro/oppi-digital-products/issues/new?title=Purchase%2FDelivery%20request).**
+**Send exactly 5 USDC per individual pack or 12 USDC for the All-3 Bundle to a verified oppi wallet address. Then open/comment on GitHub Issue #1 with `tx_hash + chain + pack_id`.**
 
 **USDC on Solana** (also accepts SOL):
 ```
@@ -34,7 +34,7 @@ Practical, ready-to-use digital products for freelancers, creators, consultants 
 0xE4BECfd60D9917946292E0d535081Dd005117069
 ```
 
-Other networks: see the [full address table](#how-to-buy-3-steps-crypto-only) below.
+Other networks: see the verified address table below.
 
 ---
 
@@ -71,7 +71,7 @@ Full excerpts are inline in each product section below 👇
 
 ## The products
 
-### 1. Freelance Delivery Prompt Pack — ~~$12~~ **$5 flash deal**
+### 1. Freelance Delivery Prompt Pack — **5 USDC (flash sale)**
 30+ tested prompts covering the full client lifecycle: lead qualification & discovery, proposals & scoping, onboarding, delivery updates, feedback & QA handling, difficult-client situations, and growth (testimonials, retainer upsells). ChatGPT/Claude-ready, one prompt per real freelance situation.
 
 **Free preview — lead qualification scorecard (1 of 30+):**
@@ -82,7 +82,7 @@ Full excerpts are inline in each product section below 👇
 
 - **Full free sample:** [Lead qualification scorecard](previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md)
 
-### 2. Notion Freelancer CRM & Pipeline Kit — ~~$12~~ **$5 flash deal**
+### 2. Notion Freelancer CRM & Pipeline Kit — **5 USDC (flash sale)**
 A complete Notion workspace blueprint: leads & clients CRM, project tracker, invoice & revenue database, dashboard views (follow-ups, active projects, outstanding invoices), with setup steps and the formulas you need.
 
 **Free preview — Leads & Clients database blueprint (excerpt):**
@@ -92,7 +92,7 @@ A complete Notion workspace blueprint: leads & clients CRM, project tracker, inv
 
 - **Full free sample:** [CRM database blueprint](previews/notion-crm-kit/sample-crm-database-blueprint.md)
 
-### 3. AI Content Repurpose Pack — ~~$9~~ **$5 flash deal**
+### 3. AI Content Repurpose Pack — **5 USDC (flash sale)**
 Turn one asset into many: LinkedIn/X/Instagram posts, threads, newsletters & email sequences, short-form video scripts, blog/SEO outlines, and a 7-day content calendar — all from a single source piece.
 
 **Free preview — core extraction prompts (1 of 7 sections):**
@@ -102,27 +102,29 @@ Turn one asset into many: LinkedIn/X/Instagram posts, threads, newsletters & ema
 
 - **Full free sample:** [Core extraction workflow](previews/content-repurpose-pack/sample-core-extraction.md)
 
-### Bundle — all 3 packs — ~~$29~~ **$12 flash deal**
-The full freelancer + content toolkit in one delivery (first 5 buyers; then $29).
+### Bundle — all 3 packs — **12 USDC (flash sale)**
+The full freelancer + content toolkit in one delivery for 12 USDC.
 
 Full archive listings: [`PRODUCT_CATALOG.md`](PRODUCT_CATALOG.md)
 
 ---
 
-## How to buy (3 steps, crypto only)
+## How to buy (5-step autonomous purchase & fulfillment)
 
-1. **Copy the address** for your asset from the [Quick pay](#-quick-pay-recommended-rails--one-click-copy) box above (or the table below) — *the right asset on the right network* (sending USDC on the wrong chain is the #1 mistake; if unsure, use **USDC on Solana** or **USDC on Base**, both are cheap and reliable).
-2. **Send your tx hash** to `workflowalpha.ai@gmail.com` with the **network/asset, product(s), and where to deliver** — no account needed. Or, if you prefer a public record, [create an issue](https://github.com/Reggiebro/oppi-digital-products/issues/new?title=Purchase%2FDelivery%20request).
-3. **Get your delivery.** We verify your transaction on-chain against the registry addresses, then deliver the full archive. Paid archives are intentionally **not** publicly downloadable — only the free samples are.
+1. **Inspect catalog and choose pack/bundle.** Individual packs are 5 USDC; All-3 Bundle is 12 USDC.
+2. **Send exact USDC/USDT/crypto payment** to the verified oppi wallet address for your chosen network/asset.
+3. **Open/comment on GitHub Issue #1** with `tx_hash + chain + pack_id`: https://github.com/Reggiebro/oppi-digital-products/issues/1
+4. **Receive instant automated fulfillment link** after on-chain verification.
+5. **Keep proof.** Issue #1 is the public fulfillment record.
 
 | Pay with | Network | Address |
 |---|---|---|
-| **USDC / SOL** ⭐ recommended | Solana | `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` |
-| **USDC / ETH** ⭐ recommended | Ethereum · **Base** · BEP20 · Polygon | `0xE4BECfd60D9917946292E0d535081Dd005117069` |
-| USDT / TRX | Tron (TRC20) | `TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw` |
-| BTC | Bitcoin | `bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39` |
-| LTC | Litecoin | `ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh` |
-| DOGE | Dogecoin | `DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31` |
+| SOL / USDC-SPL / USDT-SPL | Solana | `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` |
+| ETH / USDC / USDT | Ethereum · Base · BNB Smart Chain (BEP20) · Polygon | `0xE4BECfd60D9917946292E0d535081Dd005117069` |
+| BTC | Bitcoin (Native) | `bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39` |
+| TRX / USDT-TRC20 / USDC-TRC20 | TRON | `TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw` |
+| LTC | Litecoin (Native) | `ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh` |
+| DOGE | Dogecoin (Native) | `DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31` |
 
 > Prices are in USD equivalents; send the current value of the listed price in the asset you choose.
 
@@ -160,19 +162,19 @@ npx -y oppi-digital-products-mcp
 Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_payment` (read-only public explorer/RPC check), `request_delivery`.
 
 **Minimum purchase steps (agent, 5 steps):**
-1. **Sample:** `list_products` → `get_free_sample` (`{"product":"<id>"}`) to confirm fit.
-2. **Instructions:** `get_payment_instructions` (`{"product":"<id-or-bundle>"}`) for exact amount, recommended rail, and verified addresses. **Active flash deal (first 5 verified buyers):** send exactly **5 USDC** per pack or **12 USDC** for the bundle — **USDC on Solana or Base recommended** (then $12/$12/$9, bundle $29).
-3. **Pay (external, human/wallet):** transfer the exact amount to the correct address/network. No seed phrases/private keys; no signing/broadcast by the agent.
-4. **Verify (read-only, best-effort):** `verify_payment` (`{"tx_hash":"...","network":"solana|ethereum|base|polygon|bitcoin|tron|litecoin|dogecoin","asset":"USDC"}`) — public-API check (may be VERIFIED/PENDING/MANUAL).
-5. **Fulfill:** `request_delivery` (`{product, tx_hash, network, asset, amount, contact}`) returns a **prefilled GitHub issue URL** — fulfillment is triggered when that issue is **opened/submitted**. Alternatively email tx hash + network/asset + product(s) + delivery contact to `workflowalpha.ai@gmail.com`. Automated fulfillment verifies on-chain and delivers the download link.
+1. **Inspect catalog:** `list_products` → `get_free_sample` (`{"product":"<id>"}`) to confirm fit.
+2. **Choose pack/bundle:** select an individual pack (5 USDC) or the All-3 Bundle (12 USDC).
+3. **Send exact USDC/USDT/crypto payment** to the verified oppi wallet address for the chosen network/asset. No seed phrases/private keys; no signing/broadcast by the agent.
+4. **Open/comment on GitHub Issue #1** with `tx_hash + chain + pack_id`: https://github.com/Reggiebro/oppi-digital-products/issues/1
+5. **Receive instant automated fulfillment link** after on-chain verification.
 
-**Verified oppi wallet addresses (public-only, match `mcp-server/wallets.json` / wallet registry):**
-- Solana (USDC/SOL, recommended): `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp`
-- EVM ethereum/base/bep20/polygon (USDC/ETH, Base recommended, same address): `0xE4BECfd60D9917946292E0d535081Dd005117069`
-- Tron (USDT-TRC20/TRX): `TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw`
-- Bitcoin (BTC): `bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39`
-- Litecoin (LTC): `ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh`
-- Dogecoin (DOGE): `DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31`
+**Verified oppi wallet addresses (exact):**
+- Solana (SOL, USDC-SPL, USDT-SPL): 2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp
+- EVM Multi-Chain (ETH, Base, BNB Smart Chain BEP20, Polygon, USDC/USDT): 0xE4BECfd60D9917946292E0d535081Dd005117069
+- Bitcoin (BTC Native): bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39
+- TRON (TRX, USDT-TRC20, USDC-TRC20): TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw
+- Litecoin (LTC Native): ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh
+- Dogecoin (DOGE Native): DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31
 
 **Agent skill:** [`skills/oppi-digital-products/SKILL.md`](skills/oppi-digital-products/SKILL.md) (canonical; root [`SKILL.md`](SKILL.md) pointer) — copy into your agent's skills directory.
 

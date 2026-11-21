@@ -49,5 +49,5 @@ Why crypto-only: for a $5 product, card processing plus onboarding is a worse de
 
 What's free: all three samples are full prompts/templates, no signup. If the sample is weak, I'd rather hear that than have someone pay $5 and find out.
 
-Current flash pricing is $5 per pack / $12 for all three for the first five buyers, then $12/$12/$9 and $29. Orders are tracked in public GitHub issues, so the count is checkable.
+Current flash pricing is $5 USDC per pack / $12 USDC all-3 bundle for the first five buyers, active flash sale: 5 USDC per pack, 12 USDC bundle. Orders are tracked in public GitHub issues, so the count is checkable.
 ```

@@ -8,10 +8,10 @@
 - Purchase / fulfillment: email tx hash + network/product/contact to workflowalpha.ai@gmail.com (no account), or open https://github.com/Reggiebro/oppi-digital-products/issues/new?template=purchase-request.yml
 
 ## Products
-- [Freelance Delivery Prompt Pack — $5 flash deal, first 5 buyers (then $12)](https://reggiebro.github.io/oppi-digital-products/): 30+ prompts for leads, proposals, scope, delivery, revisions, client comms. Free sample: previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md
-- [Notion Freelancer CRM & Pipeline Kit — $5 flash deal, first 5 buyers (then $12)](https://reggiebro.github.io/oppi-digital-products/): leads/clients CRM, projects, invoices/revenue, dashboard blueprint. Free sample: previews/notion-crm-kit/sample-crm-database-blueprint.md
-- [AI Content Repurpose Pack — $5 flash deal, first 5 buyers (then $9)](https://reggiebro.github.io/oppi-digital-products/): turn one asset into posts, threads, emails, scripts, SEO content, 7-day calendar. Free sample: previews/content-repurpose-pack/sample-core-extraction.md
-- Bundle (all 3) — $12 flash deal for first 5 buyers (then $29).
+- [Freelance Delivery Prompt Pack — $5 flash deal, active flash sale buyers (5 USDC active flash sale)](https://reggiebro.github.io/oppi-digital-products/): 30+ prompts for leads, proposals, scope, delivery, revisions, client comms. Free sample: previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md
+- [Notion Freelancer CRM & Pipeline Kit — $5 flash deal, active flash sale buyers (5 USDC active flash sale)](https://reggiebro.github.io/oppi-digital-products/): leads/clients CRM, projects, invoices/revenue, dashboard blueprint. Free sample: previews/notion-crm-kit/sample-crm-database-blueprint.md
+- [AI Content Repurpose Pack — $5 flash deal, active flash sale buyers (5 USDC active flash sale)](https://reggiebro.github.io/oppi-digital-products/): turn one asset into posts, threads, emails, scripts, SEO content, 7-day calendar. Free sample: previews/content-repurpose-pack/sample-core-extraction.md
+- Bundle (all 3) — $12 flash deal for active flash sale buyers (12 USDC flash sale).
 
 ## For AI agents
 - [MCP server install](https://github.com/Reggiebro/oppi-digital-products/tree/master/mcp-server): `npx -y oppi-digital-products-mcp` — tools: list_products, get_free_sample, get_payment_instructions, verify_payment, request_delivery.

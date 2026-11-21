@@ -10,12 +10,12 @@ Use this as a working checklist. Post **one channel per day**, disclose that you
 
 ## Current offer (keep this consistent everywhere)
 
-| Product | Flash price (first 5 buyers) | Standard price |
+| Product | Flash price (active flash sale buyers) | Standard price |
 |---|---:|---:|
 | Freelance Delivery Prompt Pack | $5 USDC | $12 |
 | Notion Freelancer CRM & Pipeline Kit | $5 USDC | $12 |
-| AI Content Repurpose Pack | $5 USDC | $9 |
-| All-3 bundle | $12 USDC | $29 |
+| AI Content Repurpose Pack | $5 USDC | $5 USDC |
+| All-3 bundle | $12 USDC | $12 USDC |
 
 Payments: USDC on Solana `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` or USDC on Base `0xE4BECfd60D9917946292E0d535081Dd005117069`. Other rails are listed on the storefront. Delivery is manual after on-chain verification, instantly after on-chain verification.
 
@@ -111,7 +111,7 @@ Maker here. A few implementation notes:
 - The server is read-only for balances and verification; it never signs or holds keys.
 - `verify_payment` checks the tx against the published wallet address and network, then `request_delivery` builds a GitHub issue URL with the tx hash and product.
 - The free samples are the actual prompts/templates, not screenshots.
-- Current flash pricing is $5 per pack / $12 bundle for the first five buyers; standard pricing after that.
+- Current flash pricing is $5 USDC per pack / $12 USDC bundle for the first five buyers; standard pricing after that.
 
 Happy to answer questions about the MCP wiring or the on-chain check.
 ```

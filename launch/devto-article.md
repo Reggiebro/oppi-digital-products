@@ -47,7 +47,7 @@ Two decisions matter more than the implementation:
 
 **1. Ambiguity must fail closed.** The tool returns positive verdicts only for explicit matches (`VERIFIED on …`, `FOUND payment address in …`). Anything else — pending, not found, RPC error — returns a manual-review path. A checkout that auto-confirms on a network error is worse than a checkout with no automation, because the seller ships product for free.
 
-**2. Confirmation is not delivery.** Verification returns a verdict; `request_delivery` only builds a prefilled GitHub issue URL. Final delivery stays manual. For a $5–$29 product that sounds like leaving money on the table, and it is the part I would automate next, but shipping an auto-delivery path on top of best-effort explorer reads is how you send the same archive twice or send it to a wrong-network payment.
+**2. Confirmation is not delivery.** Verification returns a verdict; `request_delivery` only builds a prefilled GitHub issue URL. Final delivery stays manual. For a $5 USDC/$12 USDC product that sounds like leaving money on the table, and it is the part I would automate next, but shipping an auto-delivery path on top of best-effort explorer reads is how you send the same archive twice or send it to a wrong-network payment.
 
 ## What broke in practice
 
@@ -64,7 +64,7 @@ That bug is worth generalizing: any monitoring that reports absence of events mu
 Three things did more for conversion than any copy change:
 
 1. **Real excerpts inline.** Not a "what's inside" list. The lead-qualification prompt is on the page, in full.
-2. **Price anchoring with an end condition.** "First 5 buyers at $5, then $12" is checkable, because orders are public issues.
+2. **Price anchoring with an end condition.** "Active flash sale: $5 USDC per pack / $12 USDC bundle" is checkable because orders and fulfillment are public in GitHub issues.
 3. **One CTA per product.** Every card links to the payment box rather than to a separate checkout page, so the buyer never loses the address they just read.
 
 The structured data (`Product` + `Offer` + `FAQPage` in one `@graph`) and `llms.txt` are cheap to add and make the catalog legible to both search engines and agents. The `/.well-known/agent.json` file is the same idea for tool discovery.

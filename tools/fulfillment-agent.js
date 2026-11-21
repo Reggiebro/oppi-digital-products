@@ -64,7 +64,7 @@ function ghJson(args) {
 function log(...a) { console.log(...a); }
 
 // Team/agency deals have negotiated pricing and seat terms; the automatic
-// $5/$12 delivery reply would quote the wrong thing. Leave them for manual triage.
+// $5 USDC/$12 USDC delivery reply would quote the wrong thing. Leave them for manual triage.
 const B2B_RE = /\b(b2b|team license|agency license|per seat|seats?|procurement|purchase order|quotation)\b/i;
 
 const PRODUCTS = [

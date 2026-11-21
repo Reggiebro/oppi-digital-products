@@ -60,7 +60,7 @@
       "litecoin": "ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh",
       "dogecoin": "DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31"
     },
-    "note": "Addresses are public-only and mirror the project wallet registry (oppi wallet). Active flash deal: $5 USDC per pack / $12 bundle (first 5 verified buyers). Full products are delivered after on-chain payment verification."
+    "note": "Addresses are public-only and mirror the project wallet registry (oppi wallet). Active flash sale: 5 USDC per individual pack / 12 USDC for the all-3 bundle. Full products are delivered after on-chain payment verification."
   },
   "pricing": {
     "freelance-delivery-prompt-pack": 5,
@@ -68,12 +68,12 @@
     "ai-content-repurpose-pack": 5,
     "three-pack-bundle": 12,
     "currency": "USD-equivalent in crypto (USDC preferred)",
-    "flash_deal": {
+    "flash_sale": {
       "active": true,
-      "name": "First-5-Buyers Flash Deal",
-      "limit": "first 5 paid buyers (verified on-chain)",
-      "payment": "send exactly 5 USDC per pack or 12 USDC for the bundle \u2014 USDC on Solana or Base recommended",
-      "after_deal": "launch prices $12/$12/$9, bundle $29"
+      "name": "Active Flash Sale",
+      "price_per_pack_usdc": 5,
+      "bundle_price_usdc": 12,
+      "payment": "send exactly 5 USDC per individual pack or 12 USDC for the all-3 bundle - USDC on Solana or Base recommended"
     }
   }
 }

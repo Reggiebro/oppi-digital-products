@@ -26,7 +26,7 @@ Digital download (template spec/guide). Duplicate/build in your own Notion works
 
 ## Suggested pricing
 - Launch: $12
-- Standard: $19–$29
+- Standard: $5 USDC per pack / $12 USDC bundle (active flash sale)
 
 ## Tags
 notion template, freelancer crm, client tracker, project management, invoice tracker, notion dashboard, freelance pipeline

@@ -69,7 +69,7 @@ Oppi Digital Products
 - One follow-up maximum, 5–7 days later, and only if they opened/replied.
 - Every message names the price. "Let's jump on a call" for a $79 product wastes their time.
 - Include an opt-out line if you send email: "Reply 'no' and I won't write again."
-- No fake deadlines. The "first 5 buyers" flash is real and checkable; inventing scarcity destroys the one trust signal this store has.
+- No fake deadlines. The "active flash sale buyers" flash is real and checkable; inventing scarcity destroys the one trust signal this store has.
 
 ## Objection replies
 

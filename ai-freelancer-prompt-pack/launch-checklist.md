@@ -13,7 +13,7 @@
 ## 3) Package the product
 - [ ] Zip the folder: `ai-freelancer-prompt-pack` (README, prompts, quickstart, listing copy optional)
 - [ ] Add a cover/thumbnail image (Canva) and 2-3 preview screenshots/mockups
-- [ ] Set price (suggested launch: $9–$15)
+- [ ] Set price (active flash sale: $5 USDC per pack, $12 USDC bundle)
 
 ## 4) Publish listing
 - [ ] Use title/description/tags from `listing-copy.md`
