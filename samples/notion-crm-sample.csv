@@ -1,0 +1,4 @@
+Client,Company,Email,Stage,Deal Value (USDC),Next Action,Due Date,Source,Notes
+Acme Studio,Acme Studio,ops@acme.example,Discovery,1200,Send proposal draft,2026-11-24,Referral,Needs landing page + CRM setup
+North Dental,North Dental,hello@northdental.example,Proposal Sent,800,Follow up on proposal,2026-11-22,Cold Email,Asked for 2-week delivery
+Lumen Media,Lumen Media,team@lumen.example,Won,500,Send onboarding form,2026-11-21,Upwork,Bundle: prompts + content pack
