@@ -45,4 +45,11 @@ jobs:
         run: ./mcp-publisher login github-oidc
 
       - name: Publish server to MCP Registry
-        run: ./mcp-publisher publish
+        run: |
+          set -euo pipefail
+          version="$(python3 -c "import json;print(json.load(open('server.json'))['version'])")"
+          if curl -fsS "https://registry.modelcontextprotocol.io/v0/servers?search=${version}" | grep -q "io.github.Reggiebro/oppi-digital-products"; then
+            echo "Version ${version} already published — skipping duplicate publish."
+            exit 0
+          fi
+          ./mcp-publisher publish
