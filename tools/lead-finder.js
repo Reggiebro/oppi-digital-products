@@ -3,11 +3,11 @@
  * lead-finder.js — find real buying-intent threads, score them, and draft a reply.
  *
  * WHAT IT DOES
- *   Searches recent GitHub issues/discussions (OR-combined queries, rate-limited)
- *   and Hacker News (Algolia, zero-auth) for people actively asking for Notion
- *   CRM setups, freelance/AI prompt workflows, content repurposing, or MCP tools.
- *   Scores each hit, attaches the matching free sample, and writes a review queue
- *   with a ready-to-edit, helpful draft.
+ *   Searches recent GitHub issues/discussions, Hacker News stories/comments
+ *   (Algolia), Stack Exchange, and Dev.to tags for freelancers and AI builders
+ *   actively asking for Notion CRM setups, client-delivery workflows, content
+ *   repurposing, or MCP prompt packs. Scores each hit, attaches the matching
+ *   free sample, and writes a value-first reply draft for human review.
  *
  * WHAT IT DELIBERATELY DOES NOT DO
  *   It does not post. Drafts are queued for a human to read the thread, judge
@@ -53,12 +53,17 @@ const MAX_CANDIDATES = arg('--max', 25);
 const GH_DELAY_MS = 4000;
 
 const STOREFRONT = 'https://reggiebro.github.io/oppi-digital-products/';
+const GIST_SAMPLE = 'https://gist.github.com/Reggiebro/85122464c52cc24198ce7c1ef1828636';
 const WALLET_SOL = '2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp'; // USDC/SOL on Solana
 const WALLET_EVM = '0xE4BECfd60D9917946292E0d535081Dd005117069'; // USDC/ETH on Base/EVM
 
-// Zero-auth, free sources only. Stack Exchange asks are real buyer questions;
-// PullPush/Reddit JSON is intentionally excluded (stale index or 403 from here).
-const SE_SITES = ['freelancing', 'softwarerecs', 'webapps'];
+// Zero-auth, free sources only. Broad "ask" signal; product match does the
+// qualification, so a freelancer describing a messy workflow is not discarded
+// just because they did not write one exact phrase.
+const ASK_RE = /(looking for|searching for|in search of|need(?:ing)?\s+(?:a|an|some|help|advice|recommendations?|templates?|tools?|workflow|system)|want(?:ing)?\s+(?:a|an|to)|trying to\s+(?:find|build|set up|automate|figure out)|recommend(?:ations?|\s+me|\s+a|\s+any)?|suggest(?:ions?|\s+me)?|any(?:one)?\s+(?:know|using|have|tried|recommend)|what\s+(?:do|would)\s+you\s+(?:use|recommend)|how\s+(?:do|can|should)\s+(?:i|we|you)|best\s+(?:way|tool|template|app|setup|workflow)|where\s+(?:can|do)\s+i\s+(?:find|get)|is there\s+(?:a|an|any)|alternatives?\s+to|help\s+(?:me|with)|advice|struggl|drown|overwhelm|chaos|messy|manual(?:ly)?|waste\s+(?:so much\s+)?time|set\s?up\s+(?:a|my|our)|manag(?:e|ing)\s+(?:my|our|clients?)|track(?:ing)?\s+(?:my|our|clients?|leads?)|template\s+for|workflow\s+for|system\s+for|tool\s+for|automat(?:e|ing)|repurpos(?:e|ing)|prompt\s+pack|looking to\s+(?:buy|pay|hire|find))/i;
+
+const SE_SITES = ['freelancing', 'softwarerecs', 'webapps', 'projectmanagement', 'stackoverflow', 'video'];
+const DEV_DISCOVERY_TAGS = ['discuss', 'help', 'ask'];
 
 /* ---------------- http helper (HN Algolia) ---------------- */
 
@@ -105,31 +110,34 @@ const PRODUCTS = [
     sample: 'previews/notion-crm-kit/sample-crm-database-blueprint.md',
     anchor: 'product-notion-crm',
     queries: [
-      '"notion template" freelancer',
-      '"notion crm" template',
-      '"client management" notion template',
-      '"freelance CRM" notion',
-      '"client tracker" notion template',
-      '"notion template for clients"',
-      '"looking for" notion template',
-      '"recommend" notion template',
-      '"need" notion crm',
-      '"looking for" client tracker notion',
+      'notion crm freelancer',
+      'notion template client',
+      'notion client tracker',
+      'notion freelance workflow',
+      'notion client onboarding',
+      'notion proposal tracker',
+      'notion project management freelancer',
+      'notion database clients',
+      'notion template client management',
+      'notion freelancer business',
     ],
     seQueries: [
-      { site: 'freelancing', q: 'notion template client management' },
-      { site: 'softwarerecs', q: 'notion project management' },
-      { site: 'webapps', q: 'notion client tracker' },
+      { site: 'freelancing', q: 'notion client management' },
+      { site: 'webapps', q: 'notion crm' },
+      { site: 'projectmanagement', q: 'notion freelancer' },
+      { site: 'softwarerecs', q: 'notion crm template' },
     ],
     hnQueries: [
-      'freelance CRM Notion',
-      'Notion client management template',
-      'freelancer CRM template',
-      'Notion template for freelance clients',
-      'best Notion CRM for freelancers',
+      'Notion CRM freelancer',
+      'Notion client tracker',
+      'Notion template freelance',
+      'Notion client onboarding',
+      'Notion freelance workflow',
     ],
+    hnCommentQueries: ['"notion crm"', '"notion template" freelance', '"client tracker" notion', '"notion" freelancer'],
+    devTags: ['notion', 'freelancing', 'productivity'],
     need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to)/i,
-    match: /notion[\s\S]{0,60}(crm|client\s+(tracker|management|pipeline)|freelanc)|(freelanc|crm)[\s\S]{0,60}notion|client\s+(management|pipeline|tracking|tracker)[\s\S]{0,30}notion/i,
+    match: /notion[\s\S]{0,160}(crm|client|freelanc|pipeline|tracker|proposal|onboard|project|template|database)|(freelanc|crm|client\s+(management|tracker|pipeline|onboarding)|proposal|onboarding)[\s\S]{0,160}notion/i,
   },
   {
     id: 'freelance-delivery-prompt-pack',
@@ -137,29 +145,41 @@ const PRODUCTS = [
     sample: 'previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md',
     anchor: 'product-prompt-pack',
     queries: [
-      '"prompt pack" freelancer',
-      '"prompts for" freelance clients',
-      'chatgpt prompts client proposals',
-      '"freelance prompt" system',
-      '"AI prompts for freelancers"',
-      'prompts for client onboarding',
-      '"looking for" prompts for freelance clients',
-      '"recommend" prompt pack',
-      '"need" proposal prompts',
+      'freelancer prompt pack',
+      'client onboarding prompts',
+      'proposal prompts chatgpt',
+      'client delivery workflow prompt',
+      'prompt template client updates',
+      'AI prompts freelance business',
+      'mcp prompt pack',
+      'mcp prompt library',
+      'client delivery workflow freelancer',
+      'client onboarding workflow freelancer',
+      'freelance proposal template',
+      'freelance scope of work template',
+      'client handoff template freelancer',
+      'how to charge freelance clients',
     ],
     seQueries: [
       { site: 'freelancing', q: 'client proposal template' },
+      { site: 'freelancing', q: 'client onboarding' },
       { site: 'softwarerecs', q: 'ai prompt manager' },
+      { site: 'pm', q: 'client delivery workflow' },
     ],
     hnQueries: [
       'freelance AI prompt workflow',
       'ChatGPT prompts for freelancers',
       'client proposal prompts AI',
-      'freelance prompt system',
-      'AI prompts for client work',
+      'freelance client delivery workflow',
+      'client onboarding freelance',
+      'how to charge freelance clients AI',
+      'freelance pricing scope',
+      'MCP prompt pack',
     ],
+    hnCommentQueries: ['"prompt pack"', '"prompt library" freelance', '"client onboarding" freelance', '"client delivery" freelance', '"how to charge" clients freelance'],
+    devTags: ['ai', 'freelancing', 'freelance', 'promptengineering', 'chatgpt', 'productivity'],
     need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to|workflow for)/i,
-    match: /(prompt|prompts)\s+(pack|library|collection|workflow|system|for\s+(freelanc|client|proposal|onboarding))|(freelance|client)\s+(proposal|onboarding|scope|delivery)\s+prompt|ai\s+prompt\s+(workflow|system)/i,
+    match: /prompts?[\s\S]{0,160}(pack|library|collection|workflow|system|template|freelanc|client|proposal|onboard|delivery|scope|mcp|agent)|(freelanc|client|proposal|onboard|delivery|scope)[\s\S]{0,160}prompts?|(?:freelanc|consultant|agency|client)[\s\S]{0,160}(delivery workflow|onboard(?:ing)? (?:workflow|process|template|checklist)|proposal (?:template|workflow)|scope (?:of work|creep)|client handoff|how (?:to|do) (?:i|you) charg|pric(?:e|ing) (?:clients|projects|work))/i,
   },
   {
     id: 'ai-content-repurpose-pack',
@@ -167,58 +187,72 @@ const PRODUCTS = [
     sample: 'previews/content-repurpose-pack/sample-core-extraction.md',
     anchor: 'product-repurpose-pack',
     queries: [
-      '"repurpose content" workflow',
-      '"content repurposing" tool',
-      'turn podcast into social posts workflow',
-      '"looking for" content repurposing',
-      '"recommend" content repurposing tool',
-      '"need" turn podcast into posts',
+      'repurpose content workflow',
+      'content repurposing automation',
+      'turn podcast into posts',
+      'repurpose blog into social',
+      'content atomization workflow',
+      'one video many posts',
+      'repurpose webinar content',
+      'content recycling AI',
     ],
     seQueries: [
-      { site: 'softwarerecs', q: 'content repurposing' },
       { site: 'webapps', q: 'repurpose content' },
+      { site: 'softwarerecs', q: 'content repurposing' },
+      { site: 'video', q: 'repurpose video' },
     ],
-    hnQueries: ['content repurposing workflow AI', 'repurpose podcast to posts', 'AI content repurpose tool'],
+    hnQueries: ['content repurposing workflow AI', 'repurpose podcast into posts', 'content atomization', 'repurpose blog content'],
+    hnCommentQueries: ['"content repurposing"', '"repurpose content"', '"repurpose" podcast'],
+    devTags: ['content', 'automation', 'ai', 'marketing'],
     need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to)/i,
-    match: /repurpos(e|ing)|turn\s+(one|a)\s+(piece|video|podcast|blog|article)\s+into/i,
+    match: /repurpos(?:e|ing|ed)|content\s+(recycling|multiplication|atomization)|turn(?:ing)?\s+(one|a|my)\s+(piece|video|podcast|blog|article|webinar|stream)\s+into|(podcast|video|blog|article|webinar)[\s\S]{0,100}(social|posts?|threads?|newsletter|shorts|clips)/i,
   },
   {
     id: 'three-pack-bundle',
-    name: 'All-3 bundle (MCP + digital products)',
+    name: 'MCP Prompt Pack + All-3 bundle',
     sample: 'previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md',
     anchor: 'product-bundle',
     queries: [
-      '"mcp server" ecommerce',
-      '"mcp server" "digital products"',
-      '"model context protocol" payment agent',
-      '"mcp server" commerce',
-      '"mcp tool" payment',
-      '"mcp server" for selling',
-      '"looking for" mcp server',
-      '"recommend" mcp server',
-      '"mcp server" digital products',
+      'mcp prompt pack',
+      'mcp prompts',
+      'model context protocol prompts',
+      'mcp prompt library',
+      'mcp prompt templates',
+      'claude mcp prompts',
+      'agent skill pack',
+      'ai skill pack',
+      'mcp server ecommerce',
+      'mcp server digital products',
+      'mcp server payments',
+      'mcp tool payment',
     ],
     seQueries: [
       { site: 'softwarerecs', q: 'mcp server' },
+      { site: 'stackoverflow', q: 'mcp prompt' },
     ],
     hnQueries: [
+      'MCP prompt pack',
+      'MCP prompt library',
       'MCP server ecommerce',
-      'MCP tool for selling digital products',
-      'model context protocol payment tool',
-      'MCP commerce tool',
-      'MCP server payments or checkout',
+      'MCP tool selling digital products',
+      'MCP commerce checkout',
     ],
+    hnCommentQueries: ['"mcp" "prompts"', '"mcp server" commerce', '"model context protocol" prompts'],
+    devTags: ['mcp', 'ai', 'agents', 'opensource'],
     need: /(looking for|recommend|any(one)? (know|using|have|tried)|suggestions?|how (do|can) (i|we|you)|best (way|tool|template|app)|need (a|an|help)|where can i find|is there (a|an)|alternative to|build(ing)?)/i,
-    match: /mcp[\s\S]{0,60}(ecommerce|commerce|payment|checkout|digital\s+products?|sell(?:ing)?)|(ecommerce|commerce|payment|checkout|digital\s+products?|sell(?:ing)?)[\s\S]{0,60}mcp|agent\s+(commerce|checkout|payment)|sell(?:ing)?\s+digital\s+products?/i,
+    match: /mcp[\s\S]{0,160}(prompt|skill|workflow|template|commerce|payment|checkout|digital\s+products?|sell(?:ing)?)|(prompt|skill|workflow|template|commerce|payment|checkout)[\s\S]{0,160}mcp|agent\s+(commerce|checkout|payment)|sell(?:ing)?\s+digital\s+products?/i,
   },
 ];
 
 const SKIP_REPOS = new Set(['Reggiebro/oppi-digital-products']);
 const SKIP_AUTHORS = new Set(['reggiebro']);
-const SKIP_TITLE = /(show and tell|show hn|zero-dependency agent-commerce|awesome|curated list|weekly|digest|newsletter|roundup|hiring|job|bounty|for sale|^spec\b|^rfc\b|^research:|^\[collaborators\]|roadmap|changelog|candidates?\b|^daily\b|^ideas?\b|backlog|suggestion|feature request|use-case inventory|^recommend:|^show (hn|ih)|^launch|tool list|handoff|^submit|submission|^add\b|^new\b|^introduc|^announc|^implement|^build\b|^proposal|^intake|migration)/i;
+// Only skip obvious directory noise. Do NOT suppress "recommend", "proposal",
+// "feature request", "build", or "add": those are often real buyer wording.
+const SKIP_TITLE = /(show and tell|show hn|zero-dependency agent-commerce|awesome|curated list|weekly|digest|newsletter|roundup|hiring|job\b|bounty|for sale|^spec\b|^rfc\b|^research:|^\[collaborators\]|changelog|^daily\b|use-case inventory|^submit|submission|tool list|handoff|^introduc|^announc|migration guide|^launch)/i;
 
-// A real ask is short and near the top. Digest/dump issues bury a keyword in 10k chars.
-const MAX_BODY = 4000;
+// Long issues are penalized, not hard-rejected: detailed buyer questions can be
+// long, while bot dumps get buried by the penalty.
+const MAX_BODY = 12000;
 
 /* ---------------- github ---------------- */
 
@@ -291,6 +325,8 @@ function searchDiscussions(q) {
 
 function repoOf(item) {
   if (item.isHN) return 'news.ycombinator.com';
+  if (item.isSE) return `${item.seSite}.stackexchange.com`;
+  if (item.isDev) return 'dev.to';
   return (item.repository_url || '').replace('https://api.github.com/repos/', '');
 }
 
@@ -298,6 +334,7 @@ function repoOf(item) {
 
 function scoreItem(item, product) {
   const text = `${item.title}\n${item.body || ''}`;
+  const bodyLen = (item.body || '').length;
   let score = 0;
   const why = [];
 
@@ -307,17 +344,29 @@ function scoreItem(item, product) {
   if (item.user && SKIP_AUTHORS.has(String(item.user.login || '').toLowerCase())) {
     return { score: -99, why: ['own post'] };
   }
-  if ((item.body || '').length > MAX_BODY) return { score: -99, why: ['body too long (list/dump)'] };
-  if (/(\[for hire\]|\[hiring\]|i (built|made|created|launched|shipped)|we (built|made|created|launched|shipped)|my (product|template|pack|tool)|check out my|gumroad|buy my|selling my|promo code|affiliate)/i.test(text)) {
+  // Hard promo only. "I built my own CRM and it is a mess" is a valid buyer
+  // signal, so do not reject first-person builder language by itself.
+  if (/(\[for hire\]|\[hiring\]|check out my|gumroad|buy my|selling my|promo code|affiliate link|my (product|template|pack|tool) is (now )?(live|available|for sale)|launch(ed|ing) my (product|template|pack|tool))/i.test(text)) {
     return { score: -99, why: ['seller/self-promo'] };
   }
 
-  if (!product.need.test(text)) return { score: -99, why: ['no explicit ask'] };
+  if (!ASK_RE.test(text)) return { score: -99, why: ['no ask/pain signal'] };
   if (!product.match.test(text)) return { score: -99, why: ['product phrase absent'] };
-  score += 3; why.push('explicit ask + product phrase');
+  score += 3; why.push('ask/pain + product phrase');
 
-  if (item.isHN) score += 1, why.push('HN Ask/Show signal');
+  if (item.isHN) score += 1, why.push(item.isHNComment ? 'HN comment' : 'HN story');
   if (item.isSE) { score += 1; why.push('Stack Exchange question'); }
+  if (item.isDev) {
+    score += 1; why.push('Dev.to article');
+    const tags = (item.devTags || []).map((t) => String(t).toLowerCase());
+    if (tags.some((t) => t === 'help' || t === 'ask')) { score += 1; why.push('Dev.to ask/help tag'); }
+    if (tags.includes('showdev')) { score -= 3; why.push('Dev.to showdev promo'); }
+  }
+
+  if (/\?/.test(text)) { score += 1; why.push('question mark'); }
+  if (/\b(i|we)\b[^.!?]{0,70}(struggl|drown|overwhelm|spend|waste|manual|hate|mess|chaos|stuck|pain)/i.test(text)) {
+    score += 1; why.push('first-person pain');
+  }
 
   const comments = item.comments || 0;
   if (comments >= 1 && comments <= 12) { score += 1; why.push('active/open conversation'); }
@@ -328,7 +377,9 @@ function scoreItem(item, product) {
   else if (ageDays <= 10) { score += 1; why.push('recent'); }
 
   if (/(paid|budget|hire|buy|price|pricing|cost|looking to pay)/i.test(text)) { score += 2; why.push('money/buying signal'); }
-  if (!item.body || item.body.length < 30) { score -= 1; why.push('thin body'); }
+  if (bodyLen < 30) { score -= 1; why.push('thin body'); }
+  if (bodyLen > 12000) { score -= 6; why.push('very long body'); }
+  else if (bodyLen > 4000) { score -= 3; why.push('long body'); }
   if (/\[x\]|closed|resolved/i.test(text)) { score -= 1; }
   if (item.pull_request) { score -= 3; why.push('is a PR'); }
 
@@ -337,53 +388,83 @@ function scoreItem(item, product) {
 
 /* ---------------- drafting ---------------- */
 
-function productTip(productId) {
+function playbook(productId) {
   if (productId === 'notion-freelancer-crm-kit') {
-    return 'a practical angle: make one explicit "next action + next follow-up date" field on each lead/client and a view filtered to follow-ups due soon — that alone usually removes most CRM chaos for freelancers.';
+    return {
+      context: 'a freelance client pipeline in Notion',
+      steps: [
+        'Create one Clients database with Stage (Lead / Proposal / Active / Delivered), Next action, Next follow-up date, and a relation to Projects.',
+        'Create one Projects database linked to Clients, with deliverable, due date, status, approval link, and a revision count.',
+        'Build a Today view filtered to Next follow-up <= today OR Next action empty, so no lead or client goes stale.',
+        'Put scope, exclusions, revision limit, and payment terms in a proposal template before work starts; it prevents most delivery disputes.',
+      ],
+      closing: 'If you share how many active clients you juggle and where it breaks (leads, onboarding, or delivery), I can suggest the exact fields and views to use.',
+    };
   }
   if (productId === 'freelance-delivery-prompt-pack') {
-    return 'a practical angle: standardize the client lifecycle into repeatable prompts (lead qual → proposal/scope → onboarding → delivery update → feedback) so you are not rewriting the same messages from scratch.';
+    return {
+      context: 'repeatable client-delivery prompts',
+      steps: [
+        'Map the lifecycle once: lead qualification -> proposal/scope -> onboarding -> delivery update -> feedback/upsell.',
+        'For each stage, keep one prompt with variables for {client}, {outcome}, {constraints}, and {tone}; store the prompts in one versioned doc.',
+        'Use a lead-qualification scorecard before writing proposals; it filters bad-fit clients and reduces scope creep.',
+        'Save the generated proposal/update/closeout in the client project page, not in chat history, so handoff stays clean.',
+      ],
+      closing: 'If you tell me which stage eats the most time, I can sketch the exact prompt and variables for that one stage.',
+    };
   }
   if (productId === 'ai-content-repurpose-pack') {
-    return 'a practical angle: extract one canonical "core" (hook, key points, quotes, CTA) from the source asset first, then branch into channel-specific posts/emails/scripts from that same core.';
+    return {
+      context: 'a content-repurposing workflow',
+      steps: [
+        'Extract one canonical core from the source asset: audience, promise, 3 key points, proof/quote, and CTA.',
+        'Branch from that core into channel-specific assets: LinkedIn post, X thread, newsletter section, short-video script.',
+        'Keep a one-page checklist per asset: one idea, one CTA, one source link, and the channel-specific hook.',
+        'Automate transcription and first-draft extraction, but review the core before generating channel copy; that is where most AI repurposing drift comes from.',
+      ],
+      closing: 'If you share the source format (podcast, webinar, blog) and the channels you want, I can suggest the exact extraction fields and a first-pass template.',
+    };
   }
-  return 'a practical angle: for agent/MCP commerce flows, keep catalog, sample, payment instructions, and read-only on-chain verification as separate tool steps so the agent can be explicit and auditable.';
+  return {
+    context: 'an MCP prompt pack or agent workflow',
+    steps: [
+      'Treat each MCP prompt as a small tool contract: name, when to use it, inputs, expected output, and guardrails.',
+      'Split seller workflows into separate steps: catalog lookup -> sample/preview -> checkout or payment instructions -> read-only verification. Do not let one prompt do all four.',
+      'For client delivery, pair prompts for scope/update/closeout with MCP tools that read catalog or project status; keep write actions explicit.',
+      'Version the prompt pack in git so you can diff behavior and roll back when a model or tool changes.',
+    ],
+    closing: 'If you share what the agent is supposed to do end-to-end, I can suggest the prompt/tool split and where to put verification.',
+  };
 }
 
 function draft(item, product) {
-  const title = item.title.replace(/\s+/g, ' ').trim().slice(0, 90);
-  const sampleUrl = `https://github.com/Reggiebro/oppi-digital-products/blob/master/${product.sample}`;
-  const storeUrl = `${STOREFRONT}#${product.anchor}`;
-  const isDirect = item.isHN || item.isSE;
-
+  const p = playbook(product.id);
   const lines = [
-    isDirect ? `Re: "${title}"` : `> Re: "${title}"`,
+    `Disclosure: I built the resource linked at the end, so flagging that up front.`,
     '',
-    `Disclosure: I built the resource below, so treat this as a biased suggestion.`,
+    `For ${p.context}, here is the first pass I would use:`,
     '',
-    `If it helps, ${productTip(product.id)}`,
+    ...p.steps.map((s, i) => `${i + 1}. ${s}`),
     '',
-    `I put a real free sample/excerpt here (no signup): ${sampleUrl}`,
-    `Full storefront / overview: ${storeUrl}`,
+    `Free sample / cheat sheet (no signup): ${GIST_SAMPLE}`,
+    `Full kit / overview, only if useful: ${STOREFRONT}#${product.anchor}`,
     '',
-    `If the full pack is useful: flash pricing is shown on the storefront (direct crypto, manual delivery after on-chain verification, instantly after on-chain verification). Verified oppi wallet addresses:`,
-    `- USDC (Solana): \`${WALLET_SOL}\``,
-    `- USDC (Base/EVM): \`${WALLET_EVM}\``,
-    '',
-    `Feel free to ignore the paid part — if you share a bit more about your current setup, I can suggest the specific structure/prompt that fits.`,
+    p.closing,
   ];
   return lines.join('\n');
 }
 
 /* ---------------- Hacker News (Algolia, zero-auth) ---------------- */
 
-async function searchHN(hnQuery, sinceTs) {
-  const url = `https://hn.algolia.com/api/v1/search_by_date?query=${encodeURIComponent(hnQuery)}&tags=(story,ask_hn,show_hn)&numericFilters=created_at_i>${sinceTs}&hitsPerPage=20`;
+async function searchHN(hnQuery, sinceTs, tags = '(story,ask_hn,show_hn)') {
+  const isComment = tags === 'comment';
+  const url = `https://hn.algolia.com/api/v1/search_by_date?query=${encodeURIComponent(hnQuery)}&tags=${encodeURIComponent(tags)}&numericFilters=created_at_i>${sinceTs}&hitsPerPage=20`;
   try {
     const j = await httpJson(url);
     return (j.hits || []).map((h) => ({
       isHN: true,
-      title: h.title || h.story_title || '(no title)',
+      isHNComment: isComment,
+      title: h.title || h.story_title || (isComment ? 'HN comment' : '(no title)'),
       body: (h.story_text || h.comment_text || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
       html_url: h.url || `https://news.ycombinator.com/item?id=${h.objectID}`,
       hn_url: `https://news.ycombinator.com/item?id=${h.objectID}`,
@@ -425,6 +506,33 @@ async function searchSE(query, site, sinceTs) {
   }
 }
 
+/* ---------------- Dev.to (free, zero-auth) ---------------- */
+
+async function searchDevTo(tag, sinceTs, perPage = 30) {
+  const url = `https://dev.to/api/articles/latest?tag=${encodeURIComponent(tag)}&per_page=${perPage}`;
+  try {
+    const j = await httpJson(url);
+    const items = Array.isArray(j) ? j : [];
+    return items
+      .filter((a) => new Date(a.published_at || 0).getTime() >= sinceTs * 1000)
+      .map((a) => ({
+        isDev: true,
+        title: a.title || '(no title)',
+        body: `${a.description || ''}\n${(a.tag_list || []).join(' ')}`.trim(),
+        html_url: a.url || a.canonical_url,
+        created_at: a.published_at,
+        comments: a.comments_count || 0,
+        user: { login: (a.user && a.user.username) || 'unknown', type: 'User' },
+        repository_url: 'https://dev.to',
+        number: a.id,
+        devTags: a.tag_list || [],
+      }));
+  } catch (e) {
+    console.error(`  ! Dev.to search failed: ${tag} — ${String(e.message).split('\n')[0]}`);
+    return [];
+  }
+}
+
 /* ---------------- main ---------------- */
 
 async function main() {
@@ -434,6 +542,28 @@ async function main() {
   let ghCalls = 0;
 
   console.log(`oppi lead finder · last ${DAYS}d · min score ${MIN_SCORE}`);
+
+  const ingest = (item, product, source, keyPrefix) => {
+    const repo = repoOf(item);
+    if (!repo || SKIP_REPOS.has(repo)) return;
+    if (SKIP_TITLE.test(item.title || '')) return;
+    const key = keyPrefix || item.isDiscussion
+      ? `disc:${repo}:${item.html_url}`
+      : `${source}:${repo}:${item.number || item.html_url}`;
+    const { score, why } = scoreItem(item, product);
+    const prev = seen.get(key);
+    if (prev && prev.score >= score) return;
+    seen.set(key, {
+      key, repo, number: item.number || '', title: item.title || '',
+      url: item.html_url || item.hn_url, author: item.user && item.user.login,
+      comments: item.comments || 0, created_at: item.created_at,
+      source,
+      product: product.id, productName: product.name,
+      score, why, draft: '',
+      isHN: !!item.isHN, isHNComment: !!item.isHNComment, isSE: !!item.isSE, isDev: !!item.isDev,
+      devTags: item.devTags || [],
+    });
+  };
 
   // 1) GitHub: OR-combined issue + discussion queries, chunked to stay under
   // GitHub's 256-character search limit without losing any query variants.
@@ -451,47 +581,22 @@ async function main() {
     }
     console.log(`  GH issues [${product.id}] -> ${issues.length}`);
     console.log(`  GH discussions [${product.id}] -> ${disc.length}`);
-
-    for (const item of [...issues, ...disc]) {
-      const repo = repoOf(item);
-      if (!repo || SKIP_REPOS.has(repo)) continue;
-      if (SKIP_TITLE.test(item.title)) continue;
-      const key = item.isDiscussion ? `disc:${repo}:${item.html_url}` : `${repo}#${item.number}`;
-      const { score, why } = scoreItem(item, product);
-      const prev = seen.get(key);
-      if (prev && prev.score >= score) continue;
-      seen.set(key, {
-        key, repo, number: item.number || '', title: item.title,
-        url: item.html_url, author: item.user && item.user.login,
-        comments: item.comments, created_at: item.created_at,
-        source: item.isDiscussion ? 'github-discussion' : 'github-issue',
-        product: product.id, productName: product.name,
-        score, why, draft: '', isHN: false,
-      });
-    }
+    for (const item of issues) ingest(item, product, 'github-issue');
+    for (const item of disc) ingest(item, product, 'github-discussion', `disc:${repoOf(item)}:${item.html_url}`);
   }
   console.log(`  GitHub API calls: ${ghCalls} (4s throttle between calls)`);
 
-  // 2) Hacker News via Algolia (zero-auth)
+  // 2) Hacker News via Algolia (zero-auth): stories + comments
   for (const product of PRODUCTS) {
     for (const hq of (product.hnQueries || [])) {
-      const hits = await searchHN(hq, sinceTs);
-      console.log(`  HN "${hq}" -> ${hits.length}`);
-      for (const item of hits) {
-        if (SKIP_TITLE.test(item.title || '')) continue;
-        const key = `hn:${item.number}`;
-        const { score, why } = scoreItem(item, product);
-        const prev = seen.get(key);
-        if (prev && prev.score >= score) continue;
-        seen.set(key, {
-          key, repo: 'news.ycombinator.com', number: item.number, title: item.title,
-          url: item.hn_url || item.html_url, author: item.user && item.user.login,
-          comments: item.comments, created_at: item.created_at,
-          source: 'hackernews',
-          product: product.id, productName: product.name,
-          score, why, draft: '', isHN: true,
-        });
-      }
+      const hits = await searchHN(hq, sinceTs, '(story,ask_hn,show_hn)');
+      console.log(`  HN story "${hq}" -> ${hits.length}`);
+      for (const item of hits) ingest(item, product, 'hackernews-story', `hn:${item.number}`);
+    }
+    for (const hq of (product.hnCommentQueries || (product.hnQueries || []).slice(0, 2))) {
+      const hits = await searchHN(hq, sinceTs, 'comment');
+      console.log(`  HN comment "${hq}" -> ${hits.length}`);
+      for (const item of hits) ingest(item, product, 'hackernews-comment', `hnc:${item.number}`);
     }
   }
 
@@ -500,21 +605,18 @@ async function main() {
     for (const sq of (product.seQueries || [])) {
       const hits = await searchSE(sq.q, sq.site, sinceTs);
       console.log(`  SE ${sq.site} "${sq.q}" -> ${hits.length}`);
-      for (const item of hits) {
-        if (SKIP_TITLE.test(item.title || '')) continue;
-        const key = `se:${sq.site}:${item.number}`;
-        const { score, why } = scoreItem(item, product);
-        const prev = seen.get(key);
-        if (prev && prev.score >= score) continue;
-        seen.set(key, {
-          key, repo: `${sq.site}.stackexchange.com`, number: item.number, title: item.title,
-          url: item.html_url, author: item.user && item.user.login,
-          comments: item.comments, created_at: item.created_at,
-          source: `stackexchange:${sq.site}`,
-          product: product.id, productName: product.name,
-          score, why, draft: '', isHN: false, isSE: true,
-        });
-      }
+      for (const item of hits) ingest(item, product, `stackexchange:${sq.site}`, `se:${sq.site}:${item.number}`);
+    }
+  }
+
+  // 4) Dev.to tags (free, zero-auth)
+  const devTags = new Set(DEV_DISCOVERY_TAGS);
+  for (const product of PRODUCTS) for (const t of (product.devTags || [])) devTags.add(t);
+  for (const tag of devTags) {
+    const hits = await searchDevTo(tag, sinceTs, 30);
+    console.log(`  Dev.to tag "${tag}" -> ${hits.length}`);
+    for (const item of hits) {
+      for (const product of PRODUCTS) ingest(item, product, `dev.to:${tag}`, `dev:${item.number}`);
     }
   }
 
@@ -529,6 +631,21 @@ async function main() {
     .sort((a, b) => b.score - a.score || new Date(b.created_at) - new Date(a.created_at))
     .slice(0, MAX_CANDIDATES);
 
+  const audit = {
+    raw_total: seen.size,
+    qualified: candidates.length,
+    reasons: {},
+    by_source: {},
+  };
+  for (const c of seen.values()) {
+    if (c.score >= MIN_SCORE) continue;
+    const r = (c.why && c.why[0]) || 'low score';
+    audit.reasons[r] = (audit.reasons[r] || 0) + 1;
+    const s = c.source || 'unknown';
+    audit.by_source[s] = (audit.by_source[s] || 0) + 1;
+  }
+  audit.top_reasons = Object.entries(audit.reasons).sort((a,b)=>b[1]-a[1]).slice(0,12);
+
   const dir = path.join(OUT_ROOT, DAY);
   fs.mkdirSync(path.join(dir, 'drafts'), { recursive: true });
   const slug = (k) => String(k).replace(/[^a-zA-Z0-9._-]/g, '-');
@@ -542,22 +659,38 @@ async function main() {
     days: DAYS,
     min_score: MIN_SCORE,
     storefront: STOREFRONT,
+    sample_gist: GIST_SAMPLE,
     wallets: { solana_usdc: WALLET_SOL, base_evm_usdc: WALLET_EVM },
+    audit,
     note: 'Drafts only. Read each thread before posting; tailor replies and avoid unsolicited spam.',
     candidates,
   }, null, 2) + '\n');
+  fs.writeFileSync(path.join(dir, 'audit.json'), JSON.stringify(audit, null, 2) + '\n');
+
+  const auditMd = [
+    `## Filter audit`,
+    '',
+    `- Raw items scored: ${audit.raw_total}`,
+    `- Qualified (score >= ${MIN_SCORE}): ${audit.qualified}`,
+    `- Rejected: ${audit.raw_total - audit.qualified}`,
+    `- Previous zero run (2026-11-20, pre-relax): 142 raw, 58 body too long, 43 no explicit ask, 17 seller/self-promo, 13 product phrase absent, 11 bot authors. Filters were tightened and Dev.to/HN comments were not searched.`,
+    '',
+    ...audit.top_reasons.map(([r,n]) => `- ${n} ${r}`),
+    '',
+  ];
 
   const md = [
     `# Lead queue — ${DAY}`,
     '',
     `Generated ${new Date().toISOString()} · last ${DAYS} days · score >= ${MIN_SCORE}`,
     '',
-    `**Read the thread before posting.** Answer the question first with something genuinely useful; include the free sample/storefront/wallet info only where relevant. Never post the same text twice or spam.`,
+    `**Read the thread before posting.** Answer the question first with something genuinely useful; include the free sample gist/storefront only where relevant. Never post the same text twice or spam.`,
     '',
+    ...auditMd,
     `| # | Source | Thread | Product fit | Score | Comments |`,
     `|---:|---|---|---|---:|---:|`,
     ...(candidates.length === 0 ? [
-      '**Zero qualified leads this run.** Signals were searched (GitHub issues/discussions + HN Algolia + Stack Exchange) but none passed the relevance/ask gates.',
+      `**Zero qualified leads this run.** Searched GitHub issues/discussions, HN stories/comments, Stack Exchange, and Dev.to. See filter audit above.`,
       '',
     ] : []),
     ...candidates.map((c, i) =>
@@ -573,6 +706,7 @@ async function main() {
       `- Why it scored: ${(c.why || []).join(', ') || 'match'}`,
       `- Product fit: ${c.productName}`,
       `- Storefront: ${STOREFRONT}#${PRODUCTS.find(p=>p.id===c.product)?.anchor || ''}`,
+      `- Free sample: ${GIST_SAMPLE}`,
       `- Draft file: ${c.draftFile}`,
       '',
       '**Ready-to-send draft (review/tailor before use):**',
