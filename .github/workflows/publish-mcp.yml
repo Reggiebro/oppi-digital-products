@@ -48,8 +48,12 @@ jobs:
         run: |
           set -euo pipefail
           version="$(python3 -c "import json;print(json.load(open('server.json'))['version'])")"
-          if curl -fsS "https://registry.modelcontextprotocol.io/v0/servers?search=${version}" | grep -q "io.github.Reggiebro/oppi-digital-products"; then
-            echo "Version ${version} already published — skipping duplicate publish."
+          name="$(python3 -c "import json;print(json.load(open('server.json'))['name'])")"
+          if curl -fsS "https://registry.modelcontextprotocol.io/v0/servers?search=Reggiebro" \
+             | grep -q "\"name\":\"${name}\",\"description\"" \
+             && curl -fsS "https://registry.modelcontextprotocol.io/v0/servers?search=Reggiebro" \
+             | grep -q "\"version\":\"${version}\""; then
+            echo "Version ${version} of ${name} already published — skipping duplicate publish."
             exit 0
           fi
           ./mcp-publisher publish
