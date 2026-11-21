@@ -1,6 +1,7 @@
 # Oppi Digital Products — AI Prompt Packs & Notion CRM Kit
 
 [![Reggiebro/oppi-digital-products MCP server](https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products/badges/score.svg)](https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products/score)
+[![Oppi Digital Products MCP on mcprush](https://mcprush.com/badge/oppi-digital-products-mcp/score.svg)](https://mcprush.com/to/oppi-digital-products-mcp?ref=badge)
 [![npm version](https://img.shields.io/npm/v/oppi-digital-products-mcp?logo=npm)](https://www.npmjs.com/package/oppi-digital-products-mcp) ![Glama listing](https://img.shields.io/badge/listed_on-Glama-blue) ![MCP Registry](https://img.shields.io/badge/MCP_Registry-listed-green) ![license](https://img.shields.io/badge/crypto_checkout-on--chain_verified-informational)
 
 Practical, ready-to-use digital products for freelancers, creators, consultants — and the AI agents that assist them. **MCP server featured on [Glama](https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products) and listed in the [official MCP Registry](https://github.com/modelcontextprotocol).**
