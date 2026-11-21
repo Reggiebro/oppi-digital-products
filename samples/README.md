@@ -20,6 +20,7 @@ Try before you buy. These samples are real, usable slices of the paid packs.
 2. Pay with USDC/SOL/ETH/BTC/etc. to verified Oppi wallets.
 3. Open fulfillment request: https://github.com/Reggiebro/oppi-digital-products/issues/new?template=purchase-request.yml
 4. Include tx hash + chain + pack. Delivery after on-chain verification.
+5. Save your receipt: tx hash, chain, amount, verified time, delivery link/file.
 
 **Verified wallets**
 - SOL: `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp`
