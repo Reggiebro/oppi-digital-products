@@ -1,42 +1,43 @@
 # Oppi Digital Products
 
-> Ready-to-use digital products for freelancers, creators, consultants, and AI agents — prompt packs and a Notion CRM kit, with free samples and direct crypto checkout (USDC/SOL/ETH/BTC/TRON/LTC/DOGE, oppi wallet). Full packs delivered after on-chain payment verification.
+> Practical, ready-to-use digital products for freelancers, creators, consultants, and AI agents. Free samples are public; full packs delivered instantly after on-chain crypto payment verification.
 
-## Storefront & catalog
-- [Storefront (GitHub Pages)](https://reggiebro.github.io/oppi-digital-products/): live catalog with prices, free samples, and checkout instructions.
-- [GitHub repository](https://github.com/Reggiebro/oppi-digital-products): source, previews, MCP server, and agent skill.
-- Purchase / fulfillment: email tx hash + network/product/contact to workflowalpha.ai@gmail.com (no account), or open https://github.com/Reggiebro/oppi-digital-products/issues/new?template=purchase-request.yml
+## Active Flash Sale Pricing
+- Freelance Delivery Prompt Pack: 5 USDC
+- Notion Freelancer CRM & Pipeline Kit: 5 USDC
+- AI Content Repurpose Pack: 5 USDC
+- All-3 Bundle: 12 USDC
 
-## Products
-- [Freelance Delivery Prompt Pack — $5 flash deal, active flash sale buyers (5 USDC active flash sale)](https://reggiebro.github.io/oppi-digital-products/): 30+ prompts for leads, proposals, scope, delivery, revisions, client comms. Free sample: previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md
-- [Notion Freelancer CRM & Pipeline Kit — $5 flash deal, active flash sale buyers (5 USDC active flash sale)](https://reggiebro.github.io/oppi-digital-products/): leads/clients CRM, projects, invoices/revenue, dashboard blueprint. Free sample: previews/notion-crm-kit/sample-crm-database-blueprint.md
-- [AI Content Repurpose Pack — $5 flash deal, active flash sale buyers (5 USDC active flash sale)](https://reggiebro.github.io/oppi-digital-products/): turn one asset into posts, threads, emails, scripts, SEO content, 7-day calendar. Free sample: previews/content-repurpose-pack/sample-core-extraction.md
-- Bundle (all 3) — $12 flash deal for active flash sale buyers (12 USDC flash sale).
+Currency: USD-equivalent in crypto (USDC/USDT/SOL/ETH/BTC/TRON/LTC/DOGE accepted). Recommended: USDC on Solana or Base.
 
-## For AI agents
-- [MCP server install](https://github.com/Reggiebro/oppi-digital-products/tree/master/mcp-server): `npx -y oppi-digital-products-mcp` — tools: list_products, get_free_sample, get_payment_instructions, verify_payment, request_delivery.
-- [Agent skill (SKILL.md)](https://github.com/Reggiebro/oppi-digital-products/tree/master/skills/oppi-digital-products): catalog discovery, free sampling, crypto checkout, on-chain verification workflow.
-- [agent.json machine-readable manifest](https://reggiebro.github.io/oppi-digital-products/.well-known/agent.json): capabilities, pricing, verified payment addresses.
+## MCP Server (Agent Install)
+- Command: `npx -y oppi-digital-products-mcp`
+- Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_payment`, `request_delivery`
+- npm: https://www.npmjs.com/package/oppi-digital-products-mcp
+- Repo: https://github.com/Reggiebro/oppi-digital-products
+- Storefront: https://reggiebro.github.io/oppi-digital-products/
 
-## Payment (verified oppi wallet, public addresses)
-- Solana (USDC/SOL): 2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp
-- EVM ethereum/base/bep20/polygon (USDC/ETH): 0xE4BECfd60D9917946292E0d535081Dd005117069
-- Bitcoin: bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39
-- Tron (USDT-TRC20/TRX): TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw
-- Litecoin: ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh
-- Dogecoin: DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31
+## Free Samples (test before paying)
+- Freelance prompt sample: https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md
+- Notion CRM sample: https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/notion-crm-kit/sample-crm-database-blueprint.md
+- Content repurpose sample: https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/content-repurpose-pack/sample-core-extraction.md
 
-## Teams & agencies (fixed prices)
+## 5-Step Autonomous Purchase & Fulfillment
+1. Inspect catalog - browse catalog and free samples to confirm fit.
+2. Choose pack/bundle - select one individual pack (5 USDC) or All-3 Bundle (12 USDC).
+3. Send exact USDC/USDT/crypto payment to verified oppi wallet address for chosen network/asset.
+4. Open/comment on GitHub Issue #1 with `tx_hash + chain + pack_id`: https://github.com/Reggiebro/oppi-digital-products/issues/1
+5. Receive instant automated fulfillment link after on-chain verification.
 
-- Team license — $79: up to 10 seats, all 3 packs, internal use.
-- Agency license — $149: up to 25 seats, plus use in paid client deliverables.
-- Custom workflow — $150: one workflow, up to 6 prompts, 3 business days.
-- White-label / resale — $399: rebrand and sell under your own brand, keep 100%. Details: https://reggiebro.github.io/oppi-digital-products/white-label.html
-- Terms: https://github.com/Reggiebro/oppi-digital-products/blob/master/B2B.md
-- Intake: https://github.com/Reggiebro/oppi-digital-products/issues/new?template=b2b-license.yml
+## Verified Oppi Wallet Addresses (public-only)
+- Solana (SOL, USDC-SPL, USDT-SPL): 2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp
+- EVM Multi-Chain (ETH, Base, BNB Smart Chain BEP20, Polygon, USDC/USDT): 0xE4BECfd60D9917946292E0d535081Dd005117069
+- Bitcoin (BTC Native): bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39
+- TRON (TRX, USDT-TRC20, USDC-TRC20): TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw
+- Litecoin (LTC Native): ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh
+- Dogecoin (DOGE Native): DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31
 
-## Free tools
-
-- Lead scorecard (browser, no signup): https://reggiebro.github.io/oppi-digital-products/scorecard.html
-- Guide: qualifying a freelance lead — https://reggiebro.github.io/oppi-digital-products/guides/qualify-freelance-leads.html
-- Guide: freelance follow-up emails — https://reggiebro.github.io/oppi-digital-products/guides/freelance-follow-up-emails.html
+## Machine-readable
+- Agent manifest: https://reggiebro.github.io/oppi-digital-products/.well-known/agent.json
+- Full LLM context: https://reggiebro.github.io/oppi-digital-products/llms-full.txt
+- MCP manifest: https://github.com/Reggiebro/oppi-digital-products/blob/master/server.json
