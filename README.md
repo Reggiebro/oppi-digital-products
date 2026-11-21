@@ -158,7 +158,22 @@ npx -y oppi-digital-products-mcp
 
 Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_payment` (read-only public explorer/RPC check), `request_delivery`.
 
-**Agent skill:** [`skills/oppi-digital-products/SKILL.md`](skills/oppi-digital-products/SKILL.md) — copy into your agent's skills directory.
+**Minimum purchase steps (agent, 5 steps):**
+1. **Sample:** `list_products` → `get_free_sample` (`{"product":"<id>"}`) to confirm fit.
+2. **Instructions:** `get_payment_instructions` (`{"product":"<id-or-bundle>"}`) for exact amount, recommended rail, and verified addresses. **Active flash deal (first 5 verified buyers):** send exactly **5 USDC** per pack or **12 USDC** for the bundle — **USDC on Solana or Base recommended** (then $12/$12/$9, bundle $29).
+3. **Pay (external, human/wallet):** transfer the exact amount to the correct address/network. No seed phrases/private keys; no signing/broadcast by the agent.
+4. **Verify (read-only, best-effort):** `verify_payment` (`{"tx_hash":"...","network":"solana|ethereum|base|polygon|bitcoin|tron|litecoin|dogecoin","asset":"USDC"}`) — public-API check (may be VERIFIED/PENDING/MANUAL).
+5. **Fulfill:** `request_delivery` (`{product, tx_hash, network, asset, amount, contact}`) returns a **prefilled GitHub issue URL** — fulfillment is triggered when that issue is **opened/submitted**. Alternatively email tx hash + network/asset + product(s) + delivery contact to `workflowalpha.ai@gmail.com`. Automated fulfillment verifies on-chain and delivers the download link.
+
+**Verified oppi wallet addresses (public-only, match `mcp-server/wallets.json` / wallet registry):**
+- Solana (USDC/SOL, recommended): `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp`
+- EVM ethereum/base/bep20/polygon (USDC/ETH, Base recommended, same address): `0xE4BECfd60D9917946292E0d535081Dd005117069`
+- Tron (USDT-TRC20/TRX): `TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw`
+- Bitcoin (BTC): `bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39`
+- Litecoin (LTC): `ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh`
+- Dogecoin (DOGE): `DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31`
+
+**Agent skill:** [`skills/oppi-digital-products/SKILL.md`](skills/oppi-digital-products/SKILL.md) (canonical; root [`SKILL.md`](SKILL.md) pointer) — copy into your agent's skills directory.
 
 **Machine-readable discovery:**
 - `/.well-known/agent.json` → https://reggiebro.github.io/oppi-digital-products/.well-known/agent.json

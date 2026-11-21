@@ -22,6 +22,29 @@ Detailed description of the skill and what it helps users accomplish.
 4. **Payment verification**: Runs a read-only on-chain check of a payment transaction against the oppi wallet (public explorers/RPC, no keys).
 5. **Delivery**: Starts a fulfillment request after verification so the full pack archive is delivered.
 
+## Minimum purchase steps (agent)
+
+**Active flash deal (first 5 verified buyers):** $5 USDC per single pack or $12 USDC for the 3-pack bundle. After the deal: launch pricing resumes ($12/$12/$9, bundle $29). **Recommended rail:** USDC on Solana or USDC on Base.
+
+1. **Browse/sample (MCP):** Run `npx -y oppi-digital-products-mcp` (stdio). Call `list_products`, then `get_free_sample` with `{"product":"<id>"}` to confirm fit.
+2. **Get instructions (MCP):** Call `get_payment_instructions` with `{"product":"<id-or-bundle>"}` to get the exact amount, asset/network guidance, and verified oppi wallet addresses (below).
+3. **Pay (external, human/wallet action):** Send the exact amount to the correct address on the correct network. **USDC on Solana or Base recommended.** Never send to the wrong chain/network. Agents must never ask for or handle seed phrases/private keys and do not sign/broadcast transactions.
+4. **Verify (MCP, read-only/best-effort):** Call `verify_payment` with `{"tx_hash":"...","network":"solana|ethereum|base|polygon|bitcoin|tron|litecoin|dogecoin","asset":"USDC"}`. Public-API check only (no keys); it may return VERIFIED, PENDING, NOT FOUND, or MANUAL — confirm amount/network and explorer status if unclear.
+5. **Request fulfillment (MCP + trigger):** Call `request_delivery` with `{product, tx_hash, network, asset, amount, contact}`. It returns a **prefilled GitHub issue URL** — the fulfillment request is completed when that issue is **opened/submitted** (public record). Alternatively, email the tx hash + network/asset + product(s) + delivery contact to `workflowalpha.ai@gmail.com` (no account needed). Automated fulfillment verifies on-chain and delivers the download link after confirmation.
+
+## Verified oppi wallet payment addresses (public-only)
+
+Source of truth: `mcp-server/wallets.json` and `/root/kripto_agent/wallet_registry.json` (addresses must match).
+
+| Pay with | Network | Address |
+|---|---|---|
+| **USDC / SOL** (recommended) | Solana | `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` |
+| **USDC / ETH** (recommended) | Ethereum, **Base**, BEP20, Polygon (same EVM address) | `0xE4BECfd60D9917946292E0d535081Dd005117069` |
+| USDT / TRX | Tron (TRC20) | `TL5vFAKyxhNzd5Qn6fCMZodNLHaGKeebPw` |
+| BTC | Bitcoin | `bc1q0p56wr34yaezwq0mhfwx0amqtr2w9c4vt4gl39` |
+| LTC | Litecoin | `ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh` |
+| DOGE | Dogecoin | `DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31` |
+
 ## How to Use
 
 ### Basic Usage
@@ -32,22 +55,21 @@ Run the companion MCP server (zero dependencies, Node):
 npx -y oppi-digital-products-mcp
 ```
 
-Then use the tools:
+Offline fallback (pinned release tarball):
+```bash
+npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/mcp-v1.0.0/oppi-digital-products-mcp-1.0.0.tgz
+```
 
-1. `list_products` — show the catalog.
-2. `get_free_sample` with `{"product": "ai-content-repurpose-pack"}` — test a free sample.
-3. `get_payment_instructions` with `{"product": "freelance-delivery-prompt-pack"}` — get the address and amount for checkout.
-4. `verify_payment` with `{"tx_hash": "...", "network": "solana"}` — confirm the payment on-chain.
-5. `request_delivery` — returns a prefilled GitHub fulfillment request with tx hash, network, product, and contact.
+Then use the tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_payment`, `request_delivery` (see minimum purchase steps above).
 
 ### Examples
 
 - "Show me what prompt packs are available and let me try a free sample."
-- "I want to buy the Notion CRM kit with USDC on Base — what do I send and where?"
+- "I want to buy the Notion CRM kit with USDC on Base — what do I send and where?" (flash: 5 USDC per pack)
 - "Verify my payment tx and start the delivery for the bundle."
 
 ## Notes
 
 - Never ask for seed phrases or private keys; payment is a plain on-chain transfer to the published addresses.
-- Full packs are delivered instantly after automated on-chain payment verification.
+- Sending funds is an external wallet action; `verify_payment` is read-only and best-effort — automated fulfillment confirms on-chain after the fulfillment request is triggered (issue opened or email sent).
 - Storefront: https://reggiebro.github.io/oppi-digital-products/ · Repo: https://github.com/Reggiebro/oppi-digital-products
