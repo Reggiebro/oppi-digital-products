@@ -1,6 +1,6 @@
 {
   "name": "oppi-digital-products-mcp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "MCP server for the Oppi digital product catalog: browse products, test free sample prompts, get verified crypto payment instructions (oppi wallet), verify payments on-chain (read-only public APIs), and request delivery.",
   "bin": {
     "oppi-digital-products-mcp": "index.js"

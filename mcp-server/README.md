@@ -8,7 +8,7 @@ prefilled delivery-request link.
 ## Install
 
 ```bash
-npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products-mcp-1.0.2.tgz
+npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.3/oppi-digital-products-mcp-1.0.3.tgz
 ```
 
 The npm name `oppi-digital-products-mcp` is reserved at 1.0.0 (pre-fix build); use the pinned release tarball above or the `.mcpb` bundle until a republish lands.
@@ -20,7 +20,7 @@ The npm name `oppi-digital-products-mcp` is reserved at 1.0.0 (pre-fix build); u
   "mcpServers": {
     "oppi": {
       "command": "npx",
-      "args": ["-y", "--allow-remote=all", "https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products-mcp-1.0.2.tgz"]
+      "args": ["-y", "--allow-remote=all", "https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.3/oppi-digital-products-mcp-1.0.3.tgz"]
     }
   }
 }

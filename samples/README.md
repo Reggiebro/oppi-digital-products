@@ -30,4 +30,4 @@ Try before you buy. These samples are real, usable slices of the paid packs.
 - LTC: `ltc1q4724z73t84vgs5t6f0e4q5w8x679currfqe9yh`
 - DOGE: `DQeLinfhDcAnY53HcSvTGbYQ5ZaQqZ1Y31`
 
-MCP (v1.0.2): `npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products-mcp-1.0.2.tgz` | Store: https://reggiebro.github.io/oppi-digital-products/
+MCP (v1.0.3): `npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.3/oppi-digital-products-mcp-1.0.3.tgz` | Store: https://reggiebro.github.io/oppi-digital-products/

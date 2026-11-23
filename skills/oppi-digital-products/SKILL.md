@@ -33,7 +33,7 @@ description: Discover, sample, purchase with crypto, and unlock the Oppi digital
 ## MCP / Tooling
 Run the MCP server (stdio):
 ```bash
-npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products-mcp-1.0.2.tgz
+npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.3/oppi-digital-products-mcp-1.0.3.tgz
 ```
 Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_payment`, `request_delivery`.
 
