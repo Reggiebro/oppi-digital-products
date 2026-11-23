@@ -11,9 +11,10 @@
 Currency: USD-equivalent in crypto (USDC/USDT/SOL/ETH/BTC/TRON/LTC/DOGE accepted). Recommended: USDC on Solana or Base.
 
 ## MCP Server (Agent Install)
-- Command: `npx -y oppi-digital-products-mcp`
+- Command: `npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products-mcp-1.0.2.tgz`
+- Bundle (.mcpb): https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products.mcpb
 - Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_payment`, `request_delivery`
-- npm: https://www.npmjs.com/package/oppi-digital-products-mcp
+- npm: https://www.npmjs.com/package/oppi-digital-products-mcp (1.0.0 is stale — use the v1.0.2 release tarball)
 - Repo: https://github.com/Reggiebro/oppi-digital-products
 - Storefront: https://reggiebro.github.io/oppi-digital-products/
 

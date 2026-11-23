@@ -41,10 +41,10 @@ Every file already contains the maker disclosure, the live npm command (`npx -y 
 |---|---|---|
 | GitHub Discussions | **LIVE** | Enabled on the repo; showcase thread is discussion #3. |
 | Glama | **LIVE** | https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products |
-| Official MCP Registry | **LIVE — 1.0.1** | `io.github.Reggiebro/oppi-digital-products`; bundle rebuilt with flash pricing. PulseMCP ingests it from here. |
+| Official MCP Registry | **LIVE — 1.0.2** | `io.github.Reggiebro/oppi-digital-products`; bundle rebuilt from the fixed server (no list_products crash, JSON-RPC verification). PulseMCP ingests it from here. |
 | mcpHQ/awesome-mcp-servers | **MERGED** | PR #896 merged; listing is in the catalog. |
-| npm | **LIVE** | https://www.npmjs.com/package/oppi-digital-products-mcp — `1.0.0`, `npx -y oppi-digital-products-mcp` verified against a real MCP handshake. |
-| GitHub Release tarball | **LIVE + VERIFIED** | `mcp-v1.0.0` release; `npx --allow-remote=all <tarball URL>` answers `tools/list`. |
+| npm | **STALE — 1.0.0** | https://www.npmjs.com/package/oppi-digital-products-mcp is the pre-fix build and cannot be republished without the owner's npm login. Do not advertise `npx -y oppi-digital-products-mcp` until republished. |
+| GitHub Release tarball | **LIVE + VERIFIED — v1.0.2** | `v1.0.2` release ships the fixed server + `previews/`; `npx -y --allow-remote=all <tarball URL>` answers `tools/list` and `list_products`. |
 | Smithery | **BLOCKED** | `smithery auth login` fails from this machine (auth session API unreachable). Needs a browser login on your side, then `smithery mcp publish`. |
 
 ## Channels where project launches are explicitly allowed

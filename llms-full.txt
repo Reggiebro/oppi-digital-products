@@ -36,9 +36,9 @@ Recommended rails: USDC on Solana or USDC on Base. Accepted: USDC, USDT, SOL, ET
 5. **Receive instant automated fulfillment link** after on-chain verification.
 
 ## MCP Server
-Install/run (stdio):
+Install/run (stdio, v1.0.2):
 ```bash
-npx -y oppi-digital-products-mcp
+npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products-mcp-1.0.2.tgz
 ```
 
 Tools:

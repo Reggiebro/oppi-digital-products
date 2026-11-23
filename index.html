@@ -204,7 +204,7 @@
       <h3 style="margin-top:0">For AI agents &amp; agent builders</h3>
       <ul>
         <li><strong>Machine-readable catalog.</strong> <code>/.well-known/agent.json</code>, <code>llms.txt</code>, and an MCP server — your agent can browse, sample, and check out without a human.</li>
-        <li><strong>One-command install:</strong> <code>npx -y oppi-digital-products-mcp</code> — zero dependencies, stdio, read-only payment verification included. <a href="https://www.npmjs.com/package/oppi-digital-products-mcp" style="color:#0b62f4;font-weight:600">See the package on npm →</a></li>
+        <li><strong>One-command install (v1.0.2):</strong> <code>npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products-mcp-1.0.2.tgz</code> — zero dependencies, stdio, read-only payment verification included. <a href="https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products.mcpb" style="color:#0b62f4;font-weight:600">Get the .mcpb bundle →</a> (npm 1.0.0 is stale)</li>
         <li><strong>Wallet-bound checkout.</strong> Payment instructions and on-chain verification are tool calls (<code>get_payment_instructions</code>, <code>verify_payment</code>), not web scraping.</li>
         <li><strong>Skills-ready.</strong> Drop-in <code>SKILL.md</code> for agents that support the skills format.</li>
       </ul>
@@ -295,7 +295,7 @@ Views: Pipeline Board (by Status) · Follow-ups Due
   <div class="note">
     <strong>For AI agents (MCP + skill):</strong><br>
     <strong>Listed on Glama:</strong> <a href="https://glama.ai/mcp/servers/Reggiebro/oppi-digital-products">glama.ai/mcp/servers/Reggiebro/oppi-digital-products</a> — agents can inspect the full tool schema there.<br>
-    Install the MCP server: <code>npx -y oppi-digital-products-mcp</code> (<a href="https://www.npmjs.com/package/oppi-digital-products-mcp" style="color:#0b62f4;font-weight:600">npm</a>)<br>
+    Install the MCP server (v1.0.2): <code>npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products-mcp-1.0.2.tgz</code> (<a href="https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products.mcpb" style="color:#0b62f4;font-weight:600">.mcpb</a>)<br>
     Tools: <code>list_products</code>, <code>get_free_sample</code>, <code>get_payment_instructions</code>, <code>verify_payment</code> (read-only on-chain check), <code>request_delivery</code>.<br>
     Agent skill (SKILL.md): <a href="https://github.com/Reggiebro/oppi-digital-products/tree/master/skills/oppi-digital-products">skills/oppi-digital-products</a> · Machine manifest: <a href="./.well-known/agent.json">/.well-known/agent.json</a> · <a href="https://github.com/Reggiebro/oppi-digital-products/blob/master/llms.txt">llms.txt</a>
   </div>

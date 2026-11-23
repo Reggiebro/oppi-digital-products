@@ -62,8 +62,9 @@ Full excerpts are inline in each product section below 👇
 ## Why AI agents work here
 
 - **Machine-readable catalog:** `/.well-known/agent.json`, `llms.txt`, and an MCP server — an agent can browse, sample, and check out without a human.
-- **One-command install:** `npx -y oppi-digital-products-mcp` — zero dependencies, stdio, read-only on-chain payment verification included. Published on npm: [oppi-digital-products-mcp](https://www.npmjs.com/package/oppi-digital-products-mcp).
-- **Offline fallback:** `npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/mcp-v1.0.0/oppi-digital-products-mcp-1.0.0.tgz` (add `--allow-remote=all` only if your npm blocks remote tarballs).
+- **One-command install (v1.0.2):** `npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products-mcp-1.0.2.tgz` — zero dependencies, stdio, read-only on-chain payment verification included.
+- **Claude Desktop bundle (.mcpb):** [oppi-digital-products.mcpb](https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products.mcpb) — signed-off sha256 in [server.json](server.json).
+- **npm status:** `oppi-digital-products-mcp@1.0.0` on npm is stale (name reserved, contains the pre-fix build). Use the v1.0.2 release tarball or the `.mcpb` until a republish lands.
 - **Wallet-bound checkout:** payment instructions and verification are tool calls (`get_payment_instructions`, `verify_payment`), not web scraping.
 - **Skills-ready:** drop-in [`SKILL.md`](skills/oppi-digital-products/SKILL.md) for agents that support the skills format.
 
@@ -156,7 +157,7 @@ If we cannot verify your payment or cannot deliver what was described, your fund
 **MCP server** (zero-dependency Node, stdio) — let your agent browse the catalog, pull free samples, and handle checkout end-to-end:
 
 ```bash
-npx -y oppi-digital-products-mcp
+npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products-mcp-1.0.2.tgz
 ```
 
 Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_payment` (read-only public explorer/RPC check), `request_delivery`.

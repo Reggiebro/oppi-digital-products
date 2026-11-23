@@ -11,7 +11,7 @@
   "capabilities": {
     "mcp_server": {
       "transport": "stdio",
-      "install": "npx -y oppi-digital-products-mcp",
+      "install": "npx -y --allow-remote=all https://github.com/Reggiebro/oppi-digital-products/releases/download/v1.0.2/oppi-digital-products-mcp-1.0.2.tgz",
       "tools": [
         "list_products",
         "get_free_sample",
