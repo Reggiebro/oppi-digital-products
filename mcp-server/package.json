@@ -10,6 +10,7 @@
     "index.js",
     "catalog.json",
     "wallets.json",
+    "previews",
     "README.md",
     "LICENSE"
   ],

@@ -74,7 +74,7 @@ function listProducts() {
     lines.push(`## ${p.name} (${p.type})`);
     lines.push(`${p.summary}`);
     if (deal) {
-      lines.push(`- ⚡ Flash price: ${money(deal.price_usd_each)} USDC (was ${money(deal.was_prices[p.id])} launch; standard ${money(p.price_usd_standard)} after deal)`);
+      lines.push(`- ⚡ Flash price: ${money(deal.price_usd_each)} USDC (standard ${money(p.price_usd_standard)} after the deal)`);
     } else {
       lines.push(`- Launch price: ${money(p.price_usd_launch)} | Standard: ${money(p.price_usd_standard)}`);
     }
@@ -82,7 +82,8 @@ function listProducts() {
     lines.push('');
   }
   if (deal) {
-    lines.push(`Bundle: ${CATALOG.bundle.name} — ⚡ ${money(deal.price_usd_bundle)} USDC (was ${money(deal.was_prices['three-pack-bundle'])}; all 3 packs).`);
+    const standardTotal = CATALOG.products.reduce((s, x) => s + (x.price_usd_standard || 0), 0);
+    lines.push(`Bundle: ${CATALOG.bundle.name} — ⚡ ${money(deal.price_usd_bundle)} USDC (all 3 packs; standard ${money(standardTotal)} total).`);
   } else {
     lines.push(`Bundle: ${CATALOG.bundle.name} — ${money(CATALOG.bundle.price_usd_launch)} (all 3 packs).`);
   }
@@ -97,12 +98,12 @@ function getFreeSample(args) {
     return { content: [{ type: 'text', text: 'Unknown product. Valid ids: ' + CATALOG.products.map(x => x.id).join(', ') }], isError: true };
   }
   let text = '';
-  try {
-    const file = path.join(__dirname, '..', p.previews[0]);
-    text = fs.readFileSync(file, 'utf8');
-  } catch (e) {
-    text = `Preview file missing for ${p.id}.`;
+  let read = false;
+  const rel = p.previews[0];
+  for (const f of [path.join(__dirname, rel), path.join(__dirname, '..', rel)]) {
+    try { text = fs.readFileSync(f, 'utf8'); read = true; break; } catch (e) { /* try next */ }
   }
+  if (!read) text = `Preview file missing for ${p.id}.`;
   const out = [
     `FREE SAMPLE — ${p.name} (sample: ${p.free_sample})`,
     '',
@@ -156,28 +157,50 @@ async function verifyPayment(args) {
   const net = String(network).toLowerCase();
   try {
     if (net === 'ethereum' || net === 'base' || net === 'polygon') {
-      const hosts = { ethereum: 'eth.blockscout.com', base: 'base.blockscout.com', polygon: 'polygon.blockscout.com' };
-      const host = hosts[net];
-      const r = await jsonHttp(`https://${host}/api/v2/transactions/${tx_hash}`);
-      if (r.status === 404) return ok(`NOT FOUND: tx not on ${net} (blockscout). Double-check hash/network.`);
-      if (r.status !== 200) return ok(`PENDING: ${net} explorer returned ${r.status}. Automated fulfillment will retry verification.`);
-      const j = JSON.parse(r.text);
+      const RPCS = {
+        ethereum: ['https://ethereum-rpc.publicnode.com', 'https://cloudflare-eth.com', 'https://rpc.ankr.com/eth'],
+        base: ['https://mainnet.base.org', 'https://base.llamarpc.com'],
+        polygon: ['https://1rpc.io/matic', 'https://polygon-bor-rpc.publicnode.com'],
+      }[net];
+      const rpc = async (method, params) => {
+        for (const url of RPCS) {
+          try {
+            const r = await jsonHttp(url, { method: 'POST', body: { jsonrpc: '2.0', id: 1, method, params } });
+            if (r.status !== 200) continue;
+            const j = JSON.parse(r.text);
+            if (j && !j.error && j.result !== undefined) return j.result;
+          } catch (e) { /* try next endpoint */ }
+        }
+        return null;
+      };
+      const tx = await rpc('eth_getTransactionByHash', [tx_hash]);
+      if (!tx) return ok(`NOT FOUND / PENDING on ${net}: no tx yet (RPC). Double-check hash or retry shortly.`);
+      const rc = await rpc('eth_getTransactionReceipt', [tx_hash]);
+      const status = rc ? (rc.status === '0x1' ? 'success' : 'failed') : 'pending';
       const evm = WALLETS.evm.address.toLowerCase();
       const results = [];
-      if ((j.to || '').toLowerCase() === evm && Number(j.value) > 0) {
-        results.push(`native transfer to wallet ✓ (value ${Number(j.value) / 1e18} ${net === 'polygon' ? 'POL' : 'ETH'})`);
+      if ((tx.to || '').toLowerCase() === evm) {
+        const val = BigInt(tx.value || '0x0');
+        if (val > 0n) results.push(`native transfer to wallet ✓ (${Number(val) / 1e18} ${net === 'polygon' ? 'POL' : 'ETH'})`);
       }
-      const tts = Array.isArray(j.token_transfers) ? j.token_transfers : [];
-      for (const t of tts) {
-        if ((t.to || '').toLowerCase() === evm) {
-          const dec = t.token && t.token.decimals ? Math.pow(10, t.token.decimals) : 1e6;
-          results.push(`token transfer to wallet ✓ (${t.token && t.token.symbol ? t.token.symbol : 'token'} ${(Number(t.total && t.total.value) || 0) / dec})`);
-        }
+      const TRANSFER = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
+      const KNOWN = {
+        '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913': { sym: 'USDC', dec: 6 }, // Base
+        '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48': { sym: 'USDC', dec: 6 }, // Ethereum
+        '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359': { sym: 'USDC', dec: 6 }, // Polygon
+      };
+      for (const log of (rc && rc.logs) || []) {
+        if (!log.topics || log.topics[0] !== TRANSFER || log.topics.length !== 3) continue;
+        const to = '0x' + log.topics[2].slice(26).toLowerCase();
+        if (to !== evm) continue;
+        const meta = KNOWN[(log.address || '').toLowerCase()] || { sym: 'token ' + log.address, dec: 18 };
+        const amt = BigInt(log.data || '0x0');
+        results.push(`${meta.sym} ${Number(amt) / Math.pow(10, meta.dec)} to wallet ✓`);
       }
-      if (results.length) {
-        return ok(`VERIFIED on ${net} (status=${j.status || j.result}): ${results.join('; ')}. Tx: ${tx_hash}`);
-      }
-      return ok(`TX FOUND on ${net} but NO transfer to our wallet address. status=${j.status || j.result}. Check network/address.`);
+      if (!results.length) return ok(`TX FOUND on ${net} (status=${status}) but NO transfer to our wallet address. Check network/address.`);
+      if (status === 'failed') return ok(`TX FOUND on ${net} but it FAILED on-chain — no payment delivered. Tx: ${tx_hash}`);
+      if (status === 'pending') return ok(`PENDING on ${net}: transfer seen but not yet mined/confirmed. Retry shortly. Detected: ${results.join('; ')}.`);
+      return ok(`VERIFIED on ${net} (status=${status}): ${results.join('; ')}. Tx: ${tx_hash}`);
     }
     if (net === 'bitcoin' || net === 'litecoin' || net === 'dogecoin') {
       const host = { bitcoin: 'blockstream.info/api', litecoin: 'litecoinblockexplorer.com/api', dogecoin: 'blockchair.com' }[net];
@@ -358,7 +381,16 @@ function onMessage(msg) {
   if (method === 'tools/call') {
     const name = params && params.name;
     const args = (params && params.arguments) || {};
-    Promise.resolve(handleCall(name, args))
+    let ret;
+    try {
+      ret = handleCall(name, args);
+    } catch (e) {
+      write({ jsonrpc: '2.0', id, result: { content: [{ type: 'text', text: 'error: ' + String(e) }], isError: true } });
+      pendingCalls = Math.max(0, pendingCalls - 1);
+      maybeExit();
+      return;
+    }
+    Promise.resolve(ret)
       .then((result) => {
         write({ jsonrpc: '2.0', id, result });
         pendingCalls = Math.max(0, pendingCalls - 1);
