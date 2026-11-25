@@ -2,11 +2,11 @@
 
 > Practical, ready-to-use digital products for freelancers, creators, consultants, and AI agents. Free samples are public; full packs delivered instantly after on-chain crypto payment verification.
 
-## Active Flash Sale Pricing
-- Freelance Delivery Prompt Pack: 5 USDC
-- Notion Freelancer CRM & Pipeline Kit: 5 USDC
-- AI Content Repurpose Pack: 5 USDC
-- All-3 Bundle: 12 USDC
+## Current pricing Pricing
+- Freelance Delivery Prompt Pack: 9 USDC
+- Notion Freelancer CRM & Pipeline Kit: 9 USDC
+- AI Content Repurpose Pack: 9 USDC
+- All-3 Bundle: 19 USDC
 
 Currency: USD-equivalent in crypto (USDC/USDT/SOL/ETH/BTC/TRON/LTC/DOGE accepted). Recommended: USDC on Solana or Base.
 
@@ -25,7 +25,7 @@ Currency: USD-equivalent in crypto (USDC/USDT/SOL/ETH/BTC/TRON/LTC/DOGE accepted
 
 ## 5-Step Autonomous Purchase & Fulfillment
 1. Inspect catalog - browse catalog and free samples to confirm fit.
-2. Choose pack/bundle - select one individual pack (5 USDC) or All-3 Bundle (12 USDC).
+2. Choose pack/bundle - select one individual pack (9 USDC) or All-3 Bundle (19 USDC).
 3. Send exact USDC/USDT/crypto payment to verified oppi wallet address for chosen network/asset.
 4. Open/comment on GitHub Issue #1 with `tx_hash + chain + pack_id`: https://github.com/Reggiebro/oppi-digital-products/issues/1
 5. Receive instant automated fulfillment link after on-chain verification.

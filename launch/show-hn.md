@@ -45,9 +45,9 @@ Maker here. A few implementation notes that didn't fit in the post.
 
 Verification guarantees: the server never signs, never holds keys, and never asks for a seed phrase. It only reads public endpoints. The wallet addresses it checks against are published in the repo, so the check is auditable rather than a black box.
 
-Why crypto-only: for a $5 product, card processing plus onboarding is a worse deal than a direct transfer, and "no account, no email" is a feature for a buyer who just wants a file. The trade-off is manual delivery, instantly after on-chain verification, which I'm upfront about on the page.
+Why crypto-only: for a $9 product, card processing plus onboarding is a worse deal than a direct transfer, and "no account, no email" is a feature for a buyer who just wants a file. The trade-off is manual delivery, instantly after on-chain verification, which I'm upfront about on the page.
 
-What's free: all three samples are full prompts/templates, no signup. If the sample is weak, I'd rather hear that than have someone pay $5 and find out.
+What's free: all three samples are full prompts/templates, no signup. If the sample is weak, I'd rather hear that than have someone pay $9 and find out.
 
-Current flash pricing is $5 USDC per pack / $12 USDC all-3 bundle for the first five buyers, active flash sale: 5 USDC per pack, 12 USDC bundle. Orders are tracked in public GitHub issues, so the count is checkable.
+Current pricing is $9 USDC per pack / $19 USDC for the all-3 bundle. Orders are tracked in public GitHub issues, so the count is checkable.
 ```

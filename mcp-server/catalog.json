@@ -1,10 +1,10 @@
 {
   "storefront": "https://reggiebro.github.io/oppi-digital-products/",
   "repo": "https://github.com/Reggiebro/oppi-digital-products",
-  "currency_note": "All prices in USD-equivalent paid in crypto (USDC preferred). Active flash sale pricing below.",
-  "flash_deal": {
+  "currency_note": "All prices in USD-equivalent paid in crypto (USDC preferred). Current pricing below.",
+  "current_pricing": {
     "active": true,
-    "name": "Active Flash Sale",
+    "name": "Current pricing",
     "price_usd_each": 5,
     "price_usd_bundle": 12,
     "applies_to": [
@@ -13,9 +13,9 @@
       "ai-content-repurpose-pack",
       "three-pack-bundle"
     ],
-    "limit": "active flash sale",
-    "payment": "send exactly 5 USDC per individual pack or 12 USDC for the all-3 bundle - USDC on Solana or Base recommended",
-    "after_deal": "active flash sale pricing: 5 USDC per pack, 12 USDC bundle"
+    "limit": "Current pricing",
+    "payment": "send exactly 9 USDC per individual pack or 19 USDC for the all-3 bundle - USDC on Solana or Base recommended",
+    "after_deal": "Current pricing: 9 USDC per pack, 19 USDC bundle"
   },
   "products": [
     {

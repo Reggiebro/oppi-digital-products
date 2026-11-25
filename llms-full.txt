@@ -10,13 +10,13 @@
 - llms.txt: https://reggiebro.github.io/oppi-digital-products/llms.txt
 - Issue #1 fulfillment: https://github.com/Reggiebro/oppi-digital-products/issues/1
 
-## Active Flash Sale Pricing
+## Current pricing Pricing
 | Product | Price | ID |
 |---|---:|---|
-| Freelance Delivery Prompt Pack | 5 USDC | freelance-delivery-prompt-pack |
-| Notion Freelancer CRM & Pipeline Kit | 5 USDC | notion-freelancer-crm-kit |
-| AI Content Repurpose Pack | 5 USDC | ai-content-repurpose-pack |
-| All-3 Bundle | 12 USDC | three-pack-bundle |
+| Freelance Delivery Prompt Pack | 9 USDC | freelance-delivery-prompt-pack |
+| Notion Freelancer CRM & Pipeline Kit | 9 USDC | notion-freelancer-crm-kit |
+| AI Content Repurpose Pack | 9 USDC | ai-content-repurpose-pack |
+| All-3 Bundle | 19 USDC | three-pack-bundle |
 
 Recommended rails: USDC on Solana or USDC on Base. Accepted: USDC, USDT, SOL, ETH, BTC, TRX, LTC, DOGE on supported networks.
 
@@ -30,7 +30,7 @@ Recommended rails: USDC on Solana or USDC on Base. Accepted: USDC, USDT, SOL, ET
 
 ## 5-Step Autonomous Purchase & Fulfillment
 1. **Inspect catalog**: browse catalog/free samples or call MCP `list_products` + `get_free_sample`.
-2. **Choose pack/bundle**: individual pack = 5 USDC, All-3 Bundle = 12 USDC.
+2. **Choose pack/bundle**: individual pack = 9 USDC, All-3 Bundle = 19 USDC.
 3. **Send exact payment**: transfer exact amount to the verified oppi wallet address for chosen chain/asset. Never send seed phrases/private keys; agent does not sign/broadcast.
 4. **Open/comment on GitHub Issue #1** with `tx_hash + chain + pack_id`: https://github.com/Reggiebro/oppi-digital-products/issues/1
 5. **Receive instant automated fulfillment link** after on-chain verification.
@@ -50,19 +50,19 @@ Tools:
 
 ## Products
 
-### Freelance Delivery Prompt Pack (5 USDC)
+### Freelance Delivery Prompt Pack (9 USDC)
 30+ tested prompts covering leads/discovery, proposals/scope, onboarding, delivery updates, feedback/QA, difficult-client situations, testimonials, retainers.
 - Free sample: https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md
 
-### Notion Freelancer CRM & Pipeline Kit (5 USDC)
+### Notion Freelancer CRM & Pipeline Kit (9 USDC)
 Complete Notion workspace blueprint: leads/clients CRM, project tracker, invoice/revenue database, dashboard views, setup/formulas.
 - Free sample: https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/notion-crm-kit/sample-crm-database-blueprint.md
 
-### AI Content Repurpose Pack (5 USDC)
+### AI Content Repurpose Pack (9 USDC)
 Turn one asset into LinkedIn/X/Instagram posts, threads, newsletters/email sequences, short-form video scripts, blog/SEO outlines, 7-day calendar.
 - Free sample: https://github.com/Reggiebro/oppi-digital-products/blob/master/previews/content-repurpose-pack/sample-core-extraction.md
 
-### All-3 Bundle (12 USDC)
+### All-3 Bundle (19 USDC)
 Includes all three packs in one delivery.
 
 ## Safety / Constraints

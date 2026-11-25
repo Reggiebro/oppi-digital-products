@@ -8,9 +8,9 @@ Practical, ready-to-use digital products for freelancers, creators, consultants 
 
 **Every pack ships with free samples you can test right now — excerpts are below, no clicks needed.** You only pay when you've seen the quality — checkout is direct crypto, delivery is automated and verified on-chain. No accounts, no email required, no subscription.
 
-## ⚡ ACTIVE FLASH SALE
+## Pricing
 
-**Active flash sale: 5 USDC per individual pack (Freelance Delivery Prompt Pack, Notion Freelancer CRM & Pipeline Kit, AI Content Repurpose Pack) and 12 USDC for the All-3 Bundle.** Pay exact amount in USDC/USDT/crypto to the verified oppi wallet, then open/comment on GitHub Issue #1 with tx hash + chain + pack_id for instant automated fulfillment.
+**Current pricing: 9 USDC per individual pack (Freelance Delivery Prompt Pack, Notion Freelancer CRM & Pipeline Kit, AI Content Repurpose Pack) and 19 USDC for the All-3 Bundle.** Pay exact amount in USDC/USDT/crypto to the verified oppi wallet, then open/comment on GitHub Issue #1 with tx hash + chain + pack_id for instant automated fulfillment.
 
 **Live storefront:** https://reggiebro.github.io/oppi-digital-products/
 
@@ -22,7 +22,7 @@ Practical, ready-to-use digital products for freelancers, creators, consultants 
 
 ## ⚡ Quick pay (verified oppi wallet addresses)
 
-**Send exactly 5 USDC per individual pack or 12 USDC for the All-3 Bundle to a verified oppi wallet address. Then open/comment on GitHub Issue #1 with `tx_hash + chain + pack_id`.**
+**Send exactly 9 USDC per individual pack or 19 USDC for the All-3 Bundle to a verified oppi wallet address. Then open/comment on GitHub Issue #1 with `tx_hash + chain + pack_id`.**
 
 **USDC on Solana** (also accepts SOL):
 ```
@@ -44,9 +44,9 @@ Every pack ships real, working excerpts so you can judge quality before sending 
 
 | Pack | What you can test free right now | Full free sample |
 |---|---|---|
-| **Freelance Delivery Prompt Pack** (flash $5) | The **lead qualification scorecard** prompt — raw inquiry → 1–5 scoring across Fit/Budget/Urgency/Scope/Decision-maker/Risk with a go/no-go call. 1 of **30+ prompts**. | [Read it](previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md) |
-| **Notion Freelancer CRM Kit** (flash $5) | The **Leads & Clients database blueprint** — every property (Status, Estimated Value, Next Follow-up…) and the Pipeline / Follow-ups-Due views. | [Read it](previews/notion-crm-kit/sample-crm-database-blueprint.md) |
-| **AI Content Repurpose Pack** (flash $5) | The **core extraction prompts** — one asset → hook, summaries, 5 points, 10 quotable lines. 1 of 7 sections. | [Read it](previews/content-repurpose-pack/sample-core-extraction.md) |
+| **Freelance Delivery Prompt Pack** ($9) | The **lead qualification scorecard** prompt — raw inquiry → 1–5 scoring across Fit/Budget/Urgency/Scope/Decision-maker/Risk with a go/no-go call. 1 of **30+ prompts**. | [Read it](previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md) |
+| **Notion Freelancer CRM Kit** ($9) | The **Leads & Clients database blueprint** — every property (Status, Estimated Value, Next Follow-up…) and the Pipeline / Follow-ups-Due views. | [Read it](previews/notion-crm-kit/sample-crm-database-blueprint.md) |
+| **AI Content Repurpose Pack** ($9) | The **core extraction prompts** — one asset → hook, summaries, 5 points, 10 quotable lines. 1 of 7 sections. | [Read it](previews/content-repurpose-pack/sample-core-extraction.md) |
 
 Full excerpts are inline in each product section below 👇
 
@@ -72,7 +72,7 @@ Full excerpts are inline in each product section below 👇
 
 ## The products
 
-### 1. Freelance Delivery Prompt Pack — **5 USDC (flash sale)**
+### 1. Freelance Delivery Prompt Pack — **9 USDC (current pricing)**
 30+ tested prompts covering the full client lifecycle: lead qualification & discovery, proposals & scoping, onboarding, delivery updates, feedback & QA handling, difficult-client situations, and growth (testimonials, retainer upsells). ChatGPT/Claude-ready, one prompt per real freelance situation.
 
 **Free preview — lead qualification scorecard (1 of 30+):**
@@ -83,7 +83,7 @@ Full excerpts are inline in each product section below 👇
 
 - **Full free sample:** [Lead qualification scorecard](previews/freelance-prompt-pack/sample-lead-qualification-scorecard.md)
 
-### 2. Notion Freelancer CRM & Pipeline Kit — **5 USDC (flash sale)**
+### 2. Notion Freelancer CRM & Pipeline Kit — **9 USDC (current pricing)**
 A complete Notion workspace blueprint: leads & clients CRM, project tracker, invoice & revenue database, dashboard views (follow-ups, active projects, outstanding invoices), with setup steps and the formulas you need.
 
 **Free preview — Leads & Clients database blueprint (excerpt):**
@@ -93,7 +93,7 @@ A complete Notion workspace blueprint: leads & clients CRM, project tracker, inv
 
 - **Full free sample:** [CRM database blueprint](previews/notion-crm-kit/sample-crm-database-blueprint.md)
 
-### 3. AI Content Repurpose Pack — **5 USDC (flash sale)**
+### 3. AI Content Repurpose Pack — **9 USDC (current pricing)**
 Turn one asset into many: LinkedIn/X/Instagram posts, threads, newsletters & email sequences, short-form video scripts, blog/SEO outlines, and a 7-day content calendar — all from a single source piece.
 
 **Free preview — core extraction prompts (1 of 7 sections):**
@@ -103,8 +103,8 @@ Turn one asset into many: LinkedIn/X/Instagram posts, threads, newsletters & ema
 
 - **Full free sample:** [Core extraction workflow](previews/content-repurpose-pack/sample-core-extraction.md)
 
-### Bundle — all 3 packs — **12 USDC (flash sale)**
-The full freelancer + content toolkit in one delivery for 12 USDC.
+### Bundle — all 3 packs — **19 USDC (current pricing)**
+The full freelancer + content toolkit in one delivery for 19 USDC.
 
 Full archive listings: [`PRODUCT_CATALOG.md`](PRODUCT_CATALOG.md)
 
@@ -112,7 +112,7 @@ Full archive listings: [`PRODUCT_CATALOG.md`](PRODUCT_CATALOG.md)
 
 ## How to buy (5-step autonomous purchase & fulfillment)
 
-1. **Inspect catalog and choose pack/bundle.** Individual packs are 5 USDC; All-3 Bundle is 12 USDC.
+1. **Inspect catalog and choose pack/bundle.** Individual packs are 9 USDC; All-3 Bundle is 19 USDC.
 2. **Send exact USDC/USDT/crypto payment** to the verified oppi wallet address for your chosen network/asset.
 3. **Open/comment on GitHub Issue #1** with `tx_hash + chain + pack_id`: https://github.com/Reggiebro/oppi-digital-products/issues/1
 4. **Receive instant automated fulfillment link** after on-chain verification.
@@ -164,7 +164,7 @@ Tools: `list_products`, `get_free_sample`, `get_payment_instructions`, `verify_p
 
 **Minimum purchase steps (agent, 5 steps):**
 1. **Inspect catalog:** `list_products` → `get_free_sample` (`{"product":"<id>"}`) to confirm fit.
-2. **Choose pack/bundle:** select an individual pack (5 USDC) or the All-3 Bundle (12 USDC).
+2. **Choose pack/bundle:** select an individual pack (9 USDC) or the All-3 Bundle (19 USDC).
 3. **Send exact USDC/USDT/crypto payment** to the verified oppi wallet address for the chosen network/asset. No seed phrases/private keys; no signing/broadcast by the agent.
 4. **Open/comment on GitHub Issue #1** with `tx_hash + chain + pack_id`: https://github.com/Reggiebro/oppi-digital-products/issues/1
 5. **Receive instant automated fulfillment link** after on-chain verification.

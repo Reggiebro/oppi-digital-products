@@ -25,8 +25,8 @@ Freelancers, consultants, and small agencies who want a simple, organized client
 Digital download (template spec/guide). Duplicate/build in your own Notion workspace.
 
 ## Suggested pricing
-- Launch: $12
-- Standard: $5 USDC per pack / $12 USDC bundle (active flash sale)
+- Launch: $9
+- Standard: $9 USDC per pack / $19 USDC bundle (current pricing)
 
 ## Tags
 notion template, freelancer crm, client tracker, project management, invoice tracker, notion dashboard, freelance pipeline

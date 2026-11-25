@@ -10,12 +10,12 @@ Use this as a working checklist. Post **one channel per day**, disclose that you
 
 ## Current offer (keep this consistent everywhere)
 
-| Product | Flash price (active flash sale buyers) | Standard price |
+| Product | price (Current pricing buyers) | Standard price |
 |---|---:|---:|
-| Freelance Delivery Prompt Pack | $5 USDC | $12 |
-| Notion Freelancer CRM & Pipeline Kit | $5 USDC | $12 |
-| AI Content Repurpose Pack | $5 USDC | $5 USDC |
-| All-3 bundle | $12 USDC | $12 USDC |
+| Freelance Delivery Prompt Pack | $9 USDC | $9 |
+| Notion Freelancer CRM & Pipeline Kit | $9 USDC | $9 |
+| AI Content Repurpose Pack | $9 USDC | $9 USDC |
+| All-3 bundle | $19 USDC | $19 USDC |
 
 Payments: USDC on Solana `2LAnF7EeCeGSeHn1Pvu8onnX9CiHAjJwAHBE1pXdYKbp` or USDC on Base `0xE4BECfd60D9917946292E0d535081Dd005117069`. Other rails are listed on the storefront. Delivery is manual after on-chain verification, instantly after on-chain verification.
 
@@ -33,7 +33,7 @@ These are final copy, not outlines. Open, read once, post from your own account.
 
 **Order that wastes the least effort:** Dev.to article → r/SideProject → Show HN. The article gives you something to link that isn't a sales page, which is what both communities actually want.
 
-Every file already contains the maker disclosure, the live npm command (`npx -y oppi-digital-products-mcp`), and the current flash pricing. If pricing changes, update these files in the same commit as the storefront.
+Every file already contains the maker disclosure, the live npm command (`npx -y oppi-digital-products-mcp`), and the current pricing. If pricing changes, update these files in the same commit as the storefront.
 
 ## Distribution status (2026-11-18)
 
@@ -111,7 +111,7 @@ Maker here. A few implementation notes:
 - The server is read-only for balances and verification; it never signs or holds keys.
 - `verify_payment` checks the tx against the published wallet address and network, then `request_delivery` builds a GitHub issue URL with the tx hash and product.
 - The free samples are the actual prompts/templates, not screenshots.
-- Current flash pricing is $5 USDC per pack / $12 USDC bundle for the first five buyers; standard pricing after that.
+- Current pricing is $9 USDC per pack / $19 USDC bundle for the early buyers; standard pricing after that.
 
 Happy to answer questions about the MCP wiring or the on-chain check.
 ```

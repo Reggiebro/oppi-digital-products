@@ -1,6 +1,6 @@
 # Content Repurpose Sample
 
-> Full pack: 40+ repurpose workflows/templates for X, LinkedIn, newsletter, short video scripts. **5 USDC**.
+> Full pack: 40+ repurpose workflows/templates for X, LinkedIn, newsletter, short video scripts. **9 USDC**.
 
 ## Source idea
 "How freelancers can stop scope creep with a simple change-request rule."
@@ -31,4 +31,4 @@ Clients appreciate clarity. You protect delivery.
 When a client asks for extra work, don't say yes/no immediately. Respond with impact + options. It keeps the relationship good and the project profitable.
 
 ---
-**Get the full repurpose pack (5 USDC) or All-3 Bundle (12 USDC):** https://github.com/Reggiebro/oppi-digital-products/issues/new?template=purchase-request.yml
+**Get the full repurpose pack (9 USDC) or All-3 Bundle (19 USDC):** https://github.com/Reggiebro/oppi-digital-products/issues/new?template=purchase-request.yml

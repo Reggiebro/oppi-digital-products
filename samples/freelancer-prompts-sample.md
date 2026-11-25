@@ -1,6 +1,6 @@
 # Freelancer Prompt Sample (5 prompts)
 
-> Full pack: 30+ battle-tested prompts for proposals, scope, delivery, and follow-up. **5 USDC**.
+> Full pack: 30+ battle-tested prompts for proposals, scope, delivery, and follow-up. **9 USDC**.
 
 ## 1) Proposal from messy client brief
 **Prompt:** "Act as a senior freelance consultant. Turn this client brief into a proposal with: objective, deliverables, timeline, assumptions, exclusions, price options (Good/Better/Best), and acceptance criteria. Brief: [PASTE BRIEF]."
@@ -18,4 +18,4 @@
 **Prompt:** "Write a polite invoice follow-up sequence (Day 1, Day 4, Day 7) for Invoice #[#], [AMOUNT], due [DATE]. Keep firm but friendly, include payment reference, and offer help if there is a billing issue."
 
 ---
-**Want all 30+ prompts + templates?** Get the AI Freelancer Prompt Pack for **5 USDC** or All-3 Bundle for **12 USDC**: https://github.com/Reggiebro/oppi-digital-products/issues/new?template=purchase-request.yml
+**Want all 30+ prompts + templates?** Get the AI Freelancer Prompt Pack for **9 USDC** or All-3 Bundle for **19 USDC**: https://github.com/Reggiebro/oppi-digital-products/issues/new?template=purchase-request.yml

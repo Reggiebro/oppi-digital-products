@@ -10,10 +10,10 @@ Try before you buy. These samples are real, usable slices of the paid packs.
 ## Upgrade (crypto, manual fulfillment)
 | Pack | Price | Best for |
 |---|---:|---|
-| AI Freelancer Prompt Pack | 5 USDC | Proposals, scope, delivery, follow-up |
-| Notion Freelancer CRM Kit | 5 USDC | Client pipeline tracking in Notion/CSV |
-| AI Content Repurpose Pack | 5 USDC | Turn one asset into posts/emails/scripts |
-| **All-3 Bundle** | **12 USDC** | Full freelancer operating kit |
+| AI Freelancer Prompt Pack | 9 USDC | Proposals, scope, delivery, follow-up |
+| Notion Freelancer CRM Kit | 9 USDC | Client pipeline tracking in Notion/CSV |
+| AI Content Repurpose Pack | 9 USDC | Turn one asset into posts/emails/scripts |
+| **All-3 Bundle** | **19 USDC** | Full freelancer operating kit |
 
 ## Buy flow
 1. Pick a pack/bundle.

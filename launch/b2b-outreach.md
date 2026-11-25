@@ -1,6 +1,6 @@
 # B2B outreach — copy/paste
 
-The B2B motion is intentionally narrow: **fixed prices, a public offer, and no cold blasts.** One $149 agency license is worth ~30 flash-deal sales, so the goal is precision, not volume.
+The B2B motion is intentionally narrow: **fixed prices, a public offer, and no cold blasts.** One $149 agency license is worth ~16 pack sales at $9, so the goal is precision, not volume.
 
 ## Who actually buys this
 
@@ -69,7 +69,7 @@ Oppi Digital Products
 - One follow-up maximum, 5–7 days later, and only if they opened/replied.
 - Every message names the price. "Let's jump on a call" for a $79 product wastes their time.
 - Include an opt-out line if you send email: "Reply 'no' and I won't write again."
-- No fake deadlines. The "active flash sale buyers" flash is real and checkable; inventing scarcity destroys the one trust signal this store has.
+- No fake deadlines. The published $9 / $19 pricing is real and checkable; inventing scarcity destroys the one trust signal this store has.
 
 ## Objection replies
 

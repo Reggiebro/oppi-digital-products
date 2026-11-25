@@ -1,6 +1,6 @@
 ---
 name: oppi-digital-products
-description: Discover, sample, purchase with crypto, and unlock the Oppi digital product catalog (Freelance Delivery Prompt Pack, Notion Freelancer CRM & Pipeline Kit, AI Content Repurpose Pack). Active flash sale: 5 USDC per pack, 12 USDC for the all-3 bundle.
+description: Discover, sample, purchase with crypto, and unlock the Oppi digital product catalog (Freelance Delivery Prompt Pack, Notion Freelancer CRM & Pipeline Kit, AI Content Repurpose Pack). Current pricing: 9 USDC per pack, 19 USDC for the all-3 bundle.
 ---
 
 # Oppi Digital Products
@@ -9,15 +9,15 @@ description: Discover, sample, purchase with crypto, and unlock the Oppi digital
 - User wants ready-made freelance prompts, a Notion CRM/pipeline kit, or content repurposing workflows.
 - User wants to buy digital products with crypto and get automated fulfillment after on-chain verification.
 
-## Catalog / Pricing (active flash sale)
-- `freelance-delivery-prompt-pack` — Freelance Delivery Prompt Pack — **5 USDC**
-- `notion-freelancer-crm-kit` — Notion Freelancer CRM & Pipeline Kit — **5 USDC**
-- `ai-content-repurpose-pack` — AI Content Repurpose Pack — **5 USDC**
-- `three-pack-bundle` — All-3 Bundle — **12 USDC**
+## Catalog / Pricing (Current pricing)
+- `freelance-delivery-prompt-pack` — Freelance Delivery Prompt Pack — **9 USDC**
+- `notion-freelancer-crm-kit` — Notion Freelancer CRM & Pipeline Kit — **9 USDC**
+- `ai-content-repurpose-pack` — AI Content Repurpose Pack — **9 USDC**
+- `three-pack-bundle` — All-3 Bundle — **19 USDC**
 
 ## 5-step autonomous purchase & fulfillment sequence
 1. **Inspect catalog** - browse the catalog and free samples to confirm fit.
-2. **Choose pack/bundle** - select one individual pack (5 USDC) or the All-3 Bundle (12 USDC).
+2. **Choose pack/bundle** - select one individual pack (9 USDC) or the All-3 Bundle (19 USDC).
 3. **Send exact USDC/USDT/crypto payment** to the verified oppi wallet address for the chosen network/asset.
 4. **Open/comment on GitHub Issue #1** with `tx_hash + chain + pack_id` (https://github.com/Reggiebro/oppi-digital-products/issues/1).
 5. **Receive instant automated fulfillment link** after on-chain verification.

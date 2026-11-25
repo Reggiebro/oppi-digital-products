@@ -37,9 +37,9 @@ Freelancers, consultants, solopreneurs, and small agencies who want faster, clea
 - Prompts are templates/drafts — review before sending to clients
 
 ## Suggested pricing
-- **Launch price:** $5 USDC (active flash sale)
-- **Standard price:** $5 USDC per pack / $12 USDC bundle (active flash sale)
-- **Bundle/upsell idea:** pair with proposal/SOW templates or a Notion client tracker at $12 USDC bundle (active flash sale)
+- **Launch price:** $9 USDC (Current pricing)
+- **Standard price:** $9 USDC per pack / $19 USDC bundle (Current pricing)
+- **Bundle/upsell idea:** pair with proposal/SOW templates or a Notion client tracker at $19 USDC bundle (Current pricing)
 
 ## Tags/keywords (adjust per platform)
 freelance prompts, chatgpt prompts for freelancers, client communication templates, proposal prompts, scope of work, freelancer workflow, AI prompt pack, consulting templates, agency operations, onboarding checklist

@@ -61,7 +61,7 @@ function findProduct(id) {
 /* ---------------- tool implementations ---------------- */
 
 function listProducts() {
-  const deal = CATALOG.flash_deal && CATALOG.flash_deal.active ? CATALOG.flash_deal : null;
+  const deal = CATALOG.current_pricing && CATALOG.current_pricing.active ? CATALOG.current_pricing : null;
   const lines = [`# Oppi Digital Products — Catalog (${deal ? money(deal.price_usd_bundle) + ' flash bundle' : money(CATALOG.bundle.price_usd_launch) + ' bundle'})`, ''];
   if (deal) {
     lines.push(`## ⚡ ${deal.name} — ACTIVE`);
@@ -119,9 +119,9 @@ function getPaymentInstructions(args) {
   const p = findProduct(args && args.product);
   const w = WALLETS;
   const price = p ? money(p.price_usd_launch) : 'per-item (see list_products)';
-  const deal = CATALOG.flash_deal && CATALOG.flash_deal.active ? CATALOG.flash_deal : null;
+  const deal = CATALOG.current_pricing && CATALOG.current_pricing.active ? CATALOG.current_pricing : null;
   const flashLine = deal
-    ? `⚡ FLASH DEAL (active flash sale buyers): pay exactly ${money(deal.price_usd_each)} USDC per single pack or ${money(deal.price_usd_bundle)} USDC for the 3-pack bundle — on Solana or Base USDC.`
+    ? `⚡ PRICING (Current pricing buyers): pay exactly ${money(deal.price_usd_each)} USDC per single pack or ${money(deal.price_usd_bundle)} USDC for the 3-pack bundle — on Solana or Base USDC.`
     : '';
   const lines = [
     '# Crypto Payment Instructions (oppi wallet)',
